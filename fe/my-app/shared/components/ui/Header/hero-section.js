@@ -21,8 +21,10 @@ export default function HeroSection() {
         </p>
       </div>
       <div className={styles.ButtonGroup}>
-        <NavItem href="/signup">Get Started</NavItem>
-        <NavItem href="/login" type="Login">
+        <NavItem href="/register" isRegister>
+          Get Started
+        </NavItem>
+        <NavItem href="/login" isLogin type="Login">
           Sign In
         </NavItem>
       </div>
