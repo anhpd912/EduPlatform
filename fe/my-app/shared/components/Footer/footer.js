@@ -1,7 +1,8 @@
+import styles from "./footer.module.css";
 export default function Footer() {
   return (
-    <footer>
-      <p>&copy; 2023 MyContacts</p>
-    </footer>
+    <div className={styles.Footer}>
+      <p>&copy; 2025 EduPlatform. All rights reserved.</p>
+    </div>
   );
 }

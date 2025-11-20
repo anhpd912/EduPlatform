@@ -1,0 +1,22 @@
+.Card{
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+    text-align: center;
+    align-items: center;
+    gap: 10px;
+    width: calc(100% / 3);
+}
+.CardIcon{
+    display: flex;
+    margin-bottom: 15px;
+    color: #87cc8d;
+    padding: 10px;
+    border-radius: 50%;
+    width: fit-content;
+    background-color: #d3f1e1;
+}

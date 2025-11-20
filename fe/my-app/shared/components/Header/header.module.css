@@ -1,0 +1,7 @@
+.Header{
+    display: flex;
+    flex-direction: column;
+    background-color:#EAF1FF;
+    align-items: center ;
+    padding: 80px 50px;
+    gap: 40px;}
