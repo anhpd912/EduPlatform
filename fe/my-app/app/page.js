@@ -1,6 +1,6 @@
-import NavBar from "@/shared/components/Navbar/navbar";
-import Header from "../shared/components/Header/header";
-import Footer from "@/shared/components/Footer/footer";
+import NavBar from "@/shared/components/ui/Navbar/navbar";
+import Header from "../shared/components/ui/Header/header";
+import Footer from "@/shared/components/ui/Footer/footer";
 import "./globals.css";
 export default function Page() {
   return (

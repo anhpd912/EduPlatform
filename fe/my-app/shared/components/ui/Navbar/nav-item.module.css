@@ -1,14 +1,17 @@
 .NavItem {
+    display: flex;
     list-style: none;
     text-decoration: none;
-    display: inline-block;
     border: 1px solid #ccc9c9;
     width: fit-content;
-    border-radius: 6px;;
-
+    border-radius: 6px;
+    align-items: center;
+    justify-content: center;
 }
 .NavItem a {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 8px;
     padding: 10px;
     font-size: 14px;
     text-decoration: none;
@@ -35,4 +38,21 @@
 }
 .Register:hover {
     background-color: #333232;
+}
+.Back{      
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: black;
+    border: none;
+    a {
+        color: #000;
+    }
+}
+.Back:hover {
+    cursor: pointer;
+    background-color: #e6e6e6;
+    a{
+        color: rgb(0, 0, 0);
+    }
 }

@@ -6,10 +6,10 @@ export default function NavBar() {
     <div>
       <ul className={styles.NavBar}>
         <Logo />
-        <NavItem href="/login" type="Login">
+        <NavItem href="/login" isLogin={true}>
           Login
         </NavItem>
-        <NavItem href="/register" type="Register">
+        <NavItem href="/register" isRegister={true}>
           Register
         </NavItem>
       </ul>
