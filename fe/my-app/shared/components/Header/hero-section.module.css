@@ -1,0 +1,33 @@
+.HeroSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+.Logo{
+    width: fit-content;
+    height: fit-content;
+    background-color: rgb(96, 81, 230);
+    border-radius: 50%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.TextContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+}
+.ButtonGroup{
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+ 
+}
+.SignInButton{
+    background-color: white;
+ }

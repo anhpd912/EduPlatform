@@ -1,0 +1,38 @@
+.NavItem {
+    list-style: none;
+    text-decoration: none;
+    display: inline-block;
+    border: 1px solid #ccc9c9;
+    width: fit-content;
+    border-radius: 6px;;
+
+}
+.NavItem a {
+    display: block;
+    padding: 10px;
+    font-size: 14px;
+    text-decoration: none;
+}
+.Login {
+    margin-right: 10px;
+    background-color: white;
+    padding: 0 15px;
+    a {
+        color: black;
+    }
+}
+.Login:hover {
+    background-color: #ccc9c9;
+}
+.Register {
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 0 10px;
+    a {
+        color: white;
+    }
+}
+.Register:hover {
+    background-color: #333232;
+}
