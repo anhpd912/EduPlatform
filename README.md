@@ -10,7 +10,7 @@
 - **Tools**: MySQL
 ### Frontend ###
 - **Language**: Javascript
-- **Library**: ReactJS
+- **Library**: Next.js
 
 ## 📁 Project Structure
 
@@ -20,7 +20,7 @@ PetProject1/
 │   └── ...             # Java project files
 ├── fe/
 │   └── my-app/         # Frontend React application
-│       └── ...         # React components and assets
+│       └── ...         # Front-end components and assets
 └── README.md           # Project documentation
 ```
 
