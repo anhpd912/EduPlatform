@@ -1,3 +1,4 @@
+"use client";
 import FormItem from "@/shared/components/ui/Form/FormItem";
 import { School } from "@mui/icons-material";
 import styles from "./form.module.css";
