@@ -1,8 +1,14 @@
+"use client";
 import FormItem from "@/shared/components/ui/Form/FormItem";
 import { School } from "@mui/icons-material";
 import styles from "./form.module.css";
 import Link from "next/link";
+import { useState } from "react";
+import { ToastContainer } from "react-toastify";
 export default function FormLogin() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
   return (
     <div className={styles.FormLogin}>
       <div className={styles.FormHeader}>
@@ -25,6 +31,8 @@ export default function FormLogin() {
           type="text"
           id="username"
           name="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           placeholder={"Enter your username"}
           required
         />
@@ -34,6 +42,8 @@ export default function FormLogin() {
           type="password"
           id="password"
           name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           placeholder={"Enter your password"}
           required
         />
@@ -56,6 +66,7 @@ export default function FormLogin() {
             </Link>
           </p>
         </div>
+        <ToastContainer autoClose={3000} hideProgressBar />
       </form>
     </div>
   );
