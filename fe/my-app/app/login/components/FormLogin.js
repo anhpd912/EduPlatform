@@ -2,6 +2,7 @@ import FormItem from "@/shared/components/ui/Form/FormItem";
 import { School } from "@mui/icons-material";
 import styles from "./form.module.css";
 import Link from "next/link";
+import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 export default function FormLogin() {
   const [username, setUsername] = useState("");
