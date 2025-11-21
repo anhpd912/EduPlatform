@@ -2,7 +2,7 @@ import { School } from "@mui/icons-material";
 import styles from "./form.module.css";
 import FormItem from "@/shared/components/ui/Form/FormItem";
 import Link from "next/link";
-import { ROLES_REGISTER } from "@/shared/constants/Role";
+import { ROLES_REGISTER, GENDERS } from "@/shared/constants/constants";
 export default function FormRegister() {
   return (
     <div className={styles.FormRegister}>
@@ -51,6 +51,15 @@ export default function FormRegister() {
           id="dob"
           name="dob"
           placeholder={"Select your date of birth"}
+          required
+        />
+        <FormItem
+          label="Gender"
+          select
+          id="gender"
+          name="gender"
+          placeholder="Select your gender"
+          options={GENDERS}
           required
         />
         <FormItem
