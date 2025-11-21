@@ -15,7 +15,7 @@ export default function FormItem({
   });
   return (
     <div className={formItemClass}>
-      <label htmlFor={id}>{label}:</label>
+      {label && <label htmlFor={id}>{label}:</label>}
       {select ? (
         <select id={id} name={name} required={required} defaultValue="">
           <option value="" disabled>

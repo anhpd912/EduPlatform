@@ -1,22 +1,22 @@
 .Container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
   background-color: #e9f0ff;
+  width: 100%;
+  padding: 10px;
 }
 .RegisterContainer {
   width: 90%;
-  max-width: 400px;
+  max-width: 600px;
   background-color: white;
   padding: 15px 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
 .ButtonGroup {
-  width: 80%;
-  max-width: 400px;
+  width: 90%;
+  max-width: 600px;
   display: flex;
   justify-content: flex-start;
   margin-bottom: 20px;

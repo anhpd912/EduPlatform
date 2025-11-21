@@ -2,6 +2,12 @@ import NavItem from "@/shared/components/ui/Navbar/nav-item";
 import FormRegister from "./components/FormRegister";
 import styles from "./page.module.css";
 import { ArrowBack } from "@mui/icons-material";
+
+export const metadata = {
+  title: "Join EduPlatform - Register",
+  description:
+    "Create your account on EduPlatform and start learning and teaching today.",
+};
 export default function RegisterPage() {
   return (
     <div className={styles.Container}>
