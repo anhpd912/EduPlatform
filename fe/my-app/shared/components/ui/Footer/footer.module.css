@@ -1,11 +1,10 @@
-.Footer{
-    display: flex;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    justify-content: center;
-    align-items: center;
-    height: 60px;
-    background-color: white;
-    margin-top: 40px;
+.Footer {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+  background-color: white;
+  margin-top: 40px;
 }

@@ -1,6 +1,8 @@
 import { School } from "@mui/icons-material";
 import styles from "./form.module.css";
-import FormItem from "./FormItem";
+import FormItem from "@/shared/components/ui/Form/FormItem";
+import Link from "next/link";
+import { ROLES_REGISTER } from "@/shared/constants/Role";
 export default function FormRegister() {
   return (
     <div className={styles.FormRegister}>
@@ -74,15 +76,17 @@ export default function FormRegister() {
           id="role"
           name="role"
           placeholder="Select your role"
-          options={[
-            { value: "student", label: "Student" },
-            { value: "teacher", label: "Teacher" },
-          ]}
+          options={ROLES_REGISTER}
           required
         />
-        <button className={styles.FormButton} type="submit">
-          Register
-        </button>
+        <div className={styles.FormButton}>
+          <button type="submit">Register</button>
+        </div>
+        <div className={styles.FormFooter}>
+          <p>
+            Already have an account? <Link href="/login">Login here</Link>
+          </p>
+        </div>
       </form>
     </div>
   );

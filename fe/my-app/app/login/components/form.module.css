@@ -9,7 +9,7 @@
   justify-content: center;
   margin-bottom: 20px;
 }
-.FormRegister {
+.FormLogin {
   width: 100%;
 }
 .FormHeader {
@@ -34,6 +34,17 @@
   padding: 10px 20px;
   color: white;
 }
+
+.FormOptions {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+.FormOptions a {
+  text-decoration: none;
+  color: rgb(66, 24, 252);
+  font-size: 14px;
+}
 .FormFooter {
   margin-top: 20px;
   text-align: center;
@@ -42,7 +53,7 @@
   font-size: 14px;
 }
 .FormFooter a {
-  color: rgb(96, 52, 255);
+  color: rgb(66, 24, 252);
   text-decoration: none;
   font-weight: bold;
 }
