@@ -8,6 +8,8 @@ export default function FormItem({
   required,
   placeholder,
   select,
+  value,
+  onChange,
   options,
 }) {
   const formItemClass = clsx(styles.FormItem, {
@@ -33,8 +35,10 @@ export default function FormItem({
           type={type}
           id={id}
           name={name}
+          value={value}
           required={required}
           placeholder={placeholder}
+          onChange={onChange}
         />
       )}
     </div>

@@ -9,4 +9,4 @@ FROM amazoncorretto:17-alpine
 WORKDIR /run
 COPY --from=build /app/target/edu-platform-server-0.0.1-SNAPSHOT.jar /run/edu-platform-server.jar
 EXPOSE 8080
-ENTRYPOINT java -jar /run/edu-platform-server.jar --spring.profiles.active=prod
+ENTRYPOINT java -jar /run/edu-platform-server.jar --spring.profiles.active=dev

@@ -1,12 +1,12 @@
-import { axiosClient } from "../../axios/AxiosClient";
+import { pulicApi, privateApi } from "../../axios/AxiosClient";
 export const AuthService = {
   login: (data) => {
-    return axiosClient.post("/auth/login", data);
+    return pulicApi.post("/auth/token", data);
   },
-  register: (data) => {
-    return axiosClient.post("/auth/register", data);
+  logout: (data) => {
+    return privateApi.post("/auth/logout");
   },
-  logout: () => {
-    return axiosClient.post("/auth/logout");
+  refreshToken: (data) => {
+    return privateApi.post("/auth/refresh", data);
   },
 };
