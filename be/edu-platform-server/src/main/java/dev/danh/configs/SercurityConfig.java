@@ -27,8 +27,6 @@ import java.util.List;
 public class SercurityConfig {
     private static final String[] PATH_WHITELIST = {"/auth/**", "/users/create", "/ws/**", "/oauth2/**"};
     private static final String[] PATH_ADMIN = {"/users/delete/**", "/users/update/**", "/users/getAll"};
-    @Value("${URL_FRONTEND}")
-    private static String URL_FRONTEND ;
     @Autowired
     private CustomJwtDecoder customJwtDecoder;
     @Autowired
@@ -71,7 +69,7 @@ public class SercurityConfig {
     @Bean
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("https://cmsedu.io.vn"));
+        configuration.setAllowedOrigins(List.of("http://localhost:3000"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);

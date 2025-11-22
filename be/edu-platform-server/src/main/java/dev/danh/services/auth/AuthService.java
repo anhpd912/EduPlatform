@@ -9,5 +9,6 @@ public interface AuthService {
     IntrospectResponse introspect(IntrospectRequest request);
     void logout(LogoutRequest token);
     AuthenticationResponse refreshToken(RefreshRequest request);
+
     AuthenticationResponse authenticate(AuthenticationGoogleRequest request);
 }

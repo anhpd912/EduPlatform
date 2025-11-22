@@ -1,6 +1,5 @@
 package dev.danh.configs;
 
-import dev.danh.constants.IConstants;
 import dev.danh.entities.dtos.apps.CustomOAuth2User;
 import dev.danh.entities.dtos.request.AuthenticationGoogleRequest;
 import dev.danh.entities.dtos.response.AuthenticationResponse;
@@ -10,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -21,7 +21,8 @@ import java.io.IOException;
 @Slf4j
 
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
-
+    @Value("${URL_FRONTEND}")
+    String URL_FRONTEND;
     private final AuthServiceImpl authService;
 
     @Override
@@ -38,7 +39,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         AuthenticationResponse authResponse = authService.authenticate(authRequest);
 
         String token = authResponse.getToken();
-        String redirectUrl = IConstants.URL_FRONTEND + "/login?token=" + token;
+        String redirectUrl = URL_FRONTEND + "/login?token=" + token;
         log.info("Redirect URL: " + redirectUrl);
 
         // Chuyển hướng về React app

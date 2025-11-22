@@ -14,8 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
@@ -53,6 +51,18 @@ public class AuthController {
                 .statusCode(200)
                 .build());
     }
+
+    @PostMapping("/register")
+    public ResponseEntity<APIResponse> register(@RequestBody AuthenticationRequest request) {
+        var response = authService.authenticate(request);
+        return ResponseEntity.ok(APIResponse.builder()
+                .message("Register successfully.")
+                .data(response)
+                .statusCode(200)
+                .build()
+        );
+    }
+
     @PostMapping("/refresh")
     public ResponseEntity<APIResponse> refreshToken(@RequestBody dev.danh.entities.dtos.request.RefreshRequest request) {
         var response = authService.refreshToken(request);
@@ -62,10 +72,12 @@ public class AuthController {
                 .statusCode(200)
                 .build());
     }
+
     @GetMapping("/login/google")
     public void googleCallback(HttpServletResponse response, HttpServletRequest request) throws IOException {
         response.sendRedirect("/oauth2/authorization/google");
     }
+
     @GetMapping("/failure")
     public ResponseEntity<APIResponse> failure(@RequestParam String error) {
         return ResponseEntity.badRequest().body(APIResponse.builder()
