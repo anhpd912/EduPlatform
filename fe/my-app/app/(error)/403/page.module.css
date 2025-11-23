@@ -1,0 +1,133 @@
+.Container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: #eaf1ff;
+  padding: 20px;
+}
+
+.Content {
+  text-align: center;
+  max-width: 600px;
+  background: white;
+  padding: 60px 40px;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.IconWrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  background: #4a90e2;
+  border-radius: 50%;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 30px rgba(74, 144, 226, 0.3);
+}
+
+.Icon {
+  font-size: 64px !important;
+  color: white;
+}
+
+.ErrorCode {
+  font-size: 80px;
+  font-weight: 800;
+  margin: 0;
+  color: #2c5aa0;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.Title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 0 0 16px 0;
+}
+
+.Description {
+  font-size: 16px;
+  color: #718096;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.Actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.PrimaryButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: #4a90e2;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+}
+
+.PrimaryButton:hover {
+  background: #357abd;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(74, 144, 226, 0.5);
+}
+
+.SecondaryButton {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 28px;
+  background: transparent;
+  color: #4a90e2;
+  text-decoration: none;
+  border: 2px solid #4a90e2;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.SecondaryButton:hover {
+  background: #4a90e2;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.ButtonIcon {
+  font-size: 20px !important;
+}
+
+@media (max-width: 640px) {
+  .Content {
+    padding: 40px 24px;
+  }
+
+  .ErrorCode {
+    font-size: 60px;
+  }
+
+  .Title {
+    font-size: 24px;
+  }
+
+  .Actions {
+    flex-direction: column;
+  }
+
+  .PrimaryButton,
+  .SecondaryButton {
+    width: 100%;
+    justify-content: center;
+  }
+}

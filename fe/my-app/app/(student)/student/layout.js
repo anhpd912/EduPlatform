@@ -1,3 +1,12 @@
+import NavBar from "@/shared/components/ui/Navbar/navbar";
+
 export default function StudentLayout({ children }) {
-  return <div>{children}</div>;
+  return (
+    <div>
+      <nav>
+        <NavBar />
+      </nav>
+      {children}
+    </div>
+  );
 }
