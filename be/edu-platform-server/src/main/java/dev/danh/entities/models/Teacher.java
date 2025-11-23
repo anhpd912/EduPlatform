@@ -19,7 +19,6 @@ public class Teacher {
     String expertise;
     @Column( columnDefinition = "default CURRENT_DATE")
     LocalDate dateOfJoining;
-
     @OneToOne
     @MapsId
     @JoinColumn(name = "id")

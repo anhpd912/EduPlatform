@@ -7,15 +7,18 @@ export default function NavItem({
   isLogin,
   isBack,
   isRegister,
+  isLink,
+  onClick,
 }) {
   const navItemClass = clsx(styles.NavItem, {
     [styles.Login]: isLogin,
     [styles.Back]: isBack,
     [styles.Register]: isRegister,
+    [styles.Link]: isLink,
   });
 
   return (
-    <li className={navItemClass}>
+    <li className={navItemClass} onClick={onClick}>
       <Link href={href}>{children}</Link>
     </li>
   );

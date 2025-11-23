@@ -44,6 +44,7 @@ public class UserController {
                 APIResponse.builder()
                         .message("User created successfully")
                         .data(user)
+                        .statusCode(200)
                         .build()
         );
     }

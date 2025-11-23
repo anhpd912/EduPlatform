@@ -4,36 +4,68 @@ import { School } from "@mui/icons-material";
 import styles from "./form.module.css";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useSnapshot } from "valtio";
 import { authStore, loginAction } from "@/store/authStore";
 import { AuthService } from "@/shared/services/api/Auth/AuthService";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { getRedirectPath } from "@/shared/utils/authHelpers";
 export default function FormLogin() {
+  const searchParams = useSearchParams();
+  const message = searchParams.get("message");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const snap = useSnapshot(authStore);
   const router = useRouter();
-  if (snap.isAuthenticated) {
-    router.push("/courses");
-  }
-
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (snap.isAuthenticated) {
+      let redirectPath = getRedirectPath(snap.isAuthenticated, snap.role);
+      router.push(redirectPath);
+    }
+  }, [snap.isAuthenticated, snap.role, router]);
+  // Show message if provided
+  useEffect(() => {
+    console.log("Log message", message);
+    if (message) {
+      toast.success(message);
+    }
+  }, [message]);
+  useEffect(() => {
+    // Check for remembered credentials
+    const rememberedUsername = localStorage.getItem("rememberedUsername");
+    const rememberedPassword = localStorage.getItem("rememberedPassword");
+    if (rememberedUsername && rememberedPassword) {
+      setUsername(rememberedUsername);
+      setPassword(rememberedPassword);
+      setRememberMe(true);
+    }
+  }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    if (rememberMe) {
+      localStorage.setItem("rememberedUsername", username);
+      localStorage.setItem("rememberedPassword", password);
+    }
     try {
       const response = await AuthService.login({ username, password });
+      console.log(response);
       if (response.statusCode === 200) {
         loginAction(
-          response.token,
-          response.token,
-          response.userResponse.username
+          response.data.token,
+          response.data.token,
+          response.data.userResponse.username,
+          response.data.userResponse.roles[0].name
         );
+      } else {
+        setError(response.message);
       }
-      router.push("/courses");
     } catch (err) {
       console.log(err);
       setError(err.response?.data?.message);
@@ -79,8 +111,15 @@ export default function FormLogin() {
           required
         />
         <div className={styles.FormOptions}>
-          <label>
-            <input type="checkbox" name="rememberMe" /> Remember Me
+          <label htmlFor="rememberMe">
+            <input
+              onChange={(e) => setRememberMe(e.target.checked)}
+              type="checkbox"
+              name="rememberMe"
+              id="rememberMe"
+              checked={rememberMe}
+            />{" "}
+            Remember Me
           </label>
           <Link href="/forgot-password" className={styles.ForgotLink}>
             Forgot Password?
@@ -100,7 +139,7 @@ export default function FormLogin() {
             </Link>
           </p>
         </div>
-        <ToastContainer autoClose={3000} hideProgressBar />
+        <ToastContainer autoClose={2000} closeButton closeOnClick />
       </form>
     </div>
   );

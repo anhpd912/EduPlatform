@@ -7,6 +7,7 @@ import dev.danh.entities.models.Role;
 import dev.danh.entities.models.Student;
 import dev.danh.entities.models.Teacher;
 import dev.danh.entities.models.User;
+import dev.danh.enums.AuthProvider;
 import dev.danh.enums.ErrorCode;
 import dev.danh.exception.AppException;
 import dev.danh.mapper.UserMapper;
@@ -47,6 +48,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse createUser(UserCreateRequest userCreateRequest) {
+        boolean checkExistByEmail = userRepository.existsByEmail(userCreateRequest.getEmail());
+        if(checkExistByEmail){
+            throw new AppException(ErrorCode.EMAIL_ALREADY_EXISTS);
+        }
+        boolean checkExistByUsername = userRepository.existsByUsername(userCreateRequest.getUsername());
+        if(checkExistByUsername){
+            throw new AppException(ErrorCode.USERNAME_ALREADY_EXISTS);
+        }
         User user = new User();
         user = userMapper.toUser(userCreateRequest, user);
         String roleName = userCreateRequest.getRole().toUpperCase();
@@ -57,7 +66,6 @@ public class UserServiceImpl implements UserService {
         // Xử lý tạo Student nếu là STUDENT
         if ("STUDENT".equals(roleName)) {
             Student student = new Student();
-
             student.setUser(user); // liên kết user
             user.setStudent(student);
         }
@@ -68,13 +76,14 @@ public class UserServiceImpl implements UserService {
             teacher.setUser(user);
             user.setTeacher(teacher);
         }
+        user.setAuthProvider(AuthProvider.LOCAL);
+        log.info("user create: "+user.getFullName());
         try {
             userRepository.save(user);
         } catch (DataIntegrityViolationException e) {
             throw new AppException(ErrorCode.USERNAME_OR_EMAIL_ALREADY_EXISTS);
         }
         return userMapper.toUserResponse(user);
-
     }
 
     @Override

@@ -3,9 +3,7 @@ import axios, { interceptors } from "axios";
 const privateApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
 });
-const pulicApi = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-});
+
 let isRefreshing = false;
 let failedQueue = [];
 
@@ -73,6 +71,17 @@ privateApi.interceptors.response.use(
         isRefreshing = false;
       }
     }
+  }
+);
+const pulicApi = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+});
+pulicApi.interceptors.response.use(
+  (response) => {
+    return response.data;
+  },
+  (error) => {
+    return Promise.reject(error);
   }
 );
 export { privateApi, pulicApi };

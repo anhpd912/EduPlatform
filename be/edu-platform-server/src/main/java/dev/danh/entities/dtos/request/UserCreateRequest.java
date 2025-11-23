@@ -34,6 +34,5 @@ public class UserCreateRequest {
     @Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$", message = "INVALID_EMAIL")
     String email;
     Boolean isActive = true;
-    String authProvider = "LOCAL"; // Default to LOCAL, can be changed to GOOGLE or other providers
     String providerId; // ID from the external provider (e.g., Google, Facebook) if applicable
 }

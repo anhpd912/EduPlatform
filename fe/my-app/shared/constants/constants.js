@@ -8,7 +8,6 @@ export const ROLES_REGISTER = [
   { value: "TEACHER", label: "Teacher" },
 ];
 export const GENDERS = [
-  { value: "MALE", label: "Male" },
-  { value: "FEMALE", label: "Female" },
-  { value: "OTHER", label: "Other" },
+  { value: true, label: "Male" },
+  { value: false, label: "Female" },
 ];
