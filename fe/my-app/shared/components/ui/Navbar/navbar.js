@@ -3,7 +3,7 @@ import { useSnapshot } from "valtio";
 import Logo from "./logo";
 import NavItem from "./nav-item";
 import styles from "./navbar.module.css";
-import { authStore } from "@/store/authStore";
+import { authStore, logoutAction } from "@/store/authStore";
 
 export default function NavBar() {
   const { isAuthenticated } = useSnapshot(authStore);
@@ -13,7 +13,9 @@ export default function NavBar() {
       <ul className={styles.NavBar}>
         <Logo />
         {isAuthenticated ? (
-          <NavItem href="/logout">Log Out</NavItem>
+          <NavItem onClick={logoutAction} href="/login">
+            Log Out
+          </NavItem>
         ) : (
           <>
             <NavItem href="/login" isLogin={true}>

@@ -117,6 +117,7 @@ export default function FormLogin() {
               type="checkbox"
               name="rememberMe"
               id="rememberMe"
+              checked={rememberMe}
             />{" "}
             Remember Me
           </label>

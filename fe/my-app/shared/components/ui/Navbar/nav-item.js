@@ -8,6 +8,7 @@ export default function NavItem({
   isBack,
   isRegister,
   isLink,
+  onClick,
 }) {
   const navItemClass = clsx(styles.NavItem, {
     [styles.Login]: isLogin,
@@ -17,7 +18,7 @@ export default function NavItem({
   });
 
   return (
-    <li className={navItemClass}>
+    <li className={navItemClass} onClick={onClick}>
       <Link href={href}>{children}</Link>
     </li>
   );

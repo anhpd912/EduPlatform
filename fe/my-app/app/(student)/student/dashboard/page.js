@@ -1,3 +1,13 @@
+"use client";
+import NavBar from "@/shared/components/ui/Navbar/navbar";
+
 export default function StudentDashboardPage() {
-  return <div>Student Dashboard</div>;
+  return (
+    <div>
+      {" "}
+      <nav>
+        <NavBar />
+      </nav>
+    </div>
+  );
 }
