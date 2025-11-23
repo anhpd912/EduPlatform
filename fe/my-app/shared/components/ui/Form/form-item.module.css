@@ -25,3 +25,8 @@
   border-color: #6051e6;
   outline: none;
 }
+.ErrorMessage {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}

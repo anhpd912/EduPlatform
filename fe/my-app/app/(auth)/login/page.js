@@ -2,6 +2,8 @@ import NavItem from "@/shared/components/ui/Navbar/nav-item";
 import styles from "./page.module.css";
 import { ArrowBack } from "@mui/icons-material";
 import FormLogin from "./components/FormLogin";
+import { ToastContainer } from "react-toastify";
+import { Suspense } from "react";
 
 export const metadata = {
   title: "EduPlatform - Login",
@@ -19,8 +21,11 @@ export default function LoginPage() {
         </NavItem>
       </div>
       <div className={styles.LoginContainer}>
-        <FormLogin />
+        <Suspense fallback={<div>Loading...</div>}>
+          <FormLogin />
+        </Suspense>
       </div>
+      <ToastContainer />
     </div>
   );
 }

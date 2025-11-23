@@ -10,7 +10,10 @@ export default function FormItem({
   select,
   value,
   onChange,
+  pattern,
+  title,
   options,
+  error,
 }) {
   const formItemClass = clsx(styles.FormItem, {
     [styles.SelectItem]: select,
@@ -19,7 +22,13 @@ export default function FormItem({
     <div className={formItemClass}>
       {label && <label htmlFor={id}>{label}:</label>}
       {select ? (
-        <select id={id} name={name} required={required} defaultValue="">
+        <select
+          id={id}
+          name={name}
+          required={required}
+          defaultValue=""
+          onChange={onChange}
+        >
           <option value="" disabled>
             {placeholder}
           </option>
@@ -39,8 +48,11 @@ export default function FormItem({
           required={required}
           placeholder={placeholder}
           onChange={onChange}
+          pattern={pattern}
+          title={title}
         />
       )}
+      {error && <span className={styles.ErrorMessage}>{error}</span>}
     </div>
   );
 }

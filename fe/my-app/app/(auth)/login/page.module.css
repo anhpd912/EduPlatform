@@ -5,7 +5,7 @@
   background-color: #e9f0ff;
   width: 100%;
   padding: 10px;
-  height: 100vh;
+  min-height: 100vh;
 }
 .LoginContainer {
   width: 90%;

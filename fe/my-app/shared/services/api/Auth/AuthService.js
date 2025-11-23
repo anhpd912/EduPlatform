@@ -9,4 +9,7 @@ export const AuthService = {
   refreshToken: (data) => {
     return privateApi.post("/auth/refresh", data);
   },
+  register: (data) => {
+    return pulicApi.post("/users/create", data);
+  },
 };
