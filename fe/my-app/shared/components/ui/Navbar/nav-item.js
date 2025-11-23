@@ -7,11 +7,13 @@ export default function NavItem({
   isLogin,
   isBack,
   isRegister,
+  isLink,
 }) {
   const navItemClass = clsx(styles.NavItem, {
     [styles.Login]: isLogin,
     [styles.Back]: isBack,
     [styles.Register]: isRegister,
+    [styles.Link]: isLink,
   });
 
   return (

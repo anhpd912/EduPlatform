@@ -9,6 +9,7 @@ import { useSnapshot } from "valtio";
 import { authStore, loginAction } from "@/store/authStore";
 import { AuthService } from "@/shared/services/api/Auth/AuthService";
 import { useRouter } from "next/navigation";
+import { getRedirectPath } from "@/shared/utils/authHelpers";
 export default function FormLogin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -16,9 +17,12 @@ export default function FormLogin() {
   const [loading, setLoading] = useState(false);
   const snap = useSnapshot(authStore);
   const router = useRouter();
-  if (snap.isAuthenticated) {
-    router.push("/courses");
-  }
+  useEffect(() => {
+    if (snap.isAuthenticated) {
+      let redirectPath = getRedirectPath(snap.isAuthenticated, snap.role);
+      router.push(redirectPath);
+    }
+  }, [snap.isAuthenticated, snap.role, router]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,14 +30,17 @@ export default function FormLogin() {
     setError(null);
     try {
       const response = await AuthService.login({ username, password });
+      console.log(response);
       if (response.statusCode === 200) {
         loginAction(
-          response.token,
-          response.token,
-          response.userResponse.username
+          response.data.token,
+          response.data.token,
+          response.data.userResponse.username,
+          response.data.userResponse.roles[0].name
         );
+      } else {
+        setError(response.message);
       }
-      router.push("/courses");
     } catch (err) {
       console.log(err);
       setError(err.response?.data?.message);
