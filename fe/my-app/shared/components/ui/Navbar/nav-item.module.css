@@ -1,58 +1,78 @@
 .NavItem {
-    display: flex;
-    list-style: none;
-    text-decoration: none;
-    border: 1px solid #ccc9c9;
-    width: fit-content;
-    border-radius: 6px;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  list-style: none;
+  text-decoration: none;
+  border: 1px solid #ccc9c9;
+  width: fit-content;
+  border-radius: 6px;
+  align-items: center;
+  justify-content: center;
 }
 .NavItem a {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px;
-    font-size: 14px;
-    text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  font-size: 14px;
+  text-decoration: none;
 }
 .Login {
-    margin-right: 10px;
-    background-color: white;
-    padding: 0 15px;
-    a {
-        color: black;
-    }
+  margin-right: 10px;
+  background-color: white;
+  padding: 0 15px;
+  a {
+    color: black;
+  }
 }
 .Login:hover {
-    background-color: #ccc9c9;
+  background-color: #ccc9c9;
 }
 .Register {
-    background-color: black;
-    color: #fff;
-    text-align: center;
-    padding: 0 10px;
-    a {
-        color: white;
-    }
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 0 10px;
+  a {
+    color: white;
+  }
 }
 .Register:hover {
-    background-color: #333232;
+  background-color: #333232;
 }
-.Back{      
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: black;
-    border: none;
-    a {
-        color: #000;
-    }
+.Back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: black;
+  border: none;
+  a {
+    color: #000;
+  }
 }
 .Back:hover {
-    cursor: pointer;
-    background-color: #e6e6e6;
-    a{
-        color: rgb(0, 0, 0);
-    }
+  cursor: pointer;
+  background-color: #e6e6e6;
+  a {
+    color: rgb(0, 0, 0);
+  }
+}
+.Link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: none;
+  gap: 8px;
+  color: black;
+  a {
+    color: #000;
+  }
+}
+.Link:hover {
+  cursor: pointer;
+}
+.Link::after {
+  position: absolute;
+  display: block;
+  background-color: #000000;
+  height: 1px;
 }

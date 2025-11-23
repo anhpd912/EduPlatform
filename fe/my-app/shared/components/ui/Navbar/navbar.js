@@ -4,18 +4,41 @@ import Logo from "./logo";
 import NavItem from "./nav-item";
 import styles from "./navbar.module.css";
 import { authStore, logoutAction } from "@/store/authStore";
+import { AccountCircle, Logout, Settings, Person } from "@mui/icons-material";
+import Link from "next/link";
 
 export default function NavBar() {
   const { isAuthenticated } = useSnapshot(authStore);
-
+  const { username } = useSnapshot(authStore);
+  const { role } = useSnapshot(authStore);
   return (
     <div>
       <ul className={styles.NavBar}>
         <Logo />
         {isAuthenticated ? (
-          <NavItem onClick={logoutAction} href="/login">
-            Log Out
-          </NavItem>
+          <div className={styles.UserSection}>
+            <span className={styles.UserName}>{username.toUpperCase()}</span>
+            <AccountCircle color="primary" fontSize="large" />
+            <div className={styles.DropdownMenu}>
+              <Link href="/profile" className={styles.DropdownItem}>
+                <Person fontSize="small" />
+                <span>Profile</span>
+              </Link>
+              <Link href="/settings" className={styles.DropdownItem}>
+                <Settings fontSize="small" />
+                <span>Settings</span>
+              </Link>
+              <div className={styles.Divider}></div>
+              <Link
+                href="/login"
+                onClick={logoutAction}
+                className={styles.DropdownItem}
+              >
+                <Logout fontSize="small" />
+                <span>Logout</span>
+              </Link>
+            </div>
+          </div>
         ) : (
           <>
             <NavItem href="/login" isLogin={true}>
