@@ -1,0 +1,261 @@
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.Modal {
+  background: white;
+  border-radius: 16px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  border-bottom: 1px solid #e2e8f0;
+  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+  color: white;
+  border-radius: 16px 16px 0 0;
+}
+
+.Header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.CloseButton {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background 0.2s ease;
+}
+
+.CloseButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.Content {
+  padding: 32px;
+}
+
+.AvatarSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.Avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #e2e8f0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.StatusBadge {
+  margin-top: 16px;
+}
+
+.Status {
+  padding: 8px 24px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.Active {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+.Inactive {
+  background: #fed7d7;
+  color: #742a2a;
+}
+
+.InfoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.InfoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.InfoItem label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.InfoItem p {
+  margin: 0;
+  font-size: 16px;
+  color: #2d3748;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.UserId {
+  font-size: 12px !important;
+  color: #a0aec0 !important;
+  font-family: monospace;
+}
+
+.Email {
+  color: #4a90e2 !important;
+}
+
+.Provider {
+  padding: 6px 16px;
+  background: #e6f2ff;
+  color: #2c5aa0;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.RolesList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.RoleCard {
+  padding: 16px;
+  background: #f7fafc;
+  border-radius: 12px;
+  border-left: 4px solid #4a90e2;
+}
+
+.RoleCard h4 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  color: #2d3748;
+  font-weight: 700;
+}
+
+.RoleCard p {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: #718096;
+}
+
+.Permissions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.Permissions > span:first-child {
+  font-size: 12px;
+  font-weight: 600;
+  color: #718096;
+}
+
+.PermissionTag {
+  padding: 4px 12px;
+  background: #edf2f7;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.Footer {
+  padding: 20px 32px;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: flex-end;
+  background: #f7fafc;
+  border-radius: 0 0 16px 16px;
+}
+
+.CloseBtn {
+  padding: 12px 32px;
+  background: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.CloseBtn:hover {
+  background: #357abd;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+}
+
+@media (max-width: 768px) {
+  .Modal {
+    margin: 0;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .InfoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .Header,
+  .Content,
+  .Footer {
+    padding: 20px;
+  }
+}

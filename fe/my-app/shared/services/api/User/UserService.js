@@ -1,3 +1,5 @@
+import { privateApi } from "../../axios/AxiosClient";
+
 export const UserService = {
   getUsers: () => {
     return privateApi.get("/users/getAll");
