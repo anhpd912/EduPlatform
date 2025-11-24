@@ -6,11 +6,16 @@ import styles from "./navbar.module.css";
 import { authStore, logoutAction } from "@/store/authStore";
 import { AccountCircle, Logout, Settings, Person } from "@mui/icons-material";
 import Link from "next/link";
+import { AuthService } from "@/shared/services/api/Auth/AuthService";
 
 export default function NavBar() {
   const { isAuthenticated } = useSnapshot(authStore);
   const { username } = useSnapshot(authStore);
   const { role } = useSnapshot(authStore);
+  const handleLogOut = () => {
+    logoutAction();
+    AuthService.logout();
+  };
   return (
     <div>
       <ul className={styles.NavBar}>
@@ -31,7 +36,7 @@ export default function NavBar() {
               <div className={styles.Divider}></div>
               <Link
                 href="/login"
-                onClick={logoutAction}
+                onClick={handleLogOut}
                 className={styles.DropdownItem}
               >
                 <Logout fontSize="small" />

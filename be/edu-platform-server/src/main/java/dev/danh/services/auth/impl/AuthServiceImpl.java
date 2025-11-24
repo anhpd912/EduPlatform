@@ -175,7 +175,7 @@ public class AuthServiceImpl implements AuthService {
         JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
                 .subject(user.getUsername())
                 .issuer("dev.danh")
-                .expirationTime(new Date(System.currentTimeMillis() + 3600 * 1000)) // 1 hour expiration
+                .expirationTime(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .jwtID(UUID.randomUUID().toString())
                 .claim("scope", buildScope(user))
                 .build();

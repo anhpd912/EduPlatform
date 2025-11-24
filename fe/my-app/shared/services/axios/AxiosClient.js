@@ -19,7 +19,7 @@ const processQueue = (error, token = null) => {
 };
 privateApi.interceptors.request.use(
   (config) => {
-    const token = authStore.token;
+    const token = authStore.jwtToken;
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -36,7 +36,7 @@ privateApi.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-    const errorResponseCode = error.response.statusCode;
+    const errorResponseCode = error.response?.data?.statusCode;
     if (errorResponseCode === 401 && !originalRequest._retry) {
       if (isRefreshing) {
         return new Promise(function (resolve, reject) {
