@@ -13,8 +13,11 @@ export default function ResetPasswordForm() {
   const [errorPasswordFormat, setErrorPasswordFormat] = useState(null);
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    return searchParams.get("token");
+    if (typeof window !== "undefined") {
+      const searchParams = new URLSearchParams(window.location.search);
+      return searchParams.get("token") || "";
+    }
+    return "";
   });
 
   useEffect(() => {
