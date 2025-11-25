@@ -5,9 +5,10 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
-@Entity
+@Entity(name = "teacher")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,11 +18,30 @@ public class Teacher {
     @Id
     UUID id;
     String expertise;
-    @Column( columnDefinition = "default CURRENT_DATE")
+    @Column(columnDefinition = "default CURRENT_DATE")
     LocalDate dateOfJoining;
     @OneToOne
     @MapsId
     @JoinColumn(name = "id")
-    private User user;
+    User user;
+    @OneToMany(mappedBy = "homeroomTeacher")
+    List<Class> classes;
+
+    @OneToMany(mappedBy = "teacher")
+    List<AssignmentSubmission> assignmentSubmissions;
+
+    @OneToMany(mappedBy = "teacher")
+    List<Attendance> attendanceSessions;
+
+    @OneToMany(mappedBy = "teacher")
+    List<Assignment> assignments;
+
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
+    private List<ClassSubject> classSubjects;
+    @OneToMany(mappedBy = "teacher")
+    private List<Exam> exams;
+    @OneToMany(mappedBy = "teacher")
+    private List<Timetable> timetables;
+
 
 }

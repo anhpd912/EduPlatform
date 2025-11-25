@@ -1,6 +1,5 @@
 package dev.danh.configs;
 
-import dev.danh.entities.models.Permission;
 import dev.danh.entities.models.Role;
 import dev.danh.entities.models.User;
 import dev.danh.repositories.auth.PermissionRepository;
@@ -31,14 +30,12 @@ public class ApplicationInitConfig {
 
             //check role admin existed in db
             if (roleRepository.findById("ADMIN").isEmpty()) {
-
                 Role role1 = new Role();
                 role1.setName("ADMIN");
                 role1.setDescription("ADMIN can manage all user and content in this system.");
                 roleRepository.save(role1);
             }
             Role role = roleRepository.findById("ADMIN").orElseThrow();
-
             //init admin account
             if (userRepository.findByUsername("admin").isEmpty()) {
                 User user = new User();
@@ -48,7 +45,43 @@ public class ApplicationInitConfig {
                 roles.add(role);
                 user.setRoles(roles);
                 userRepository.save(user);
-                log.warn("Admin user has been created with default password: admin, please change password!");
+                log.warn(" user has been created with default password: admin, please change password!");
+            }
+            //check role teacher existed in db
+            if (roleRepository.findById("TEACHER").isEmpty()) {
+                Role role1 = new Role();
+                role1.setName("TEACHER");
+                role1.setDescription("TEACHER can teach and manage student.");
+                roleRepository.save(role1);
+            }
+            Role role2 = roleRepository.findById("TEACHER").orElseThrow();
+            if (userRepository.findByUsername("teacher").isEmpty()) {
+                User user = new User();
+                user.setUsername("teacher");
+                user.setPassword(passwordEncoder.encode("teacher"));
+                Set<Role> roles = new HashSet<>();
+                roles.add(role2);
+                user.setRoles(roles);
+                userRepository.save(user);
+                log.warn("Teacher test user has been created with default password: teacher, please change password!");
+            }
+            //check role student existed in db
+            if (roleRepository.findById("STUDENT").isEmpty()) {
+                Role role1 = new Role();
+                role1.setName("STUDENT");
+                role1.setDescription("STUDENT can learn and post comment into lecture.");
+                roleRepository.save(role1);
+            }
+            Role role3 = roleRepository.findById("STUDENT").orElseThrow();
+            if (userRepository.findByUsername("student").isEmpty()) {
+                User user = new User();
+                user.setUsername("student");
+                user.setPassword(passwordEncoder.encode("student"));
+                Set<Role> roles = new HashSet<>();
+                roles.add(role3);
+                user.setRoles(roles);
+                userRepository.save(user);
+                log.warn("Student test user has been created with default password: student, please change password!");
             }
         };
     }

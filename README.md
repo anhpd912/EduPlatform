@@ -3,12 +3,17 @@
 **PetProject1** is a personal practice project aiming to build a full-stack web application using Java for the backend and React for the frontend. This project helps reinforce skills in modern web development.
 
 ## 🔧 Technologies Used
-### Backend ### 
-#### Identity service ####
+
+### Backend
+
+#### Identity service
+
 - **Language**: Java
 - **Framework**: SpringBoot
 - **Tools**: MySQL
-### Frontend ###
+
+### Frontend
+
 - **Language**: Javascript
 - **Library**: ReactJS
 
@@ -55,3 +60,20 @@ The app will run locally on `http://localhost:3000`.
 ## 📌 License
 
 This project is for educational and personal use. You are free to clone and learn from it.
+
+## For Testing
+
+### Admin Account
+
+- **Username**: admin
+- **Password**: admin
+
+### Teacher Account
+
+- **Username**: teacher
+- **Password**: teacher
+
+### Student Account
+
+- **Username**: student
+- **Password**: student

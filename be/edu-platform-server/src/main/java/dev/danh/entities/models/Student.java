@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -22,4 +23,23 @@ public class Student {
     @MapsId
     @JoinColumn(name = "id")
     private User user;
+    @OneToMany(mappedBy = "student")
+    private List<StudentProgress> studentProgress;
+
+    @OneToMany(mappedBy = "student")
+    private List<AssignmentSubmission> assignmentSubmissions;
+
+    @OneToMany(mappedBy = "student")
+    private List<Attendance> attendanceSessions;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<ClassStudent> classEnrollments;
+    @OneToMany(mappedBy = "student")
+    private List<ExamResult> examResults;
+    @OneToMany(mappedBy = "student")
+    private List<AttendanceRecord> attendanceRecords;
+
+
+
+
 }
