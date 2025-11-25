@@ -54,3 +54,20 @@ The app will run locally on `http://localhost:3000`.
 ## 📌 License
 
 This project is for educational and personal use. You are free to clone and learn from it.
+
+## For Testing
+
+### Admin Account
+
+- **Username**: admin
+- **Password**: admin
+
+### Teacher Account
+
+- **Username**: teacher
+- **Password**: teacher
+
+### Student Account
+
+- **Username**: student
+- **Password**: student
