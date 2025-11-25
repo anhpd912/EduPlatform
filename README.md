@@ -1,21 +1,15 @@
-# PetProject1
+# EduPlatform
 
-**PetProject1** is a personal practice project aiming to build a full-stack web application using Java for the backend and React for the frontend. This project helps reinforce skills in modern web development.
+**EduPlatform** is a personal practice project aiming to build a full-stack web application using Java for the backend and React for the frontend. This project helps reinforce skills in modern web development.
 
 ## 🔧 Technologies Used
-
-### Backend
-
-#### Identity service
-
+### Backend ### 
 - **Language**: Java
 - **Framework**: SpringBoot
-- **Tools**: MySQL
-
-### Frontend
-
+- **Tools**: MySQL, Docker, Git
+### Frontend ###
 - **Language**: Javascript
-- **Library**: ReactJS
+- **Library**: Next.js
 
 ## 📁 Project Structure
 
@@ -25,7 +19,7 @@ PetProject1/
 │   └── ...             # Java project files
 ├── fe/
 │   └── my-app/         # Frontend React application
-│       └── ...         # React components and assets
+│       └── ...         # Front-end components and assets
 └── README.md           # Project documentation
 ```
 
