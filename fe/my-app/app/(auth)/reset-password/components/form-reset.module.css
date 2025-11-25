@@ -1,0 +1,59 @@
+.Logo {
+  width: fit-content;
+  height: fit-content;
+  background-color: rgb(96, 81, 230);
+  border-radius: 50%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.FormResetPassword {
+  width: 100%;
+}
+.FormHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+}
+.FormHeader p {
+  margin-bottom: 10px;
+}
+.FormButton {
+  width: 100%;
+}
+.FormButton button {
+  width: 100%;
+  max-width: 600px;
+  text-decoration: none;
+  border: 1px solid #ccc9c9;
+  border-radius: 6px;
+  background-color: black;
+  padding: 10px 20px;
+  color: white;
+}
+
+.FormOptions {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+.FormOptions a {
+  text-decoration: none;
+  color: rgb(66, 24, 252);
+  font-size: 14px;
+}
+.FormFooter {
+  margin-top: 20px;
+  text-align: center;
+}
+.FormFooter p {
+  font-size: 14px;
+}
+.FormFooter a {
+  color: rgb(66, 24, 252);
+  text-decoration: none;
+  font-weight: bold;
+}

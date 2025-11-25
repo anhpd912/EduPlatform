@@ -32,6 +32,7 @@ public class User {
     String phoneNumber;
     String address;
     LocalDate dateOfBirth;
+    String resetTokenHash;
     @Column
     Boolean isActive;
     @ManyToMany(fetch = FetchType.EAGER)

@@ -2,13 +2,15 @@ package dev.danh.entities.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.UUID;
 
 @Entity(name = "timetable_entry")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Timetable {
@@ -16,7 +18,6 @@ public class Timetable {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "timetable_id")
     private UUID timetable_id;
-    @Column(name = "day_of_week")
 
     @ManyToOne
     @JoinColumn(name = "subject_id")
@@ -27,8 +28,8 @@ public class Timetable {
     @ManyToOne
     @JoinColumn(name = "class_id")
     private Class _class;
-
-    private String dayOfWeek;
+    @Column(name = "day_of_week")
+    private Integer dayOfWeek;
     @Column(name = "start_time")
     private String startTime;
     @Column(name = "end_time")
