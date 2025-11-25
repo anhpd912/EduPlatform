@@ -10,13 +10,14 @@ import dev.danh.entities.dtos.response.AuthenticationResponse;
 import dev.danh.entities.dtos.response.IntrospectResponse;
 import dev.danh.entities.models.InvalidToken;
 import dev.danh.entities.models.User;
-import dev.danh.enums.AuthProvider;
 import dev.danh.enums.ErrorCode;
 import dev.danh.exception.AppException;
 import dev.danh.mapper.UserMapper;
 import dev.danh.repositories.user.InvalidTokenRepository;
 import dev.danh.repositories.user.UserRepository;
 import dev.danh.services.auth.AuthService;
+import dev.danh.utils.MailService;
+import jakarta.mail.MessagingException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -24,14 +25,15 @@ import lombok.experimental.NonFinal;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.security.MessageDigest;
 import java.text.ParseException;
 import java.time.temporal.ChronoUnit;
+import java.util.Base64;
 import java.util.Date;
 import java.util.StringJoiner;
 import java.util.UUID;
@@ -40,7 +42,11 @@ import java.util.UUID;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @Service
 public class AuthServiceImpl implements AuthService {
+    @NonFinal
+    @Value("${URL_FRONTEND}")
+    String URL_FRONTEND;
 
+    MailService mailService;
 
     private static final Logger log = LogManager.getLogger(AuthServiceImpl.class);
     InvalidTokenRepository invalidTokenRepository;
@@ -88,6 +94,36 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    public Boolean resetPassword(String email) throws MessagingException {
+        //Generate reset link
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        String token = UUID.randomUUID().toString();
+        String hashToken = hashToken(token);
+        user.setResetTokenHash(hashToken);
+        userRepository.save(user);
+        //Send email
+        String resetLink = generateResetLink(token);
+        mailService.sendMail(user.getFullName(), resetLink, user.getEmail());
+        return true;
+    }
+
+    @Override
+    public Boolean updatePassword(String token, String newPassword) {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        //Verify token
+        String hashToken = hashToken(token);
+        var user = userRepository.findByResetTokenHash(hashToken).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        if (user != null) {
+            user.setPassword(passwordEncoder.encode(newPassword));
+            user.setResetTokenHash(null);
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public IntrospectResponse introspect(IntrospectRequest request) {
         Boolean valid = true;
         String token = request.getToken();
@@ -120,27 +156,24 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AuthenticationResponse refreshToken(RefreshRequest request) {
-        try {
-            var signedJWT = verifyToken(request.getToken(), true);
+    public AuthenticationResponse refreshToken(RefreshRequest request) throws ParseException {
+        var signedJWT = verifyToken(request.getToken(), true);
 
-            InvalidToken invalidToken = InvalidToken.builder()
-                    .id(signedJWT.getJWTClaimsSet().getJWTID())
-                    .expiryTime(signedJWT.getJWTClaimsSet().getExpirationTime())
-                    .build();
-            invalidTokenRepository.save(invalidToken);
-            // Retrieve user from the database using the subject of the JWT
+        InvalidToken invalidToken = InvalidToken.builder()
+                .id(signedJWT.getJWTClaimsSet().getJWTID())
+                .expiryTime(signedJWT.getJWTClaimsSet().getExpirationTime())
+                .build();
+        invalidTokenRepository.save(invalidToken);
+        // Retrieve user from the database using the subject of the JWT
 
-            User user = userRepository.findByUsername(signedJWT.getJWTClaimsSet().getSubject())
-                    .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
-            return AuthenticationResponse.builder()
-                    .token(generateToken(user))
-                    .authenticated(true)
-                    .userResponse(userMapper.toUserResponse(user))
-                    .build();
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        User user = userRepository.findByUsername(signedJWT.getJWTClaimsSet().getSubject())
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        return AuthenticationResponse.builder()
+                .token(generateToken(user))
+                .authenticated(true)
+                .userResponse(userMapper.toUserResponse(user))
+                .build();
+
     }
 
 
@@ -206,4 +239,17 @@ public class AuthServiceImpl implements AuthService {
         return stringJoiner.toString();
     }
 
+    private String generateResetLink(String token) {
+        return URL_FRONTEND + "/reset-password?token=" + token;
+    }
+
+    private String hashToken(String token) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(token.getBytes("UTF-8"));
+            return Base64.getEncoder().encodeToString(hash);
+        } catch (Exception e) {
+            throw new RuntimeException("Error hashing token", e);
+        }
+    }
 }

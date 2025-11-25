@@ -2,6 +2,7 @@ package dev.danh.exception;
 
 import dev.danh.entities.dtos.response.APIResponse;
 import dev.danh.enums.ErrorCode;
+import jakarta.mail.MessagingException;
 import jakarta.validation.ConstraintViolation;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.text.ParseException;
 import java.util.Map;
 import java.util.Objects;
 
@@ -78,5 +80,23 @@ public class GlobalExceptionHandler {
         String min = attributes.get(MIN_ATTRIBUTE).toString();
         message = message.replace("{" + MIN_ATTRIBUTE + "}", min);
         return message;
+    }
+
+    @ExceptionHandler(MessagingException.class)
+    public ResponseEntity<APIResponse> handleMessagingException(MessagingException e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(APIResponse.builder()
+                .statusCode(500)
+                .message(ErrorCode.SEND_MAIL_FAILED.getMessage())
+                .build()
+        );
+    }
+
+    @ExceptionHandler(ParseException.class)
+    public ResponseEntity<APIResponse> handleParseException(ParseException e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(APIResponse.builder()
+                .statusCode(500)
+                .message(e.getMessage())
+                .build()
+        );
     }
 }

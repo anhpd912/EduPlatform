@@ -12,4 +12,10 @@ export const AuthService = {
   register: (data) => {
     return pulicApi.post("/users/create", data);
   },
+  resetPassword: (data) => {
+    return pulicApi.get("/auth/reset-password", { params: data });
+  },
+  changePassword: (data) => {
+    return pulicApi.post("/auth/reset-password", data);
+  },
 };
