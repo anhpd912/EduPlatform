@@ -10,7 +10,10 @@ import { useSnapshot } from "valtio";
 import { authStore, loginAction } from "@/store/authStore";
 import { AuthService } from "@/shared/services/api/Auth/AuthService";
 import { useRouter, useSearchParams } from "next/navigation";
-import { getRedirectPath } from "@/shared/utils/authHelpers";
+import {
+  getRedirectPath,
+  hashSavePasswordAtLocalStorage,
+} from "@/shared/utils/authHelpers";
 export default function FormLogin() {
   const searchParams = useSearchParams();
   const message = searchParams.get("message");

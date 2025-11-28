@@ -34,7 +34,7 @@ public class User {
     LocalDate dateOfBirth;
     String resetTokenHash;
     @Column
-    Boolean isActive;
+    Boolean isActive = true;
     @ManyToMany(fetch = FetchType.EAGER)
     Set<Role> roles;
 

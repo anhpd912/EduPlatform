@@ -104,7 +104,7 @@ public class AuthServiceImpl implements AuthService {
         userRepository.save(user);
         //Send email
         String resetLink = generateResetLink(token);
-        mailService.sendMail(user.getFullName(), resetLink, user.getEmail());
+        mailService.sendMail(user.getFullName(), resetLink, user.getEmail(),"Reset your password");
         return true;
     }
 
