@@ -44,6 +44,7 @@ public class ApplicationInitConfig {
                 Set<Role> roles = new HashSet<>();
                 roles.add(role);
                 user.setRoles(roles);
+                user.setIsActive(true);
                 userRepository.save(user);
                 log.warn(" user has been created with default password: admin, please change password!");
             }
@@ -61,6 +62,7 @@ public class ApplicationInitConfig {
                 user.setPassword(passwordEncoder.encode("teacher"));
                 Set<Role> roles = new HashSet<>();
                 roles.add(role2);
+                user.setIsActive(true);
                 user.setRoles(roles);
                 userRepository.save(user);
                 log.warn("Teacher test user has been created with default password: teacher, please change password!");
@@ -79,6 +81,7 @@ public class ApplicationInitConfig {
                 user.setPassword(passwordEncoder.encode("student"));
                 Set<Role> roles = new HashSet<>();
                 roles.add(role3);
+                user.setIsActive(true);
                 user.setRoles(roles);
                 userRepository.save(user);
                 log.warn("Student test user has been created with default password: student, please change password!");
