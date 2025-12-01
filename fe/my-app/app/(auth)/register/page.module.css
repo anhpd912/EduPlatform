@@ -5,6 +5,7 @@
   background-color: #e9f0ff;
   width: 100%;
   padding: 10px;
+  min-height: 100vh;
 }
 .RegisterContainer {
   width: 90%;
@@ -20,4 +21,35 @@
   display: flex;
   justify-content: flex-start;
   margin-bottom: 20px;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .Container {
+    padding: 15px;
+  }
+  .RegisterContainer {
+    width: 95%;
+    padding: 15px;
+  }
+  .ButtonGroup {
+    width: 95%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .Container {
+    padding: 10px;
+  }
+  .RegisterContainer {
+    width: 100%;
+    padding: 12px;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .ButtonGroup {
+    width: 100%;
+    margin-bottom: 15px;
+  }
 }

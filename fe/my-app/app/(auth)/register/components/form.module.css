@@ -51,3 +51,32 @@
   font-size: 12px;
   margin-top: -15px;
 }
+
+/* Tablet */
+@media (max-width: 768px) {
+  .FormHeader {
+    padding: 30px 15px;
+  }
+  .Logo {
+    padding: 15px;
+  }
+  .FormButton button {
+    padding: 12px 16px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .FormHeader {
+    padding: 20px 10px;
+  }
+  .FormHeader p {
+    font-size: 14px;
+  }
+  .Logo {
+    padding: 12px;
+  }
+  .FormFooter p {
+    font-size: 13px;
+  }
+}

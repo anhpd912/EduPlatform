@@ -76,3 +76,37 @@
   background-color: #e0e0e0;
   margin: 4px 0;
 }
+
+/* Tablet */
+@media (max-width: 768px) {
+  .NavBar {
+    padding: 15px;
+  }
+  .UserName {
+    font-size: 14px;
+    display: none;
+  }
+  .DropdownMenu {
+    min-width: 200px;
+    right: -10px;
+  }
+  .DropdownItem {
+    padding: 10px 14px;
+  }
+  .DropdownItem span {
+    font-size: 13px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .NavBar {
+    padding: 10px;
+  }
+  .UserSection {
+    gap: 10px;
+  }
+  .DropdownMenu {
+    min-width: 180px;
+  }
+}

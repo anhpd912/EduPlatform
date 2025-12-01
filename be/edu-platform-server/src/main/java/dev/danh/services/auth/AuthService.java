@@ -11,11 +11,13 @@ public interface AuthService {
     AuthenticationResponse authenticate(AuthenticationRequest request);
     IntrospectResponse introspect(IntrospectRequest request);
     void logout(LogoutRequest token);
-    AuthenticationResponse refreshToken(RefreshRequest request) throws ParseException;
+    AuthenticationResponse refreshToken(String request) throws ParseException;
 
     AuthenticationResponse authenticate(AuthenticationGoogleRequest request);
 
     Boolean resetPassword(String email) throws MessagingException;
 
     Boolean updatePassword(String token, String newPassword);
+
+    Boolean logOutDevice(LogOutDeviceRequest request);
 }

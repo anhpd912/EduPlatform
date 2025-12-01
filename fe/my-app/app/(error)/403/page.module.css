@@ -98,6 +98,75 @@
   transition: all 0.3s ease;
 }
 
+/* Tablet */
+@media (max-width: 768px) {
+  .Content {
+    padding: 40px 30px;
+  }
+  .IconWrapper {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 25px;
+  }
+  .Icon {
+    font-size: 50px !important;
+  }
+  .ErrorCode {
+    font-size: 60px;
+  }
+  .Title {
+    font-size: 26px;
+  }
+  .Description {
+    font-size: 15px;
+    margin-bottom: 30px;
+  }
+  .PrimaryButton,
+  .SecondaryButton {
+    padding: 12px 24px;
+    font-size: 15px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .Container {
+    padding: 15px;
+  }
+  .Content {
+    padding: 30px 20px;
+    border-radius: 15px;
+  }
+  .IconWrapper {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+  }
+  .Icon {
+    font-size: 40px !important;
+  }
+  .ErrorCode {
+    font-size: 48px;
+  }
+  .Title {
+    font-size: 22px;
+  }
+  .Description {
+    font-size: 14px;
+    margin-bottom: 25px;
+  }
+  .Actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .PrimaryButton,
+  .SecondaryButton {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+  }
+}
+
 .SecondaryButton:hover {
   background: #4a90e2;
   color: white;

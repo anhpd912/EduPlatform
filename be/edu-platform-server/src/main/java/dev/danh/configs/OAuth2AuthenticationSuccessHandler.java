@@ -38,7 +38,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
         AuthenticationResponse authResponse = authService.authenticate(authRequest);
 
-        String token = authResponse.getToken();
+        String token = authResponse.getAccessToken();
         String redirectUrl = URL_FRONTEND + "/login?token=" + token;
         log.info("Redirect URL: " + redirectUrl);
 

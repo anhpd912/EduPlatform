@@ -1,8 +1,24 @@
-.Header{
-    display: flex;
-    flex-direction: column;
-    background-color:#EAF1FF;
-    align-items: center ;
-    padding: 80px 50px;
-    gap: 40px;
+.Header {
+  display: flex;
+  flex-direction: column;
+  background-color: #eaf1ff;
+  align-items: center;
+  padding: 80px 50px;
+  gap: 40px;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .Header {
+    padding: 60px 30px;
+    gap: 30px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .Header {
+    padding: 40px 15px;
+    gap: 25px;
+  }
 }

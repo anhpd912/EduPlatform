@@ -12,9 +12,8 @@ export default function NavBar() {
   const { isAuthenticated } = useSnapshot(authStore);
   const { username } = useSnapshot(authStore);
   const { role } = useSnapshot(authStore);
-  const handleLogOut = () => {
-    logoutAction();
-    AuthService.logout();
+  const handleLogOut = async () => {
+    Promise.resolve(AuthService.logout()).then(() => logoutAction());
   };
   return (
     <div>

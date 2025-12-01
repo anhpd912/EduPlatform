@@ -12,4 +12,6 @@ public class AuthenticationGoogleRequest {
     String username;        // generated or from email
     String email;           // email
     String provideId;
+    String deviceInfo;
+
 }

@@ -108,3 +108,37 @@
   color: white;
   transform: scale(1.1);
 }
+
+/* Tablet */
+@media (max-width: 768px) {
+  .Avatar {
+    width: 36px;
+    height: 36px;
+  }
+  .Username {
+    font-size: 14px;
+  }
+  .Email {
+    font-size: 12px;
+  }
+  .Actions {
+    flex-wrap: wrap;
+  }
+  .ActionBtn {
+    padding: 6px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .Avatar {
+    width: 32px;
+    height: 32px;
+  }
+  .Gender,
+  .Status,
+  .Provider {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+}

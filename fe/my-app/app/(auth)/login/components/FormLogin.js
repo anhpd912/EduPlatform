@@ -10,11 +10,10 @@ import { useSnapshot } from "valtio";
 import { authStore, loginAction } from "@/store/authStore";
 import { AuthService } from "@/shared/services/api/Auth/AuthService";
 import { useRouter, useSearchParams } from "next/navigation";
-import {
-  getRedirectPath,
-  hashSavePasswordAtLocalStorage,
-} from "@/shared/utils/authHelpers";
+import { getRedirectPath } from "@/shared/utils/authHelpers";
+import { useDeviceInfo } from "@/hooks/useDeviceInfo";
 export default function FormLogin() {
+  const deviceInfo = useDeviceInfo();
   const searchParams = useSearchParams();
   const message = searchParams.get("message");
   const [username, setUsername] = useState("");
@@ -30,39 +29,45 @@ export default function FormLogin() {
       let redirectPath = getRedirectPath(snap.isAuthenticated, snap.role);
       router.push(redirectPath);
     }
-  }, [snap.isAuthenticated, snap.role, router]);
+    if (deviceInfo) {
+      console.log("Device Info:", deviceInfo?.friendlyName || "Unknown Device");
+    }
+  }, [snap.isAuthenticated, snap.role, router, deviceInfo]);
   // Show message if provided
   useEffect(() => {
-    console.log("Log message", message);
     if (message) {
-      toast.success(message);
+      console.log("Log message", message);
+      toast.success(message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   }, [message]);
-  useEffect(() => {
-    // Check for remembered credentials
-    const rememberedUsername = localStorage.getItem("rememberedUsername");
-    const rememberedPassword = localStorage.getItem("rememberedPassword");
-    if (rememberedUsername && rememberedPassword) {
-      setUsername(rememberedUsername);
-      setPassword(rememberedPassword);
-      setRememberMe(true);
-    }
-  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    if (rememberMe) {
-      localStorage.setItem("rememberedUsername", username);
-      localStorage.setItem("rememberedPassword", password);
-    }
+
+    // Log để debug
+    console.log("Device Info khi submit:", deviceInfo);
+
     try {
-      const response = await AuthService.login({ username, password });
+      const response = await AuthService.login({
+        username,
+        password,
+        rememberMe,
+        deviceInfo: deviceInfo?.friendlyName || "Unknown Device",
+      });
       console.log(response);
       if (response.statusCode === 200) {
         loginAction(
-          response.data.token,
-          response.data.token,
+          response.data.accessToken,
+          response.data.refreshToken,
           response.data.userResponse.username,
           response.data.userResponse.roles[0].name
         );

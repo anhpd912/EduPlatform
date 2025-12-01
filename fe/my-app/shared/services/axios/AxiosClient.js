@@ -2,6 +2,7 @@ import { authStore, logoutAction } from "@/store/authStore";
 import axios, { interceptors } from "axios";
 const privateApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  withCredentials: true,
 });
 
 let isRefreshing = false;
@@ -52,14 +53,13 @@ privateApi.interceptors.response.use(
       }
       originalRequest._retry = true;
       isRefreshing = true;
-      const refreshToken = authStore.refreshToken;
       try {
-        const response = await privateApi.post("/auth/refresh", {
-          token: refreshToken,
-        });
-        const newToken = response.data.token;
+        const response = await privateApi.post("/auth/refresh", {});
+        const newToken = response.accessToken;
+        const refreshToken = response.refreshToken;
         authStore.setToken(newToken);
         localStorage.setItem("jwt_token", newToken);
+        localStorage.setItem("refresh_token", refreshToken);
         processQueue(null, newToken);
         originalRequest.headers["Authorization"] = "Bearer " + newToken;
         return privateApi(originalRequest);
@@ -75,6 +75,7 @@ privateApi.interceptors.response.use(
 );
 const pulicApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  withCredentials: true,
 });
 pulicApi.interceptors.response.use(
   (response) => {

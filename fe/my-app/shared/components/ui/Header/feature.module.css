@@ -1,7 +1,26 @@
-.FeatureGrid{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    width:80%;
+.FeatureGrid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 80%;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .FeatureGrid {
+    width: 90%;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .FeatureGrid {
+    width: 100%;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 10px;
+  }
 }
