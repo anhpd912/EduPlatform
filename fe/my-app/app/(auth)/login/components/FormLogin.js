@@ -1,11 +1,11 @@
 "use client";
+import "react-toastify/dist/ReactToastify.css";
 import FormItem from "@/shared/components/ui/Form/FormItem";
-import { School } from "@mui/icons-material";
 import styles from "./form.module.css";
 import Link from "next/link";
+import { School } from "@mui/icons-material";
 import { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { useSnapshot } from "valtio";
 import { authStore, loginAction } from "@/store/authStore";
 import { AuthService } from "@/shared/services/api/Auth/AuthService";
@@ -147,7 +147,6 @@ export default function FormLogin() {
             </Link>
           </p>
         </div>
-        <ToastContainer autoClose={2000} closeButton closeOnClick />
       </form>
     </div>
   );

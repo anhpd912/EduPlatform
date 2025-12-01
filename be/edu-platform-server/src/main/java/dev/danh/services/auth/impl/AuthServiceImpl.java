@@ -83,13 +83,18 @@ public class AuthServiceImpl implements AuthService {
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new AppException(ErrorCode.INVALID_CREDENTIALS);
         } else {
-            return AuthenticationResponse.builder()
-                    .accessToken(generateToken(user))
-                    .authenticated(true)
-                    .refreshToken(generateRefreshToken(request.getRememberMe(), user, request.getDeviceInfo()))
-                    .userResponse(userMapper.toUserResponse(user))
-                    .refreshTokenDuration(request.getRememberMe() ? REFRESH_EXPIRATION_TIME_REMEMBER_ME : REFRESH_EXPIRATION_TIME)
-                    .build();
+            //If user found
+            if (user.getIsActive()) {
+                return AuthenticationResponse.builder()
+                        .accessToken(generateToken(user))
+                        .authenticated(true)
+                        .userResponse(userMapper.toUserResponse(user))
+                        .refreshToken(generateRefreshToken(false, user, request.getDeviceInfo()))
+                        .refreshTokenDuration(request.getRememberMe() ? REFRESH_EXPIRATION_TIME_REMEMBER_ME : REFRESH_EXPIRATION_TIME)
+                        .build();
+            } else {
+                throw new AppException(ErrorCode.USER_BANNED);
+            }
         }
     }
 
@@ -105,13 +110,16 @@ public class AuthServiceImpl implements AuthService {
                 .findByEmailAndProviderId(request.getEmail(), request.getProvideId())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         //If user found
-        return AuthenticationResponse.builder()
-                .accessToken(generateToken(user))
-                .authenticated(true)
-                .userResponse(userMapper.toUserResponse(user))
-                .refreshToken(generateRefreshToken(false, user, request.getDeviceInfo()))
-                .build();
-
+        if (user.getIsActive()) {
+            return AuthenticationResponse.builder()
+                    .accessToken(generateToken(user))
+                    .authenticated(true)
+                    .userResponse(userMapper.toUserResponse(user))
+                    .refreshToken(generateRefreshToken(false, user, request.getDeviceInfo()))
+                    .build();
+        } else {
+            throw new AppException(ErrorCode.USER_BANNED);
+        }
     }
 
     @Override
@@ -159,7 +167,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Transactional
     @Override
-    public Boolean logOutDevice(LogOutDeviceRequest request)  {
+    public Boolean logOutDevice(LogOutDeviceRequest request) {
         var refreshToken = refreshTokenRepository.findByToken(request.getDeviceRefreshToken()).orElseThrow(() -> new AppException(ErrorCode.INVALID_TOKEN));
         refreshTokenRepository.deleteByToken(refreshToken.getToken());
         return true;

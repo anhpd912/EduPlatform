@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 public enum ErrorCode {
-
+    USER_BANNED("User banned", HttpStatus.FORBIDDEN),
     USER_NOT_FOUND("User not found", HttpStatus.NOT_FOUND),
     USERNAME_OR_EMAIL_ALREADY_EXISTS("Username or email already exists", HttpStatus.CONFLICT),
     USERNAME_ALREADY_EXISTS("Username already exists", HttpStatus.BAD_REQUEST),
