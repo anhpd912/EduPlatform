@@ -209,6 +209,7 @@ export default function UserList() {
         </div>
       </div>
 
+      {/* Desktop Table View */}
       <div className={styles.TableWrapper}>
         <table className={styles.Table}>
           <thead>
@@ -249,6 +250,86 @@ export default function UserList() {
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* Mobile Card View */}
+      <div className={styles.MobileCardList}>
+        {filteredUsers.length === 0 ? (
+          <div className={styles.EmptyState}>
+            <People className={styles.EmptyIcon} />
+            <h3>No users found</h3>
+            <p>Try adjusting your search or filter criteria</p>
+          </div>
+        ) : (
+          filteredUsers.map((user) => (
+            <div key={user.id} className={styles.MobileCard}>
+              <div className={styles.MobileCardHeader}>
+                <img
+                  src={user.avatar || "/default-avatar.png"}
+                  alt={user.username}
+                  className={styles.MobileAvatar}
+                />
+                <div className={styles.MobileUserInfo}>
+                  <h4 className={styles.MobileUsername}>{user.username}</h4>
+                  <p className={styles.MobileEmail}>{user.email}</p>
+                </div>
+                <span
+                  className={`${styles.MobileStatus} ${
+                    user.isActive ? styles.Active : styles.Inactive
+                  }`}
+                >
+                  {user.isActive ? "Active" : "Inactive"}
+                </span>
+              </div>
+              <div className={styles.MobileCardBody}>
+                <div className={styles.MobileInfoRow}>
+                  <span className={styles.MobileLabel}>Full Name:</span>
+                  <span className={styles.MobileValue}>
+                    {user.fullName || "-"}
+                  </span>
+                </div>
+                <div className={styles.MobileInfoRow}>
+                  <span className={styles.MobileLabel}>Phone:</span>
+                  <span className={styles.MobileValue}>
+                    {user.phoneNumber || "-"}
+                  </span>
+                </div>
+                <div className={styles.MobileInfoRow}>
+                  <span className={styles.MobileLabel}>Gender:</span>
+                  <span className={styles.MobileValue}>
+                    {user.gender ? "Male" : "Female"}
+                  </span>
+                </div>
+                <div className={styles.MobileInfoRow}>
+                  <span className={styles.MobileLabel}>Provider:</span>
+                  <span className={styles.MobileProvider}>
+                    {user.authProvider || "LOCAL"}
+                  </span>
+                </div>
+              </div>
+              <div className={styles.MobileCardActions}>
+                <button
+                  className={styles.MobileViewBtn}
+                  onClick={() => handleView(user)}
+                >
+                  View
+                </button>
+                <button
+                  className={styles.MobileEditBtn}
+                  onClick={() => handleEdit(user)}
+                >
+                  Edit
+                </button>
+                <button
+                  className={styles.MobileDeleteBtn}
+                  onClick={() => handleDelete(user.id)}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))
+        )}
       </div>
 
       <div className={styles.Footer}>

@@ -57,3 +57,31 @@
   text-decoration: none;
   font-weight: bold;
 }
+
+/* Tablet */
+@media (max-width: 768px) {
+  .FormHeader {
+    padding: 30px 15px;
+  }
+  .Logo {
+    padding: 15px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .FormHeader {
+    padding: 20px 10px;
+  }
+  .FormHeader p {
+    font-size: 14px;
+  }
+  .Logo {
+    padding: 12px;
+  }
+  .FormOptions {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+}

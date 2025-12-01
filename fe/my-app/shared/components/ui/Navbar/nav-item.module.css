@@ -76,3 +76,32 @@
   background-color: #000000;
   height: 1px;
 }
+
+/* Tablet */
+@media (max-width: 768px) {
+  .NavItem a {
+    padding: 8px;
+    font-size: 13px;
+    gap: 6px;
+  }
+  .Login,
+  .Register {
+    padding: 0 10px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .NavItem a {
+    padding: 6px 8px;
+    font-size: 12px;
+    gap: 4px;
+  }
+  .Login {
+    margin-right: 6px;
+    padding: 0 8px;
+  }
+  .Register {
+    padding: 0 8px;
+  }
+}

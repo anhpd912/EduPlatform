@@ -1,7 +1,15 @@
+import { useRouter } from "next/router";
+
 export const useAuth = () => {
-  const token = localStorage.getItem("jwt_token");
-  const isAuthenticated = token ? true : false;
-  return { token, isAuthenticated };
+  const snap = useSnapshot(authStore);
+  const router = useRouter();
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (snap.isAuthenticated) {
+      let redirectPath = getRedirectPath(snap.isAuthenticated, snap.role);
+      router.push(redirectPath);
+    }
+  }, [snap.isAuthenticated, snap.role, router]);
 };
 
 export default useAuth;

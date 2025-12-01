@@ -9,10 +9,12 @@ import dev.danh.entities.dtos.request.*;
 import dev.danh.entities.dtos.response.AuthenticationResponse;
 import dev.danh.entities.dtos.response.IntrospectResponse;
 import dev.danh.entities.models.InvalidToken;
+import dev.danh.entities.models.RefreshToken;
 import dev.danh.entities.models.User;
 import dev.danh.enums.ErrorCode;
 import dev.danh.exception.AppException;
 import dev.danh.mapper.UserMapper;
+import dev.danh.repositories.auth.RefreshTokenRepository;
 import dev.danh.repositories.user.InvalidTokenRepository;
 import dev.danh.repositories.user.UserRepository;
 import dev.danh.services.auth.AuthService;
@@ -28,11 +30,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.security.MessageDigest;
 import java.text.ParseException;
-import java.time.temporal.ChronoUnit;
 import java.util.Base64;
 import java.util.Date;
 import java.util.StringJoiner;
@@ -52,17 +54,27 @@ public class AuthServiceImpl implements AuthService {
     InvalidTokenRepository invalidTokenRepository;
     UserMapper userMapper;
     UserRepository userRepository;
+    RefreshTokenRepository refreshTokenRepository;
     @Value("${jwt.secret}")
     @NonFinal
     String SECRET_KEY; // Replace with a secure key
     @Value("${jwt.expiration}")
     @NonFinal
     Long EXPIRATION_TIME; // Replace with your desired expiration time in milliseconds
+    @Value("${jwt.refresh-expiration-remember-me}")
+    @NonFinal
+    Long REFRESH_EXPIRATION_TIME_REMEMBER_ME; // Replace with your desired refresh token expiration time in milliseconds
     @Value("${jwt.refresh-expiration}")
     @NonFinal
-    Long REFRESH_EXPIRATION_TIME; // Replace with your desired refresh token expiration time in milliseconds
+    Long REFRESH_EXPIRATION_TIME;
 
     @Override
+    /**
+     * Authenticates a user with the provided username and password.
+     * @param request The authentication request containing username and password.
+     * @return An AuthenticationResponse containing the access token, refresh token, and user details.
+     * @throws AppException if the user is not found or credentials are invalid.
+     */
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
 
@@ -72,28 +84,43 @@ public class AuthServiceImpl implements AuthService {
             throw new AppException(ErrorCode.INVALID_CREDENTIALS);
         } else {
             return AuthenticationResponse.builder()
-                    .token(generateToken(user))
+                    .accessToken(generateToken(user))
                     .authenticated(true)
+                    .refreshToken(generateRefreshToken(request.getRememberMe(), user, request.getDeviceInfo()))
                     .userResponse(userMapper.toUserResponse(user))
+                    .refreshTokenDuration(request.getRememberMe() ? REFRESH_EXPIRATION_TIME_REMEMBER_ME : REFRESH_EXPIRATION_TIME)
                     .build();
         }
     }
 
     @Override
+    /**
+     * Authenticates a user using Google credentials.
+     * @param request The authentication request containing Google email and provider ID.
+     * @return An AuthenticationResponse containing the access token, refresh token, and user details.
+     * @throws AppException if the user is not found.
+     */
     public AuthenticationResponse authenticate(AuthenticationGoogleRequest request) {
         User user = userRepository
                 .findByEmailAndProviderId(request.getEmail(), request.getProvideId())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         //If user found
         return AuthenticationResponse.builder()
-                .token(generateToken(user))
+                .accessToken(generateToken(user))
                 .authenticated(true)
                 .userResponse(userMapper.toUserResponse(user))
+                .refreshToken(generateRefreshToken(false, user, request.getDeviceInfo()))
                 .build();
 
     }
 
     @Override
+    /**
+     * Initiates the password reset process for a given email.
+     * @param email The email of the user requesting a password reset.
+     * @return True if the reset email was sent successfully, false otherwise.
+     * @throws MessagingException if there is an error sending the email.
+     */
     public Boolean resetPassword(String email) throws MessagingException {
         //Generate reset link
         User user = userRepository.findByEmail(email)
@@ -104,11 +131,17 @@ public class AuthServiceImpl implements AuthService {
         userRepository.save(user);
         //Send email
         String resetLink = generateResetLink(token);
-        mailService.sendMail(user.getFullName(), resetLink, user.getEmail(),"Reset your password");
+        mailService.sendMail(user.getFullName(), resetLink, user.getEmail(), "Reset your password");
         return true;
     }
 
     @Override
+    /**
+     * Updates the user's password using a reset token.
+     * @param token The reset token received by the user.
+     * @param newPassword The new password to set.
+     * @return True if the password was updated successfully, false otherwise.
+     */
     public Boolean updatePassword(String token, String newPassword) {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         //Verify token
@@ -123,12 +156,26 @@ public class AuthServiceImpl implements AuthService {
         return false;
     }
 
+
+    @Transactional
     @Override
+    public Boolean logOutDevice(LogOutDeviceRequest request)  {
+        var refreshToken = refreshTokenRepository.findByToken(request.getDeviceRefreshToken()).orElseThrow(() -> new AppException(ErrorCode.INVALID_TOKEN));
+        refreshTokenRepository.deleteByToken(refreshToken.getToken());
+        return true;
+    }
+
+    @Override
+    /**
+     * Introspects an access token to check its validity.
+     * @param request The introspect request containing the access token.
+     * @return An IntrospectResponse indicating whether the token is valid.
+     */
     public IntrospectResponse introspect(IntrospectRequest request) {
         Boolean valid = true;
         String token = request.getToken();
         try {
-            var signedJWT = verifyToken(token, false);
+            var signedJWT = verifyToken(token);
         } catch (AppException e) {
             valid = false;
         }
@@ -138,9 +185,13 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void logout(LogoutRequest token) {
+    /**
+     * Logs out a user by invalidating their access token and refresh token.
+     * @param request The logout request containing the access token and refresh token.
+     */
+    public void logout(LogoutRequest request) {
         try {
-            var verifyToken = verifyToken(token.getToken(), true);
+            var verifyToken = verifyToken(request.getAccessToken());
             String jid = verifyToken.getJWTClaimsSet().getJWTID();
             Date expiryDate = verifyToken.getJWTClaimsSet().getExpirationTime();
             InvalidToken invalidToken = InvalidToken.builder()
@@ -149,6 +200,7 @@ public class AuthServiceImpl implements AuthService {
                     .build();
             //save expireDate token to db
             invalidTokenRepository.save(invalidToken);
+            refreshTokenRepository.deleteById(request.getRefreshToken());
         } catch (AppException | ParseException e) {
             log.info("Token already invalidated");
         }
@@ -156,38 +208,51 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AuthenticationResponse refreshToken(RefreshRequest request) throws ParseException {
-        var signedJWT = verifyToken(request.getToken(), true);
-
-        InvalidToken invalidToken = InvalidToken.builder()
-                .id(signedJWT.getJWTClaimsSet().getJWTID())
-                .expiryTime(signedJWT.getJWTClaimsSet().getExpirationTime())
-                .build();
-        invalidTokenRepository.save(invalidToken);
-        // Retrieve user from the database using the subject of the JWT
-
-        User user = userRepository.findByUsername(signedJWT.getJWTClaimsSet().getSubject())
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+    /**
+     * Refreshes an access token using a refresh token.
+     * @param token The refresh token.
+     * @return An AuthenticationResponse containing a new access token, a new refresh token, and user details.
+     * @throws ParseException if there is an error parsing the token.
+     */
+    @Transactional
+    public AuthenticationResponse refreshToken(String token) throws ParseException {
+        var oldRefreshToken = refreshTokenRepository.findById(token).orElseThrow(() -> {
+            throw new AppException(ErrorCode.INVALID_TOKEN);
+        });
+        refreshTokenRepository.deleteByToken(token);
+        // Retrieve user from the user id in old refresh token
+        UUID userId = oldRefreshToken.getUserId();
+        String refreshToken = UUID.randomUUID().toString();
+        refreshTokenRepository.save(RefreshToken.builder()
+                .token(refreshToken)
+                .userId(userId)
+                .expiryDate(new Date(System.currentTimeMillis() + REFRESH_EXPIRATION_TIME_REMEMBER_ME))
+                .build()
+        );
+        User user = userRepository.findById(oldRefreshToken.getUserId()).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         return AuthenticationResponse.builder()
-                .token(generateToken(user))
+                .accessToken(generateToken(user))
                 .authenticated(true)
                 .userResponse(userMapper.toUserResponse(user))
+                .refreshToken(refreshToken)
                 .build();
 
     }
 
 
-    public SignedJWT verifyToken(String token, boolean refresh) {
+    /**
+     * Verifies the authenticity and validity of a signed JWT.
+     *
+     * @param token The signed JWT string.
+     * @return The verified SignedJWT object.
+     * @throws AppException if the token is invalid or verification fails.
+     */
+    public SignedJWT verifyToken(String token) {
         try {
             SignedJWT signedJWT = SignedJWT.parse(token);
             JWSVerifier verifier = new MACVerifier(SECRET_KEY.getBytes());
             var isValid = signedJWT.verify(verifier);
-            Date expirationTime = refresh ?
-                    new Date(signedJWT
-                            .getJWTClaimsSet()
-                            .getExpirationTime()
-                            .toInstant().plus(REFRESH_EXPIRATION_TIME, ChronoUnit.SECONDS).toEpochMilli())
-                    :
+            Date expirationTime =
                     signedJWT
                             .getJWTClaimsSet()
                             .getExpirationTime();
@@ -202,6 +267,12 @@ public class AuthServiceImpl implements AuthService {
     }
 
 
+    /**
+     * Generates a new access token for the given user.
+     *
+     * @param user The user for whom to generate the token.
+     * @return The generated JWT access token string.
+     */
     private String generateToken(User user) {
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS256);
 
@@ -223,8 +294,34 @@ public class AuthServiceImpl implements AuthService {
         return jwsObject.serialize();
     }
 
+    /**
+     * Generates a new refresh token for the given user.
+     *
+     * @param rememberMe A boolean indicating whether the "remember me" option is selected, affecting token expiration.
+     * @param user       The user for whom to generate the refresh token.
+     * @return The generated refresh token string.
+     */
+    private String generateRefreshToken(Boolean rememberMe, User user, String deviceInfo) {
+        String refreshToken = UUID.randomUUID().toString();
+        Date expiryDate = rememberMe ?
+                new Date(System.currentTimeMillis() + REFRESH_EXPIRATION_TIME_REMEMBER_ME)
+                : new Date(System.currentTimeMillis() + REFRESH_EXPIRATION_TIME);
+        refreshTokenRepository.save(RefreshToken.builder()
+                .token(refreshToken)
+                .userId(user.getId())
+                .expiryDate(expiryDate)
+                .deviceInfo(deviceInfo)
+                .build()
+        );
+        return refreshToken;
+    }
 
-    //tao scope cho token
+    /**
+     * Builds the scope string for a JWT based on the user's roles and permissions.
+     *
+     * @param user The user object containing roles and permissions.
+     * @return A space-separated string of roles and permissions.
+     */
     private String buildScope(User user) {
         StringJoiner stringJoiner = new StringJoiner(" ");
         if (user.getRoles() != null && !user.getRoles().isEmpty()) {
@@ -239,10 +336,23 @@ public class AuthServiceImpl implements AuthService {
         return stringJoiner.toString();
     }
 
+    /**
+     * Generates a password reset link using the provided token.
+     *
+     * @param token The reset token.
+     * @return The complete password reset URL.
+     */
     private String generateResetLink(String token) {
         return URL_FRONTEND + "/reset-password?token=" + token;
     }
 
+    /**
+     * Hashes a given token using SHA-256.
+     *
+     * @param token The token string to hash.
+     * @return The Base64 encoded SHA-256 hash of the token.
+     * @throws RuntimeException if there is an error during hashing.
+     */
     private String hashToken(String token) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");

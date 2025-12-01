@@ -1,10 +1,31 @@
 .Footer {
   display: flex;
-  position: absolute;
+  position: relative;
   width: 100%;
   justify-content: center;
   align-items: center;
   height: 60px;
   background-color: white;
   margin-top: 40px;
+  padding: 0 20px;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .Footer {
+    height: 50px;
+    margin-top: 30px;
+    font-size: 14px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .Footer {
+    height: auto;
+    padding: 15px 10px;
+    margin-top: 20px;
+    font-size: 12px;
+    text-align: center;
+  }
 }

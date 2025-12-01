@@ -1,13 +1,13 @@
 import { pulicApi, privateApi } from "../../axios/AxiosClient";
 export const AuthService = {
   login: (data) => {
-    return pulicApi.post("/auth/token", data);
+    return pulicApi.post("/auth/login", data);
   },
-  logout: (data) => {
+  logout: () => {
     return privateApi.post("/auth/logout");
   },
-  refreshToken: (data) => {
-    return privateApi.post("/auth/refresh", data);
+  refreshToken: () => {
+    return privateApi.post("/auth/refresh");
   },
   register: (data) => {
     return pulicApi.post("/users/create", data);

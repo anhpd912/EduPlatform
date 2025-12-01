@@ -16,3 +16,19 @@
   background-color: #f5f7fa;
   min-height: calc(100vh - 81px);
 }
+
+/* Tablet */
+@media (max-width: 768px) {
+  .MainContent {
+    padding: 20px;
+    padding-left: 60px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .MainContent {
+    padding: 15px;
+    padding-left: 15px;
+  }
+}

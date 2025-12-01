@@ -1,13 +1,34 @@
-
-.Logo{
-    display: flex;
-    align-items: center;
-    margin-right: auto;
-    padding: 0 16px;
+.Logo {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+  padding: 0 16px;
 }
-.LogoText{
-    font-size: 24px;
-    font-weight: bold;
-    margin-left: 8px;
-    color : #000
+.LogoText {
+  font-size: 24px;
+  font-weight: bold;
+  margin-left: 8px;
+  color: #000;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .Logo {
+    padding: 0 10px;
+  }
+  .LogoText {
+    font-size: 20px;
+    margin-left: 6px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .Logo {
+    padding: 0 8px;
+  }
+  .LogoText {
+    font-size: 16px;
+    margin-left: 4px;
+  }
 }

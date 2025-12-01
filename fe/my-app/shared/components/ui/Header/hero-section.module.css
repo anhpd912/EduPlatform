@@ -1,33 +1,81 @@
 .HeroSection {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
 }
-.Logo{
-    width: fit-content;
-    height: fit-content;
-    background-color: rgb(96, 81, 230);
-    border-radius: 50%;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
+.Logo {
+  width: fit-content;
+  height: fit-content;
+  background-color: rgb(96, 81, 230);
+  border-radius: 50%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
 }
-.TextContent{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+.TextContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+.ButtonGroup {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+.SignInButton {
+  background-color: white;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .HeroSection {
+    padding: 30px 15px;
+  }
+  .Logo {
+    padding: 15px;
+  }
+  .TextContent {
+    gap: 8px;
+  }
+  .TextContent h1 {
+    font-size: 28px;
+  }
+  .TextContent p {
+    font-size: 14px;
+  }
+  .ButtonGroup {
     gap: 10px;
+  }
 }
-.ButtonGroup{
-    display: flex;
-    gap: 15px;
-    margin-top: 20px;
- 
+
+/* Mobile */
+@media (max-width: 480px) {
+  .HeroSection {
+    padding: 20px 10px;
+  }
+  .Logo {
+    padding: 12px;
+  }
+  .TextContent h1 {
+    font-size: 22px;
+  }
+  .TextContent p {
+    font-size: 13px;
+    padding: 0 10px;
+  }
+  .ButtonGroup {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+  .ButtonGroup button,
+  .ButtonGroup a {
+    width: 100%;
+    text-align: center;
+  }
 }
-.SignInButton{
-    background-color: white;
- }
