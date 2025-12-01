@@ -1,5 +1,17 @@
 import { authStore, logoutAction } from "@/store/authStore";
 import axios, { interceptors } from "axios";
+const pulicApi = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+  withCredentials: true,
+});
+pulicApi.interceptors.response.use(
+  (response) => {
+    return response.data;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 const privateApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   withCredentials: true,
@@ -54,7 +66,7 @@ privateApi.interceptors.response.use(
       originalRequest._retry = true;
       isRefreshing = true;
       try {
-        const response = await privateApi.post("/auth/refresh", {});
+        const response = await pulicApi.post("/auth/refresh", {});
         const newToken = response.accessToken;
         const refreshToken = response.refreshToken;
         authStore.setToken(newToken);
@@ -64,8 +76,17 @@ privateApi.interceptors.response.use(
         originalRequest.headers["Authorization"] = "Bearer " + newToken;
         return privateApi(originalRequest);
       } catch (err) {
-        processQueue(err, null);
+        processQueue(err, null); // Hủy các request đang chờ
+
+        // 1. Xóa sạch token ở LocalStorage để tránh loop vô tận
+        localStorage.removeItem("jwt_token");
+        localStorage.removeItem("refresh_token");
+
         logoutAction();
+
+        window.location.href =
+          "/login?message=Session expired. Please log in again.";
+
         return Promise.reject(err);
       } finally {
         isRefreshing = false;
@@ -73,16 +94,5 @@ privateApi.interceptors.response.use(
     }
   }
 );
-const pulicApi = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-  withCredentials: true,
-});
-pulicApi.interceptors.response.use(
-  (response) => {
-    return response.data;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+
 export { privateApi, pulicApi };

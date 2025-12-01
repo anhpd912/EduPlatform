@@ -2,7 +2,6 @@ package dev.danh.configs;
 
 import dev.danh.services.auth.impl.Oauth2ServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -56,11 +55,14 @@ public class SercurityConfig {
                 .failureHandler(oAuth2AuthenticationFailureHandler)
         );
         http.oauth2ResourceServer(oauth2 ->
-                oauth2.jwt(jwtConfigurer -> jwtConfigurer
-                        .decoder(customJwtDecoder)
-                        .jwtAuthenticationConverter(jwtAuthenticationConverter()
-                        )).authenticationEntryPoint(new JWTAuthenticationEntryPoint())
-        );
+                        oauth2.jwt(jwtConfigurer -> jwtConfigurer
+                                .decoder(customJwtDecoder)
+                                .jwtAuthenticationConverter(jwtAuthenticationConverter()
+                                )).authenticationEntryPoint(new JWTAuthenticationEntryPoint())
+                )
+                .exceptionHandling(e -> {
+                    e.authenticationEntryPoint(new JWTAuthenticationEntryPoint());
+                });
 
         http.csrf(AbstractHttpConfigurer::disable);
         return http.build();

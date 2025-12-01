@@ -113,7 +113,13 @@ public class AuthController {
          * @throws ParseException If there is an error parsing the token.
          */
         var response = authService.refreshToken(token);
-        ResponseCookie cookie = ResponseCookie.from("refreshToken", response.getRefreshToken()).build();
+        ResponseCookie cookie = ResponseCookie.from("refreshToken", response.getRefreshToken())
+                .httpOnly(true)
+                .secure(ENABLE_SECURE)
+                .path("/")
+                .maxAge(response.getRefreshTokenDuration())
+                .sameSite("Lax")
+                .build();
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, cookie.toString())
@@ -165,9 +171,10 @@ public class AuthController {
                 .statusCode(result ? 200 : 400)
                 .build());
     }
+
     @PostMapping("logout-device")
-    public ResponseEntity<APIResponse> logoutDevice(@RequestHeader("Authorization") String authHeader, @RequestBody LogOutDeviceRequest request){
-       Boolean result =  authService.logOutDevice(request);
+    public ResponseEntity<APIResponse> logoutDevice(@RequestHeader("Authorization") String authHeader, @RequestBody LogOutDeviceRequest request) {
+        Boolean result = authService.logOutDevice(request);
         return ResponseEntity.ok(APIResponse.builder()
                 .message(result ? "Device logout successfully" : "Device logout failed")
                 .statusCode(result ? 200 : 400)
