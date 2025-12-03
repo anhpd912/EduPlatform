@@ -21,7 +21,7 @@ public enum ErrorCode {
     UNAUTHENTICATED("You do not have access to this api", HttpStatus.FORBIDDEN),
     FORBIDDEN("Forbidden", HttpStatus.FORBIDDEN),
     INVALID_TOKEN("Invalid token", HttpStatus.UNAUTHORIZED),
-    SEND_MAIL_FAILED("Send email failed", HttpStatus.INTERNAL_SERVER_ERROR);
+    SEND_MAIL_FAILED("Send email failed", HttpStatus.INTERNAL_SERVER_ERROR), ROLE_NOT_FOUND("Role not found in system",HttpStatus.BAD_REQUEST );
     private String message;
     private HttpStatus httpStatus;
 

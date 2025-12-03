@@ -1,10 +1,10 @@
 import { authStore, logoutAction } from "@/store/authStore";
 import axios, { interceptors } from "axios";
-const pulicApi = axios.create({
+const publicApi = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   withCredentials: true,
 });
-pulicApi.interceptors.response.use(
+publicApi.interceptors.response.use(
   (response) => {
     return response.data;
   },
@@ -66,7 +66,7 @@ privateApi.interceptors.response.use(
       originalRequest._retry = true;
       isRefreshing = true;
       try {
-        const response = await pulicApi.post("/auth/refresh", {});
+        const response = await publicApi.post("/auth/refresh", {});
         const newToken = response.accessToken;
         const refreshToken = response.refreshToken;
         authStore.setToken(newToken);
@@ -95,4 +95,4 @@ privateApi.interceptors.response.use(
   }
 );
 
-export { privateApi, pulicApi };
+export { privateApi, publicApi };

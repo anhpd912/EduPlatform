@@ -11,3 +11,4 @@ export const GENDERS = [
   { value: true, label: "Male" },
   { value: false, label: "Female" },
 ];
+export const BASE_BACKEND_URL = process.env.NEXT_PUBLIC_API_BASE_URL;

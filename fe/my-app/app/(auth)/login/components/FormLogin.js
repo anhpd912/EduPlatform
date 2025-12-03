@@ -3,7 +3,7 @@ import "react-toastify/dist/ReactToastify.css";
 import FormItem from "@/shared/components/ui/Form/FormItem";
 import styles from "./form.module.css";
 import Link from "next/link";
-import { School } from "@mui/icons-material";
+import { Google, School } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useSnapshot } from "valtio";
@@ -12,17 +12,21 @@ import { AuthService } from "@/shared/services/api/Auth/AuthService";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getRedirectPath } from "@/shared/utils/authHelpers";
 import { useDeviceInfo } from "@/hooks/useDeviceInfo";
+import { BASE_BACKEND_URL } from "@/shared/constants/constants";
+import { UserService } from "@/shared/services/api/User/UserService";
 export default function FormLogin() {
+  const snap = useSnapshot(authStore);
   const deviceInfo = useDeviceInfo();
   const searchParams = useSearchParams();
+  const router = useRouter();
   const message = searchParams.get("message");
+  const token = searchParams.get("token");
+  const errorMsg = searchParams.get("error");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(errorMsg || null);
   const [loading, setLoading] = useState(false);
-  const snap = useSnapshot(authStore);
-  const router = useRouter();
   // Redirect if already authenticated
   useEffect(() => {
     if (snap.isAuthenticated) {
@@ -46,8 +50,42 @@ export default function FormLogin() {
         draggable: true,
       });
     }
-  }, [message]);
+    if (errorMsg) {
+      setError(errorMsg);
+    }
+    if (token) {
+      console.log("Token received:", token);
+      authStore.jwtToken = token;
+      const response = UserService.getProfile();
+      response.then((res) => {
+        if (res.statusCode === 200) {
+          loginAction(token, null, res.data.username, res.data.roles[0].name);
+          console.log(res.data);
+        }
+      });
+    }
+  }, [message, errorMsg, token]);
 
+  /**
+   * Async handler for the login form submit event.
+   *
+   * @async
+   * @param {React.FormEvent<HTMLFormElement> | Event} e - The submit event; used to prevent default browser submission.
+   * @returns {Promise<void>} A promise that resolves when the login flow completes and the loading state is reset.
+   *
+   * @sideEffects
+   * - Prevents default form submission.
+   * - Sets local loading state via setLoading(true/false).
+   * - Clears or sets error state via setError.
+   * - Logs deviceInfo to the console.
+   * - Calls AuthService.login with the current username, password, rememberMe flag and deviceInfo (falls back to "Unknown Device").
+   * - On success (response.statusCode === 200) dispatches loginAction with accessToken, refreshToken, username and primary role name.
+   * - On failure updates error state with response.message or the caught error payload (err.response?.data?.message).
+   *
+   * @notes
+   * - The function uses outer-scope values: username, password, rememberMe, deviceInfo, setLoading, setError, AuthService, and loginAction.
+   * - Exceptions from AuthService.login are caught and converted to UI state; the function does not rethrow.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -80,6 +118,10 @@ export default function FormLogin() {
     } finally {
       setLoading(false);
     }
+  };
+  const handleLoginGoogle = async (e) => {
+    e.preventDefault();
+    window.location.href = BASE_BACKEND_URL + "/auth/login/google";
   };
   return (
     <div className={styles.FormLogin}>
@@ -136,6 +178,14 @@ export default function FormLogin() {
         <div className={styles.FormButton}>
           <button onClick={handleSubmit} disabled={loading} type="submit">
             {loading ? "Logging in..." : "Login"}
+          </button>
+          <button
+            onClick={handleLoginGoogle}
+            disabled={loading}
+            type="submit"
+            className={styles.LoginGoogleButton}
+          >
+            Login with Google <Google />
           </button>
           {error && <span style={{ color: "red" }}>{error}</span>}
         </div>

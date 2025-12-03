@@ -1,0 +1,261 @@
+.FormComplete {
+  width: 100%;
+}
+
+.FormHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.Logo {
+  width: fit-content;
+  height: fit-content;
+  background-color: rgb(96, 81, 230);
+  border-radius: 50%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.Title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1140a7;
+  margin: 0 0 8px 0;
+}
+
+.Subtitle {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+}
+
+.FormBody {
+  padding: 0 20px 20px;
+}
+
+.RoleContainer {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.RoleCard {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  background: white;
+}
+
+.RoleCard:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.RoleCard.Selected {
+  box-shadow: 0 4px 16px rgba(74, 144, 226, 0.2);
+}
+
+.RoleIcon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+}
+
+.RoleName {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 8px 0;
+}
+
+.RoleDescription {
+  font-size: 13px;
+  color: #64748b;
+  text-align: center;
+  margin: 0 0 16px 0;
+  line-height: 1.4;
+}
+
+.RadioCircle {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #cbd5e1;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.RadioCheck {
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.FormButton {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.FormButton button {
+  width: 100%;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.FormButton button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+}
+
+.FormButton button:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.FormFooter {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.FormFooter p {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.LoginLink {
+  color: rgb(96, 52, 255);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.LoginLink:hover {
+  text-decoration: underline;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .FormHeader {
+    padding: 25px 15px;
+  }
+
+  .Logo {
+    padding: 15px;
+  }
+
+  .Title {
+    font-size: 22px;
+  }
+
+  .RoleContainer {
+    gap: 12px;
+  }
+
+  .RoleCard {
+    padding: 20px 12px;
+  }
+
+  .RoleIcon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .RoleName {
+    font-size: 16px;
+  }
+
+  .RoleDescription {
+    font-size: 12px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .FormHeader {
+    padding: 20px 10px;
+  }
+
+  .Logo {
+    padding: 12px;
+  }
+
+  .Title {
+    font-size: 20px;
+  }
+
+  .Subtitle {
+    font-size: 13px;
+  }
+
+  .FormBody {
+    padding: 0 15px 15px;
+  }
+
+  .RoleContainer {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .RoleCard {
+    flex-direction: row;
+    padding: 16px;
+    gap: 16px;
+    text-align: left;
+  }
+
+  .RoleIcon {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .RoleCard > div:nth-child(2),
+  .RoleName,
+  .RoleDescription {
+    text-align: left;
+  }
+
+  .RoleCard {
+    position: relative;
+  }
+
+  .RadioCircle {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+  }
+
+  .FormButton button {
+    padding: 12px 20px;
+    font-size: 15px;
+  }
+}

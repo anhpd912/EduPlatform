@@ -1,0 +1,55 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #e9f0ff;
+  width: 100%;
+  padding: 10px;
+  min-height: 100vh;
+}
+.LoginContainer {
+  width: 90%;
+  max-width: 600px;
+  background-color: white;
+  padding: 15px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+.ButtonGroup {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .Container {
+    padding: 15px;
+  }
+  .LoginContainer {
+    width: 95%;
+    padding: 15px;
+  }
+  .ButtonGroup {
+    width: 95%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .Container {
+    padding: 10px;
+  }
+  .LoginContainer {
+    width: 100%;
+    padding: 12px;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .ButtonGroup {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+}

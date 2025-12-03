@@ -2,18 +2,20 @@
 import NavBar from "@/shared/components/ui/Navbar/navbar";
 import Sidebar from "@/shared/components/ui/Sidebar/sidebar";
 import styles from "./layout.module.css";
-import UserList from "./users/components/UserList";
+import { RequiredAuth } from "@/shared/components/ui/RequiredAuth/requiredauth";
 
 export default function LayoutAdminPage({ children }) {
   return (
-    <div className={styles.LayoutContainer}>
-      <nav>
-        <NavBar />
-      </nav>
-      <div className={styles.ContentWrapper}>
-        <Sidebar />
-        <main className={styles.MainContent}>{children}</main>
+    <RequiredAuth allowedRoles={["ADMIN"]}>
+      <div className={styles.LayoutContainer}>
+        <nav>
+          <NavBar />
+        </nav>
+        <div className={styles.ContentWrapper}>
+          <Sidebar />
+          <main className={styles.MainContent}>{children}</main>
+        </div>
       </div>
-    </div>
+    </RequiredAuth>
   );
 }

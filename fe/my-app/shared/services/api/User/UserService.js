@@ -1,4 +1,4 @@
-import { privateApi } from "../../axios/AxiosClient";
+import { privateApi, publicApi } from "../../axios/AxiosClient";
 
 export const UserService = {
   getUsers: () => {
@@ -12,5 +12,8 @@ export const UserService = {
   },
   getProfile: () => {
     return privateApi.get("/users/myProfile");
+  },
+  completeRegistration: (data) => {
+    return publicApi.post(`/users/complete-register`, data);
   },
 };

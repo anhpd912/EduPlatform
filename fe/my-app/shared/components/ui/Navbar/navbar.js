@@ -7,14 +7,23 @@ import { authStore, logoutAction } from "@/store/authStore";
 import { AccountCircle, Logout, Settings, Person } from "@mui/icons-material";
 import Link from "next/link";
 import { AuthService } from "@/shared/services/api/Auth/AuthService";
+import { useEffect } from "react";
 
 export default function NavBar() {
   const { isAuthenticated } = useSnapshot(authStore);
   const { username } = useSnapshot(authStore);
+  const { refreshToken } = useSnapshot(authStore);
   const { role } = useSnapshot(authStore);
   const handleLogOut = async () => {
     Promise.resolve(AuthService.logout()).then(() => logoutAction());
   };
+  useEffect(() => {
+    // Debugging logs
+    console.log("NavBar - isAuthenticated:", isAuthenticated);
+    console.log("NavBar - username:", username);
+    console.log("NavBar - role:", role);
+    console.log("NavBar - refreshToken:", refreshToken);
+  }, [isAuthenticated, username, role, refreshToken]);
   return (
     <div>
       <ul className={styles.NavBar}>

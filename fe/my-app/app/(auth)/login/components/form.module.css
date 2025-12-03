@@ -34,6 +34,28 @@
   padding: 10px 20px;
   color: white;
 }
+.FormButton .LoginGoogleButton {
+  background: white;
+  color: black;
+  margin-top: 10px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 20px;
+  border: 1px solid #ccc9c9;
+  border-radius: 6px;
+}
+.FormButton .LoginGoogleButton .Logo {
+  margin-bottom: 0;
+  width: 28px;
+  height: 28px;
+  padding: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .FormOptions {
   display: flex;

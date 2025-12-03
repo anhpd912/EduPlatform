@@ -115,7 +115,7 @@ public class AuthServiceImpl implements AuthService {
                     .accessToken(generateToken(user))
                     .authenticated(true)
                     .userResponse(userMapper.toUserResponse(user))
-                    .refreshToken(generateRefreshToken(false, user, request.getDeviceInfo()))
+                    .refreshToken(generateRefreshToken(true, user, request.getDeviceInfo()))
                     .build();
         } else {
             throw new AppException(ErrorCode.USER_BANNED);
