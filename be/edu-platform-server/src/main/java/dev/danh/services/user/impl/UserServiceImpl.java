@@ -1,5 +1,6 @@
 package dev.danh.services.user.impl;
 
+import dev.danh.entities.dtos.request.CompleteRegisterRequest;
 import dev.danh.entities.dtos.request.UserCreateRequest;
 import dev.danh.entities.dtos.request.UserUpdateRequest;
 import dev.danh.entities.dtos.response.UserResponse;
@@ -24,6 +25,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -49,11 +51,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponse createUser(UserCreateRequest userCreateRequest) {
         boolean checkExistByEmail = userRepository.existsByEmail(userCreateRequest.getEmail());
-        if(checkExistByEmail){
+        if (checkExistByEmail) {
             throw new AppException(ErrorCode.EMAIL_ALREADY_EXISTS);
         }
         boolean checkExistByUsername = userRepository.existsByUsername(userCreateRequest.getUsername());
-        if(checkExistByUsername){
+        if (checkExistByUsername) {
             throw new AppException(ErrorCode.USERNAME_ALREADY_EXISTS);
         }
         User user = new User();
@@ -77,7 +79,7 @@ public class UserServiceImpl implements UserService {
             user.setTeacher(teacher);
         }
         user.setAuthProvider(AuthProvider.LOCAL);
-        log.info("user create: "+user.getFullName());
+        log.info("user create: " + user.getFullName());
         try {
             userRepository.save(user);
         } catch (DataIntegrityViolationException e) {
@@ -136,5 +138,32 @@ public class UserServiceImpl implements UserService {
         return userMapper.toUserResponse(user);
     }
 
+    @Override
+    public Boolean completeRegister(CompleteRegisterRequest userUpdateRequest) {
+        // 1. Tìm user và role từ database
+        User user = userRepository.findById(userUpdateRequest.getUserId())
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        Role roleToAdd = roleRepository.findById(userUpdateRequest.getRoleName())
+                .orElseThrow(() -> new AppException(ErrorCode.ROLE_NOT_FOUND)); // Nên có ErrorCode riêng cho Role
+
+        // 2. Lấy ra danh sách các vai trò hiện tại của user
+        Set<Role> currentRoles = user.getRoles();
+
+        // 3. TẠO MỘT BẢN SAO CÓ THỂ THAY ĐỔI từ danh sách hiện tại
+        // Đây là bước quan trọng nhất để tránh lỗi và giữ lại các vai trò cũ
+        Set<Role> mutableRoles = new HashSet<>(currentRoles);
+
+        // 4. Thêm vai trò mới vào BẢN SAO
+        mutableRoles.add(roleToAdd);
+
+        // 5. Set lại danh sách vai trò đã được cập nhật cho user
+        user.setRoles(mutableRoles);
+
+        // 6. Lưu lại user. Do có @Transactional, Hibernate sẽ tự động phát hiện
+        // sự thay đổi trong collection và cập nhật bảng user_roles.
+        // Việc gọi save() ở đây để rõ ràng cũng không sao.
+        userRepository.save(user);
+        return true;
+    }
 
 }

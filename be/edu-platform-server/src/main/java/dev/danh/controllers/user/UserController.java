@@ -1,6 +1,7 @@
 package dev.danh.controllers.user;
 
 import dev.danh.controllers.websocket.UpdateController;
+import dev.danh.entities.dtos.request.CompleteRegisterRequest;
 import dev.danh.entities.dtos.request.UserCreateRequest;
 import dev.danh.entities.dtos.request.UserUpdateRequest;
 import dev.danh.entities.dtos.response.APIResponse;
@@ -34,7 +35,7 @@ public class UserController {
         );
     }
 
-    
+
     @PostMapping("/create")
     public ResponseEntity<APIResponse> createUser(@RequestBody UserCreateRequest userCreateRequest) {
         var user = userService.createUser(userCreateRequest);
@@ -54,7 +55,7 @@ public class UserController {
         return ResponseEntity.ok(
                 APIResponse.builder()
                         .message("User updated successfully")
-                        .data(userService.updateUser(id,userUpdateRequest))
+                        .data(userService.updateUser(id, userUpdateRequest))
                         .build()
         );
     }
@@ -73,7 +74,7 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<APIResponse> deleteUser(@PathVariable UUID id) {
-      var deletedUser =   userService.deleteUser(id);
+        var deletedUser = userService.deleteUser(id);
         // Send the user deletion event to the WebSocket topic
         updateController.sendUpdate(deletedUser);
         return ResponseEntity.ok(
@@ -83,6 +84,7 @@ public class UserController {
                         .build()
         );
     }
+
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/activate/{id}")
     public ResponseEntity<APIResponse> activateUser(@PathVariable UUID id) {
@@ -95,12 +97,26 @@ public class UserController {
                         .build()
         );
     }
+
     @GetMapping("/myProfile")
     public ResponseEntity<APIResponse> getMyProfile() {
         return ResponseEntity.ok(
                 APIResponse.builder()
                         .message("User retrieved successfully")
                         .data(userService.getMyProfile())
+                        .statusCode(200)
+                        .build()
+        );
+    }
+
+    @PostMapping("/complete-register")
+    public ResponseEntity<APIResponse> completeRegister(@RequestBody CompleteRegisterRequest userUpdateRequest) {
+       boolean result = userService.completeRegister(userUpdateRequest);
+        return ResponseEntity.ok(
+                APIResponse.builder()
+                        .message("User completed register successfully")
+                        .data(result ? "Registration Completed" : "Registration Failed")
+                        .statusCode(result ? 200 : 400)
                         .build()
         );
     }

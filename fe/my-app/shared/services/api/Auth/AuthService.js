@@ -1,7 +1,7 @@
-import { pulicApi, privateApi } from "../../axios/AxiosClient";
+import { publicApi, privateApi } from "../../axios/AxiosClient";
 export const AuthService = {
   login: (data) => {
-    return pulicApi.post("/auth/login", data);
+    return publicApi.post("/auth/login", data);
   },
   logout: () => {
     return privateApi.post("/auth/logout");
@@ -10,12 +10,12 @@ export const AuthService = {
     return privateApi.post("/auth/refresh");
   },
   register: (data) => {
-    return pulicApi.post("/users/create", data);
+    return publicApi.post("/users/create", data);
   },
   resetPassword: (data) => {
-    return pulicApi.get("/auth/reset-password", { params: data });
+    return publicApi.get("/auth/reset-password", { params: data });
   },
   changePassword: (data) => {
-    return pulicApi.post("/auth/reset-password", data);
+    return publicApi.post("/auth/reset-password", data);
   },
 };

@@ -1,5 +1,6 @@
 package dev.danh.services.user;
 
+import dev.danh.entities.dtos.request.CompleteRegisterRequest;
 import dev.danh.entities.dtos.request.UserCreateRequest;
 import dev.danh.entities.dtos.request.UserUpdateRequest;
 import dev.danh.entities.dtos.response.UserResponse;
@@ -18,4 +19,6 @@ public interface UserService {
     UserResponse getUserByEmail(String email);
     UserResponse activateUser(UUID userId);
     UserResponse getMyProfile();
+
+    Boolean completeRegister(CompleteRegisterRequest userUpdateRequest);
 }

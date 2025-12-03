@@ -24,7 +24,7 @@ import java.util.List;
 @EnableWebSecurity
 @Configuration
 public class SercurityConfig {
-    private static final String[] PATH_WHITELIST = {"/auth/**", "/users/create", "/ws/**", "/oauth2/**"};
+    private static final String[] PATH_WHITELIST = {"/auth/**", "/users/create", "/ws/**", "/oauth2/**","/users/complete-register/**"};
     private static final String[] PATH_ADMIN = {"/users/delete/**", "/users/update/**", "/users/getAll"};
     @Autowired
     private CustomJwtDecoder customJwtDecoder;

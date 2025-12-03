@@ -3,13 +3,18 @@ package dev.danh.configs;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+
 @Component
 public class OAuth2AuthenticationFailureHandler implements AuthenticationFailureHandler {
+    @Value("${URL_FRONTEND}")
+    String URL_FRONTEND;
+
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -20,9 +25,7 @@ public class OAuth2AuthenticationFailureHandler implements AuthenticationFailure
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Credentials", "true");
 
-        // Write JSON response
-        String jsonResponse = "{ \"message\": \"Authentication failed: " + exception.getMessage() + "\", " +
-                "\"statusCode\": " + HttpServletResponse.SC_UNAUTHORIZED + " }";
-        response.getWriter().write(jsonResponse);
+        String redirectUrl = URL_FRONTEND + "/auth?error=" + exception.getMessage();
+        response.sendRedirect(redirectUrl);
     }
 }
