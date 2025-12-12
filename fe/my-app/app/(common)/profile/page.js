@@ -1,16 +1,16 @@
 import NavBar from "@/shared/components/ui/Navbar/navbar";
-import Sidebar from "@/shared/components/ui/Sidebar/sidebar";
+import ProfileView from "@/shared/components/ui/Profile/profile";
 import styles from "./page.module.css";
-export default function ProfilePage({ children }) {
+
+export default function ProfilePage() {
   return (
-    <div className={styles.LayoutContainer}>
+    <div className={styles.PageContainer}>
       <nav>
         <NavBar />
       </nav>
-      <div className={styles.ContentWrapper}>
-        <Sidebar />
-        <main className={styles.MainContent}>{children}</main>
-      </div>
+      <main className={styles.MainContent}>
+        <ProfileView />
+      </main>
     </div>
   );
 }

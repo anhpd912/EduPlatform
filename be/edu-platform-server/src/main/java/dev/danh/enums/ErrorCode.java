@@ -11,6 +11,7 @@ public enum ErrorCode {
     USERNAME_ALREADY_EXISTS("Username already exists", HttpStatus.BAD_REQUEST),
     EMAIL_ALREADY_EXISTS("Email already exists", HttpStatus.BAD_REQUEST),
     INVALID_CREDENTIALS("Invalid credentials", HttpStatus.UNAUTHORIZED),
+    INVALID_REFRESH_TOKEN("Invalid refresh token", HttpStatus.UNAUTHORIZED),
     INVALID_PASSWORD("Invalid password", HttpStatus.BAD_REQUEST),
     LENGTH_PASSWORD("Password must be at least 8 characters", HttpStatus.BAD_REQUEST),
     INVALID_USERNAME("Invalid username", HttpStatus.BAD_REQUEST),

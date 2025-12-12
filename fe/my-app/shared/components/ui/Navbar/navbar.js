@@ -14,8 +14,8 @@ export default function NavBar() {
   const { username } = useSnapshot(authStore);
   const { refreshToken } = useSnapshot(authStore);
   const { role } = useSnapshot(authStore);
-  const handleLogOut = async () => {
-    Promise.resolve(AuthService.logout()).then(() => logoutAction());
+  const handleLogOut = () => {
+    logoutAction();
   };
   useEffect(() => {
     // Debugging logs

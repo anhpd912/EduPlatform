@@ -1,0 +1,22 @@
+.PageContainer {
+  min-height: 100vh;
+  background: #f1f5f9;
+}
+
+.MainContent {
+  padding-top: 80px;
+  min-height: calc(100vh - 80px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .MainContent {
+    padding-top: 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .MainContent {
+    padding-top: 60px;
+  }
+}

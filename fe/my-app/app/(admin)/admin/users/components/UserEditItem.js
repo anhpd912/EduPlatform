@@ -8,7 +8,6 @@ import { UserService } from "@/shared/services/api/User/UserService";
 export default function UserEditItem({ user, onClose, onSuccess }) {
   const [formData, setFormData] = useState({
     username: "",
-    email: "",
     fullName: "",
     gender: true,
     phoneNumber: "",
@@ -22,7 +21,6 @@ export default function UserEditItem({ user, onClose, onSuccess }) {
     if (user) {
       setFormData({
         username: user.username || "",
-        email: user.email || "",
         fullName: user.fullName || "",
         gender: user.gender ?? true,
         phoneNumber: user.phoneNumber || "",
@@ -48,7 +46,10 @@ export default function UserEditItem({ user, onClose, onSuccess }) {
     try {
       // await UserService.updateUser(user.id, formData);
       toast.success("User updated successfully!");
-      onSuccess();
+      const response = await UserService.updateProfile(user.id, formData);
+      if (response.statusCode === 200) {
+        onSuccess();
+      }
       onClose();
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to update user");
@@ -87,9 +88,9 @@ export default function UserEditItem({ user, onClose, onSuccess }) {
                 type="email"
                 id="email"
                 name="email"
-                value={formData.email}
+                value={user.email}
                 onChange={handleChange}
-                required
+                disabled
               />
             </div>
 

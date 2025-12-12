@@ -1,3 +1,4 @@
+import { AuthService } from "@/shared/services/api/Auth/AuthService";
 import { proxy } from "valtio";
 
 const isBrowser = typeof window !== "undefined";
@@ -26,16 +27,18 @@ export const loginAction = (token, refreshToken, username, role) => {
   }
 };
 export const logoutAction = () => {
-  authStore.isAuthenticated = null;
-  authStore.jwtToken = null;
-  authStore.refreshToken = null;
-  authStore.username = null;
-  authStore.role = null;
+  Promise.resolve(AuthService.logout()).then(() => {
+    authStore.isAuthenticated = null;
+    authStore.jwtToken = null;
+    authStore.refreshToken = null;
+    authStore.username = null;
+    authStore.role = null;
 
-  if (isBrowser) {
-    localStorage.removeItem("jwt_token");
-    localStorage.removeItem("refresh_token");
-    localStorage.removeItem("username");
-    localStorage.removeItem("role");
-  }
+    if (isBrowser) {
+      localStorage.removeItem("jwt_token");
+      localStorage.removeItem("refresh_token");
+      localStorage.removeItem("username");
+      localStorage.removeItem("role");
+    }
+  });
 };

@@ -14,15 +14,9 @@ import java.util.UUID;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserUpdateRequest {
     String avatarUrl;
-    String username;
-    String password;
-    String email;
     String fullName;
     Boolean gender;
     String phoneNumber;
     String address;
     LocalDate dateOfBirth;
-    Boolean isActive;
-    List<String> roles;
-
 }

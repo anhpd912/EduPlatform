@@ -224,8 +224,9 @@ public class AuthServiceImpl implements AuthService {
      */
     @Transactional
     public AuthenticationResponse refreshToken(String token) throws ParseException {
+        log.info("Refresh token {}", token);
         var oldRefreshToken = refreshTokenRepository.findById(token).orElseThrow(() -> {
-            throw new AppException(ErrorCode.INVALID_TOKEN);
+            throw new AppException(ErrorCode.INVALID_REFRESH_TOKEN);
         });
         refreshTokenRepository.deleteByToken(token);
         // Retrieve user from the user id in old refresh token
@@ -243,6 +244,7 @@ public class AuthServiceImpl implements AuthService {
                 .authenticated(true)
                 .userResponse(userMapper.toUserResponse(user))
                 .refreshToken(refreshToken)
+                .refreshTokenDuration(REFRESH_EXPIRATION_TIME_REMEMBER_ME)
                 .build();
 
     }

@@ -10,6 +10,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.text.ParseException;
 
+@Slf4j
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -112,7 +114,9 @@ public class AuthController {
          * @return A ResponseEntity containing an APIResponse with the new access token.
          * @throws ParseException If there is an error parsing the token.
          */
+        log.info("Refresh token {}", token);
         var response = authService.refreshToken(token);
+        log.info("New access token {}", response.getAccessToken());
         ResponseCookie cookie = ResponseCookie.from("refreshToken", response.getRefreshToken())
                 .httpOnly(true)
                 .secure(ENABLE_SECURE)

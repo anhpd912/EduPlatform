@@ -16,7 +16,7 @@ export default function UserItem({ user, onView, onEdit, onDelete }) {
     <tr className={styles.UserRow}>
       <td>
         <Image
-          src={user.avatarUrl || "https://via.placeholder.com/40"}
+          src={user.avatarUrl || "https://placehold.co/40"}
           alt={user.username}
           width={40}
           height={40}

@@ -4,6 +4,8 @@ import dev.danh.enums.AuthProvider;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -33,6 +35,10 @@ public class User {
     String address;
     LocalDate dateOfBirth;
     String resetTokenHash;
+    @CreationTimestamp
+    LocalDate createdDate;
+    @UpdateTimestamp
+    LocalDate updatedDate;
     @Column
     Boolean isActive = true;
     @ManyToMany(fetch = FetchType.EAGER)

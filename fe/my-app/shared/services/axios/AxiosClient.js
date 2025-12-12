@@ -65,32 +65,36 @@ privateApi.interceptors.response.use(
       }
       originalRequest._retry = true;
       isRefreshing = true;
-      try {
-        const response = await publicApi.post("/auth/refresh", {});
-        const newToken = response.accessToken;
-        const refreshToken = response.refreshToken;
-        authStore.setToken(newToken);
-        localStorage.setItem("jwt_token", newToken);
-        localStorage.setItem("refresh_token", refreshToken);
-        processQueue(null, newToken);
-        originalRequest.headers["Authorization"] = "Bearer " + newToken;
-        return privateApi(originalRequest);
-      } catch (err) {
-        processQueue(err, null); // Hủy các request đang chờ
+      // Gọi API làm mới token ở đây
+      publicApi
+        .post("/auth/refresh", {})
+        .then((res) => {
+          console.log(res);
+          const newToken = res.accessToken;
+          const refreshToken = res.refreshToken;
 
-        // 1. Xóa sạch token ở LocalStorage để tránh loop vô tận
-        localStorage.removeItem("jwt_token");
-        localStorage.removeItem("refresh_token");
+          localStorage.setItem("jwt_token", newToken);
+          localStorage.setItem("refresh_token", refreshToken);
+          console.log("New Token :", newToken);
+          processQueue(null, newToken);
+          originalRequest.headers["Authorization"] = "Bearer " + newToken;
+          return privateApi(originalRequest);
+        })
+        .catch((err) => {
+          processQueue(err, null); // Hủy các request đang chờ
+          console.log("Error: ", err);
+          // 1. Xóa sạch token ở LocalStorage để tránh loop vô tận
+          localStorage.removeItem("jwt_token");
+          localStorage.removeItem("refresh_token");
+          // logoutAction();
+          // window.location.href =
+          //   "/login?message=Session expired. Please log in again.";
 
-        logoutAction();
-
-        window.location.href =
-          "/login?message=Session expired. Please log in again.";
-
-        return Promise.reject(err);
-      } finally {
-        isRefreshing = false;
-      }
+          return Promise.reject(err);
+        })
+        .finally(() => {
+          isRefreshing = false;
+        });
     }
   }
 );

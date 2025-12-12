@@ -13,6 +13,9 @@ export const UserService = {
   getProfile: () => {
     return privateApi.get("/users/myProfile");
   },
+  updateProfile: (id, data) => {
+    return privateApi.put(`/users/update/${id}`, data);
+  },
   completeRegistration: (data) => {
     return publicApi.post(`/users/complete-register`, data);
   },
