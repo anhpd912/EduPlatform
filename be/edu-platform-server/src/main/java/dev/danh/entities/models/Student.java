@@ -3,6 +3,7 @@ package dev.danh.entities.models;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,7 +18,8 @@ import java.util.UUID;
 public class Student {
     @Id
     UUID id;
-    @Column( columnDefinition = "default CURRENT_DATE")
+    @Column
+    @CreationTimestamp
     LocalDate dateOfEnrollment;
     @OneToOne
     @MapsId
@@ -38,8 +40,6 @@ public class Student {
     private List<ExamResult> examResults;
     @OneToMany(mappedBy = "student")
     private List<AttendanceRecord> attendanceRecords;
-
-
 
 
 }

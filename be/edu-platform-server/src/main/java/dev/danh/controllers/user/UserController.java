@@ -35,7 +35,6 @@ public class UserController {
         );
     }
 
-
     @PostMapping("/create")
     public ResponseEntity<APIResponse> createUser(@RequestBody UserCreateRequest userCreateRequest) {
         var user = userService.createUser(userCreateRequest);

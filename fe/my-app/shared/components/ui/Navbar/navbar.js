@@ -14,8 +14,8 @@ export default function NavBar() {
   const { username } = useSnapshot(authStore);
   const { refreshToken } = useSnapshot(authStore);
   const { role } = useSnapshot(authStore);
-  const handleLogOut = async () => {
-    Promise.resolve(AuthService.logout()).then(() => logoutAction());
+  const handleLogOut = () => {
+    logoutAction();
   };
   useEffect(() => {
     // Debugging logs
@@ -37,7 +37,7 @@ export default function NavBar() {
                 <Person fontSize="small" />
                 <span>Profile</span>
               </Link>
-              <Link href="/settings" className={styles.DropdownItem}>
+              <Link href="/setting" className={styles.DropdownItem}>
                 <Settings fontSize="small" />
                 <span>Settings</span>
               </Link>

@@ -144,13 +144,12 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(userUpdateRequest.getUserId())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         Role roleToAdd = roleRepository.findById(userUpdateRequest.getRoleName())
-                .orElseThrow(() -> new AppException(ErrorCode.ROLE_NOT_FOUND)); // Nên có ErrorCode riêng cho Role
+                .orElseThrow(() -> new AppException(ErrorCode.ROLE_NOT_FOUND));
 
         // 2. Lấy ra danh sách các vai trò hiện tại của user
         Set<Role> currentRoles = user.getRoles();
 
         // 3. TẠO MỘT BẢN SAO CÓ THỂ THAY ĐỔI từ danh sách hiện tại
-        // Đây là bước quan trọng nhất để tránh lỗi và giữ lại các vai trò cũ
         Set<Role> mutableRoles = new HashSet<>(currentRoles);
 
         // 4. Thêm vai trò mới vào BẢN SAO

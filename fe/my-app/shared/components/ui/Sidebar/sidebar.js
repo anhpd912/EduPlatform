@@ -13,6 +13,10 @@ import {
   BarChart,
   Menu,
   Close,
+  Class,
+  CalendarMonth,
+  CheckCircle,
+  PersonSearch,
 } from "@mui/icons-material";
 import { useSnapshot } from "valtio";
 import { authStore } from "@/store/authStore";
@@ -22,7 +26,8 @@ export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const { role } = useSnapshot(authStore);
 
-  const menuItems = [
+  // Admin menu items
+  const adminMenuItems = [
     {
       title: "Dashboard",
       icon: <Dashboard />,
@@ -60,24 +65,97 @@ export default function Sidebar() {
     },
   ];
 
+  // Student menu items
+  const studentMenuItems = [
+    {
+      title: "Dashboard",
+      icon: <Dashboard />,
+      href: "/student/dashboard",
+    },
+    {
+      title: "My Classes",
+      icon: <Class />,
+      href: "/student/classes",
+    },
+    {
+      title: "Assignment",
+      icon: <Assignment />,
+      href: "/student/assignments",
+    },
+    {
+      title: "Calendar",
+      icon: <CalendarMonth />,
+      href: "/student/calendar",
+    },
+    {
+      title: "Attendance Status",
+      icon: <CheckCircle />,
+      href: "/student/attendance",
+    },
+  ];
+
+  // Teacher menu items
+  const teacherMenuItems = [
+    {
+      title: "Dashboard",
+      icon: <Dashboard />,
+      href: "/teacher/dashboard",
+    },
+    {
+      title: "My Classes",
+      icon: <Class />,
+      href: "/teacher/classes",
+    },
+    {
+      title: "Attendance",
+      icon: <CheckCircle />,
+      href: "/teacher/attendance",
+    },
+    {
+      title: "Students",
+      icon: <PersonSearch />,
+      href: "/teacher/students",
+    },
+  ];
+
+  // Get menu items and title based on role
+  const getMenuConfig = () => {
+    switch (role) {
+      case "ADMIN":
+        return { items: adminMenuItems, title: "Admin Panel" };
+      case "STUDENT":
+        return { items: studentMenuItems, title: "Student Portal" };
+      case "TEACHER":
+        return { items: teacherMenuItems, title: "Teacher Portal" };
+      default:
+        return { items: [], title: "Menu" };
+    }
+  };
+
+  const { items: menuItems, title: sidebarTitle } = getMenuConfig();
+
+  // Don't render sidebar if no role or no menu items
+  if (!role || menuItems.length === 0) {
+    return null;
+  }
+
   return (
     <>
-      {role === "ADMIN" && (
-        <button
-          className={styles.ToggleButton}
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Toggle sidebar"
-        >
-          {isOpen ? <Close /> : <Menu />}
-        </button>
-      )}
+      <button
+        className={styles.ToggleButton}
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label="Toggle sidebar"
+      >
+        {isOpen ? <Close /> : <Menu />}
+      </button>
+
       {isOpen && (
         <div className={styles.Overlay} onClick={() => setIsOpen(false)} />
       )}
 
       <aside className={`${styles.Sidebar} ${isOpen ? styles.Open : ""}`}>
         <div className={styles.SidebarHeader}>
-          <h3>Admin Panel</h3>
+          <h3>{sidebarTitle}</h3>
         </div>
         <nav className={styles.SidebarNav}>
           {menuItems.map((item) => (

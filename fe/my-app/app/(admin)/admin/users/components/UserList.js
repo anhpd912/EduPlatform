@@ -265,7 +265,7 @@ export default function UserList() {
             <div key={user.id} className={styles.MobileCard}>
               <div className={styles.MobileCardHeader}>
                 <img
-                  src={user.avatar || "/default-avatar.png"}
+                  src={user.avatarUrl || "/default-avatar.png"}
                   alt={user.username}
                   className={styles.MobileAvatar}
                 />

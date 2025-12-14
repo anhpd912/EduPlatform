@@ -89,7 +89,7 @@ public class AuthServiceImpl implements AuthService {
                         .accessToken(generateToken(user))
                         .authenticated(true)
                         .userResponse(userMapper.toUserResponse(user))
-                        .refreshToken(generateRefreshToken(false, user, request.getDeviceInfo()))
+                        .refreshToken(generateRefreshToken(request.getRememberMe(), user, request.getDeviceInfo()))
                         .refreshTokenDuration(request.getRememberMe() ? REFRESH_EXPIRATION_TIME_REMEMBER_ME : REFRESH_EXPIRATION_TIME)
                         .build();
             } else {
@@ -115,7 +115,7 @@ public class AuthServiceImpl implements AuthService {
                     .accessToken(generateToken(user))
                     .authenticated(true)
                     .userResponse(userMapper.toUserResponse(user))
-                    .refreshToken(generateRefreshToken(true, user, request.getDeviceInfo()))
+                    .refreshToken(generateRefreshToken(false, user, request.getDeviceInfo()))
                     .build();
         } else {
             throw new AppException(ErrorCode.USER_BANNED);
@@ -224,8 +224,9 @@ public class AuthServiceImpl implements AuthService {
      */
     @Transactional
     public AuthenticationResponse refreshToken(String token) throws ParseException {
+        log.info("Refresh token {}", token);
         var oldRefreshToken = refreshTokenRepository.findById(token).orElseThrow(() -> {
-            throw new AppException(ErrorCode.INVALID_TOKEN);
+            throw new AppException(ErrorCode.INVALID_REFRESH_TOKEN);
         });
         refreshTokenRepository.deleteByToken(token);
         // Retrieve user from the user id in old refresh token
@@ -235,6 +236,7 @@ public class AuthServiceImpl implements AuthService {
                 .token(refreshToken)
                 .userId(userId)
                 .expiryDate(new Date(System.currentTimeMillis() + REFRESH_EXPIRATION_TIME_REMEMBER_ME))
+                .deviceInfo(oldRefreshToken.getDeviceInfo())
                 .build()
         );
         User user = userRepository.findById(oldRefreshToken.getUserId()).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
@@ -243,6 +245,7 @@ public class AuthServiceImpl implements AuthService {
                 .authenticated(true)
                 .userResponse(userMapper.toUserResponse(user))
                 .refreshToken(refreshToken)
+                .refreshTokenDuration(REFRESH_EXPIRATION_TIME_REMEMBER_ME)
                 .build();
 
     }

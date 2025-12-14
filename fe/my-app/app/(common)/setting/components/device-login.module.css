@@ -1,0 +1,195 @@
+.DeviceLoginContainer {
+  width: 100%;
+}
+
+.CurrentDeviceInfo {
+  background: #eff6ff;
+  border: 1px solid #3b82f6;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.InfoLabel {
+  color: #1e40af;
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin: 0 0 8px 0;
+}
+
+.InfoValue {
+  color: #1e293b;
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0 0 4px 0;
+}
+
+.InfoDetail {
+  color: #64748b;
+  font-size: 0.875rem;
+  margin: 4px 0 0 0;
+}
+
+.DeviceList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.DeviceCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #ffffff;
+  transition: all 0.2s;
+}
+
+.DeviceCard:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.CurrentDevice {
+  background: #f0fdf4;
+  border-color: #10b981;
+}
+
+.DeviceIcon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.DeviceInfo {
+  flex: 1;
+}
+
+.DeviceHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.DeviceHeader h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.CurrentBadge {
+  background: #10b981;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.DeviceBrowser,
+.DeviceLocation,
+.DeviceIP,
+.DeviceLastActive {
+  color: #64748b;
+  font-size: 0.875rem;
+  margin: 4px 0;
+}
+
+.LogoutButton {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.LogoutButton:hover {
+  background: #dc2626;
+}
+
+.SecurityNote {
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.SecurityNote p {
+  color: #92400e;
+  font-size: 0.875rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.Loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: #64748b;
+}
+
+.Spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e2e8f0;
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.EmptyState {
+  text-align: center;
+  color: #94a3b8;
+  padding: 40px;
+  font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .DeviceCard {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .DeviceIcon {
+    font-size: 1.5rem;
+  }
+
+  .LogoutButton {
+    width: 100%;
+  }
+
+  .DeviceHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .CurrentDeviceInfo,
+  .SecurityNote {
+    padding: 12px;
+  }
+
+  .DeviceCard {
+    padding: 16px;
+  }
+}

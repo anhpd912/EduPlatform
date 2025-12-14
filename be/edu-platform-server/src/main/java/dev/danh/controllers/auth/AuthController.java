@@ -10,6 +10,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.text.ParseException;
 
+@Slf4j
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -39,12 +41,14 @@ public class AuthController {
      */
     public ResponseEntity<APIResponse> authenticate(@RequestBody AuthenticationRequest request) {
         var response = authService.authenticate(request);
+
         ResponseCookie cookie = ResponseCookie.from("refreshToken", response.getRefreshToken())
                 .httpOnly(true)
                 .secure(ENABLE_SECURE)
                 .path("/")
                 .sameSite("Lax")
-                .maxAge(response.getRefreshTokenDuration())
+                //If not remember , cookie is active in session
+                .maxAge(request.getRememberMe() ? response.getRefreshTokenDuration() : -1)
                 .build();
         return ResponseEntity.ok()
                 //Set cookie for saving refresh token
@@ -112,7 +116,9 @@ public class AuthController {
          * @return A ResponseEntity containing an APIResponse with the new access token.
          * @throws ParseException If there is an error parsing the token.
          */
+        log.info("Refresh token {}", token);
         var response = authService.refreshToken(token);
+        log.info("New access token {}", response.getAccessToken());
         ResponseCookie cookie = ResponseCookie.from("refreshToken", response.getRefreshToken())
                 .httpOnly(true)
                 .secure(ENABLE_SECURE)
