@@ -38,5 +38,8 @@ public class AssignmentSubmission {
     LocalDateTime gradedAt;
     @Enumerated(EnumType.STRING)
     AssignmentGradeStatus status;
+    @OneToOne(mappedBy = "submission", cascade = CascadeType.ALL)
+    private AiGradingResult aiResult;
+
 
 }

@@ -17,7 +17,6 @@ const privateApi = axios.create({
   withCredentials: true,
 });
 
-let isRefreshing = false;
 let failedQueue = [];
 
 const processQueue = (error, token = null) => {
@@ -71,12 +70,11 @@ privateApi.interceptors.response.use(
           console.log(res);
           const newToken = res.data.accessToken;
           const refreshToken = res.data.refreshToken;
-
           loginAction(
             newToken,
             refreshToken,
-            res.data.userResponse.username,
-            res.data.userResponse.roles[0].name
+            authStore.username,
+            authStore.role
           );
           console.log("New Token :", newToken);
           processQueue(null, newToken);
@@ -84,8 +82,7 @@ privateApi.interceptors.response.use(
         .catch((err) => {
           processQueue(err, null); // Hủy các request đang chờ
           console.log("Error: ", err);
-
-          // 1. Thực hiện hành động đăng xuất
+          // 1. Xóa sạch token ở LocalStorage để tránh loop vô tận
           logoutAction();
           window.location.href =
             "/login?message=Session expired. Please log in again.";

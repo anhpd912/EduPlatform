@@ -33,8 +33,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     Boolean ENABLE_SECURE;
 
     @NonFinal
-    @Value("${jwt.refresh-expiration-remember-me}")
-    Long REFRESH_EXPIRATION_TIME_REMEMBER_ME;
+    @Value("${jwt.refresh-expiration}")
+    Long REFRESH_EXPIRATION_TIME;
     private final AuthServiceImpl authService;
 
     @Override
@@ -50,7 +50,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         cookie.setHttpOnly(true);
         cookie.setSecure(ENABLE_SECURE);    // Use 'true' for HTTPS (production), 'false' for local HTTP
         cookie.setPath("/");       // Available for entire app
-        cookie.setMaxAge(REFRESH_EXPIRATION_TIME_REMEMBER_ME.intValue());
+        cookie.setMaxAge(REFRESH_EXPIRATION_TIME.intValue());
         String redirectUrl = URL_FRONTEND + "/" + getTargetUrl(authResponse);
         response.addCookie(cookie);
         // Chuyển hướng về NextJS app

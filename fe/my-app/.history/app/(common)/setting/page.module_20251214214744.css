@@ -1,0 +1,99 @@
+.PageContainer {
+  min-height: 100vh;
+  background: #f1f5f9;
+}
+
+.MainContent {
+  padding-top: 80px;
+  min-height: calc(100vh - 80px);
+  padding-bottom: 40px;
+}
+
+.SettingsContainer {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+.SettingsHeader {
+  margin-bottom: 30px;
+}
+
+.SettingsHeader h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 10px;
+}
+
+.SettingsHeader p {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+.SettingsSection {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.SectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.SectionIcon {
+  font-size: 1.5rem;
+}
+
+.SectionHeader h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.SectionHeader p {
+  color: #64748b;
+  font-size: 0.875rem;
+  margin: 4px 0 0 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .MainContent {
+    padding-top: 70px;
+  }
+
+  .SettingsContainer {
+    padding: 20px 15px;
+  }
+
+  .SettingsSection {
+    padding: 20px;
+  }
+
+  .SettingsHeader h1 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .MainContent {
+    padding-top: 60px;
+  }
+
+  .SettingsHeader h1 {
+    font-size: 1.25rem;
+  }
+
+  .SectionHeader h2 {
+    font-size: 1.125rem;
+  }
+}

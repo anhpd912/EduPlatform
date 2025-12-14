@@ -37,7 +37,7 @@ export default function NavBar() {
                 <Person fontSize="small" />
                 <span>Profile</span>
               </Link>
-              <Link href="/settings" className={styles.DropdownItem}>
+              <Link href="/setting" className={styles.DropdownItem}>
                 <Settings fontSize="small" />
                 <span>Settings</span>
               </Link>

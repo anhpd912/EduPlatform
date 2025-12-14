@@ -4,5 +4,8 @@ public enum AssignmentGradeStatus {
     PENDING,
     IN_PROGRESS,
     COMPLETED,
-    LATE
+    LATE,
+    PROCESSING_AI,
+    GRADE_BY_AI,
+    REVIEWED
 }

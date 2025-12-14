@@ -41,12 +41,14 @@ public class AuthController {
      */
     public ResponseEntity<APIResponse> authenticate(@RequestBody AuthenticationRequest request) {
         var response = authService.authenticate(request);
+
         ResponseCookie cookie = ResponseCookie.from("refreshToken", response.getRefreshToken())
                 .httpOnly(true)
                 .secure(ENABLE_SECURE)
                 .path("/")
                 .sameSite("Lax")
-                .maxAge(response.getRefreshTokenDuration())
+                //If not remember , cookie is active in session
+                .maxAge(request.getRememberMe() ? response.getRefreshTokenDuration() : -1)
                 .build();
         return ResponseEntity.ok()
                 //Set cookie for saving refresh token

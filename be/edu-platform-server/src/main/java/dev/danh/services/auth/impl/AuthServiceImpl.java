@@ -89,7 +89,7 @@ public class AuthServiceImpl implements AuthService {
                         .accessToken(generateToken(user))
                         .authenticated(true)
                         .userResponse(userMapper.toUserResponse(user))
-                        .refreshToken(generateRefreshToken(false, user, request.getDeviceInfo()))
+                        .refreshToken(generateRefreshToken(request.getRememberMe(), user, request.getDeviceInfo()))
                         .refreshTokenDuration(request.getRememberMe() ? REFRESH_EXPIRATION_TIME_REMEMBER_ME : REFRESH_EXPIRATION_TIME)
                         .build();
             } else {
@@ -115,7 +115,7 @@ public class AuthServiceImpl implements AuthService {
                     .accessToken(generateToken(user))
                     .authenticated(true)
                     .userResponse(userMapper.toUserResponse(user))
-                    .refreshToken(generateRefreshToken(true, user, request.getDeviceInfo()))
+                    .refreshToken(generateRefreshToken(false, user, request.getDeviceInfo()))
                     .build();
         } else {
             throw new AppException(ErrorCode.USER_BANNED);
@@ -236,6 +236,7 @@ public class AuthServiceImpl implements AuthService {
                 .token(refreshToken)
                 .userId(userId)
                 .expiryDate(new Date(System.currentTimeMillis() + REFRESH_EXPIRATION_TIME_REMEMBER_ME))
+                .deviceInfo(oldRefreshToken.getDeviceInfo())
                 .build()
         );
         User user = userRepository.findById(oldRefreshToken.getUserId()).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
