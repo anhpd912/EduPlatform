@@ -4,13 +4,7 @@ import Logo from "./logo";
 import NavItem from "./nav-item";
 import styles from "./navbar.module.css";
 import { authStore, logoutAction } from "@/store/authStore";
-import {
-  AccountCircle,
-  Logout,
-  Settings,
-  Person,
-  Language,
-} from "@mui/icons-material";
+import { AccountCircle, Logout, Settings, Person, Language } from "@mui/icons-material";
 import Link from "next/link";
 import { AuthService } from "@/shared/services/api/Auth/AuthService";
 import { useEffect } from "react";
@@ -24,7 +18,7 @@ export default function NavBar() {
   const { role } = useSnapshot(authStore);
   const { language, toggleLanguage } = useLanguage();
   const t = translations[language];
-
+  
   const handleLogOut = () => {
     logoutAction();
   };

@@ -1,0 +1,258 @@
+.PageContainer {
+  padding: 24px;
+}
+
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Header h1 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 28px;
+  margin: 0 0 8px 0;
+  color: #1a1a1a;
+}
+
+.Header p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.AddButton {
+  padding: 12px 24px;
+  background: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.AddButton:hover {
+  background: #1565c0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+}
+
+.SearchBar {
+  margin-bottom: 24px;
+}
+
+.SearchInput {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+  background: white;
+}
+
+.SearchInput:focus {
+  outline: none;
+  border-color: #1976d2;
+}
+
+.ClassGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+.ClassCard {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.ClassCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.ClassHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.ClassHeader h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px 0;
+  font-size: 22px;
+  color: #1a1a1a;
+}
+
+.Subject {
+  margin: 0;
+  color: #1976d2;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.StudentCount {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: #e3f2fd;
+  color: #1976d2;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.ClassInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.InfoRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #424242;
+}
+
+.InfoRow strong {
+  color: #1a1a1a;
+}
+
+.ClassActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.ViewButton {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ViewButton:hover {
+  background: #1565c0;
+}
+
+.EditButton,
+.DeleteButton {
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.EditButton {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.EditButton:hover {
+  background: #1976d2;
+  color: white;
+}
+
+.DeleteButton {
+  background: #ffebee;
+  color: #d32f2f;
+}
+
+.DeleteButton:hover {
+  background: #d32f2f;
+  color: white;
+}
+
+.EmptyState {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 48px;
+  color: #999;
+  font-style: italic;
+  background: white;
+  border-radius: 12px;
+}
+
+.LoadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  gap: 16px;
+}
+
+.Spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #1976d2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .PageContainer {
+    padding: 16px;
+  }
+
+  .Header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .AddButton {
+    width: 100%;
+  }
+
+  .ClassGrid {
+    grid-template-columns: 1fr;
+  }
+}

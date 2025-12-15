@@ -1,0 +1,318 @@
+.PageContainer {
+  padding: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  padding: 40px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(16, 185, 129, 0.3);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.Header::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 70%
+  );
+  border-radius: 50%;
+}
+
+.HeaderContent {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  z-index: 1;
+}
+
+.HeaderIcon {
+  width: 72px;
+  height: 72px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.Header h1 {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 32px;
+  margin: 0 0 12px 0;
+  font-weight: 700;
+  color: white;
+}
+
+.Header p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.AddButton {
+  padding: 12px 24px;
+  background: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.AddButton:hover {
+  background: #1565c0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+}
+
+.SearchBar {
+  margin-bottom: 24px;
+}
+
+.SearchInput {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+  background: white;
+}
+
+.SearchInput:focus {
+  outline: none;
+  border-color: #1976d2;
+}
+
+.ClassGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.ClassCard {
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: 28px;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--gray-100);
+  position: relative;
+  overflow: hidden;
+}
+
+.ClassCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
+}
+
+.ClassCard:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+}
+
+.ClassHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.ClassHeader h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px 0;
+  font-size: 22px;
+  color: #1a1a1a;
+}
+
+.Subject {
+  margin: 0;
+  color: #11998e;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.StudentCount {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 4px 12px rgba(17, 153, 142, 0.3);
+}
+
+.ClassInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.InfoRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #424242;
+}
+
+.InfoRow strong {
+  color: #1a1a1a;
+}
+
+.ClassActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.ViewButton {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(17, 153, 142, 0.3);
+}
+
+.ViewButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(17, 153, 142, 0.4);
+}
+
+.EditButton,
+.DeleteButton {
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.EditButton {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.EditButton:hover {
+  background: #1976d2;
+  color: white;
+}
+
+.DeleteButton {
+  background: #ffebee;
+  color: #d32f2f;
+}
+
+.DeleteButton:hover {
+  background: #d32f2f;
+  color: white;
+}
+
+.EmptyState {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 48px;
+  color: #999;
+  font-style: italic;
+  background: white;
+  border-radius: 12px;
+}
+
+.LoadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  gap: 16px;
+}
+
+.Spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #1976d2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .PageContainer {
+    padding: 16px;
+  }
+
+  .Header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .AddButton {
+    width: 100%;
+  }
+
+  .ClassGrid {
+    grid-template-columns: 1fr;
+  }
+}
