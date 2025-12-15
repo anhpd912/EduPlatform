@@ -1,0 +1,293 @@
+.PageContainer {
+  padding: 24px;
+}
+
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Header h1 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 28px;
+  margin: 0 0 8px 0;
+  color: #1a1a1a;
+}
+
+.Header p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.AddButton {
+  padding: 12px 24px;
+  background: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.AddButton:hover {
+  background: #1565c0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+}
+
+.FilterBar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.FilterButton {
+  padding: 10px 20px;
+  background: white;
+  color: #666;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.FilterButton:hover {
+  border-color: #1976d2;
+  color: #1976d2;
+}
+
+.FilterButton.Active {
+  background: #1976d2;
+  color: white;
+  border-color: #1976d2;
+}
+
+.AssignmentList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.AssignmentCard {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}
+
+.AssignmentCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.AssignmentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.AssignmentHeader h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px 0;
+  font-size: 20px;
+  color: #1a1a1a;
+}
+
+.AssignmentMeta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 14px;
+  color: #666;
+}
+
+.AssignmentMeta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ClassBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: #e3f2fd;
+  color: #1976d2;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.StatusActive {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #fff3e0;
+  color: #f57c00;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.StatusCompleted {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.SubmissionProgress {
+  margin-bottom: 16px;
+}
+
+.ProgressBar {
+  width: 100%;
+  height: 8px;
+  background: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.ProgressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #1976d2, #42a5f5);
+  transition: width 0.3s ease;
+}
+
+.ProgressText {
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+}
+
+.AssignmentActions {
+  display: flex;
+  gap: 8px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.ViewButton {
+  flex: 1;
+  padding: 10px 16px;
+  background: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ViewButton:hover {
+  background: #1565c0;
+}
+
+.EditButton,
+.DeleteButton {
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.EditButton {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.EditButton:hover {
+  background: #1976d2;
+  color: white;
+}
+
+.DeleteButton {
+  background: #ffebee;
+  color: #d32f2f;
+}
+
+.DeleteButton:hover {
+  background: #d32f2f;
+  color: white;
+}
+
+.EmptyState {
+  text-align: center;
+  padding: 48px;
+  color: #999;
+  font-style: italic;
+  background: white;
+  border-radius: 12px;
+}
+
+.LoadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  gap: 16px;
+}
+
+.Spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #1976d2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .PageContainer {
+    padding: 16px;
+  }
+
+  .Header {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .AddButton {
+    width: 100%;
+  }
+
+  .FilterBar {
+    overflow-x: auto;
+  }
+}
