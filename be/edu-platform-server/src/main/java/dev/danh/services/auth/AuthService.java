@@ -3,9 +3,11 @@ package dev.danh.services.auth;
 import dev.danh.entities.dtos.request.*;
 import dev.danh.entities.dtos.response.AuthenticationResponse;
 import dev.danh.entities.dtos.response.IntrospectResponse;
+import dev.danh.entities.models.RefreshToken;
 import jakarta.mail.MessagingException;
 
 import java.text.ParseException;
+import java.util.List;
 
 public interface AuthService {
     AuthenticationResponse authenticate(AuthenticationRequest request);
@@ -20,4 +22,6 @@ public interface AuthService {
     Boolean updatePassword(String token, String newPassword);
 
     Boolean logOutDevice(LogOutDeviceRequest request);
+
+    List<RefreshToken> getUserDevices(String token) throws ParseException;
 }

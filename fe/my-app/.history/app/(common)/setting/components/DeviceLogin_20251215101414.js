@@ -4,11 +4,6 @@ import { useState, useEffect } from "react";
 import { useDeviceInfo } from "@/hooks/useDeviceInfo";
 import styles from "./device-login.module.css";
 import { AuthService } from "@/shared/services/api/Auth/AuthService";
-import ComputerIcon from "@mui/icons-material/Computer";
-import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
-import TabletIcon from "@mui/icons-material/Tablet";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import InfoIcon from "@mui/icons-material/Info";
 
 export default function DeviceLogin() {
   const currentDevice = useDeviceInfo();
@@ -24,7 +19,8 @@ export default function DeviceLogin() {
           token: device.token,
           ipAddress: device.ipAddress,
           location: device.location || "Không xác định",
-          deviceInfo: device.deviceInfo || "Không xác định",
+          deviceType: device.deviceInfo?.type || "Máy tính",
+          os: device.deviceInfo?.os || "Unknown OS",
           isCurrent: device.ipAddress === currentDevice?.ipAddress,
         }));
         setDevices(deviceList);
@@ -76,20 +72,16 @@ export default function DeviceLogin() {
     });
   };
 
-  const getDeviceIcon = (deviceInfo) => {
-    if (!deviceInfo) return <ComputerIcon />;
-    const infoLower = deviceInfo.toLowerCase();
-    if (
-      infoLower.includes("điện thoại") ||
-      infoLower.includes("mobile") ||
-      infoLower.includes("phone")
-    ) {
-      return <PhoneAndroidIcon />;
+  const getDeviceIcon = (deviceType) => {
+    switch (deviceType) {
+      case "Điện thoại":
+        return "📱";
+      case "Tablet":
+        return "📲";
+      case "Máy tính":
+      default:
+        return "💻";
     }
-    if (infoLower.includes("tablet") || infoLower.includes("ipad")) {
-      return <TabletIcon />;
-    }
-    return <ComputerIcon />;
   };
 
   if (loading) {
@@ -113,8 +105,7 @@ export default function DeviceLogin() {
           )}
           {currentDevice.location && (
             <p className={styles.InfoDetail}>
-              <LocationOnIcon fontSize="small" /> Vị trí:{" "}
-              {currentDevice.location}
+              📍 Vị trí: {currentDevice.location}
             </p>
           )}
         </div>
@@ -134,18 +125,19 @@ export default function DeviceLogin() {
               }`}
             >
               <div className={styles.DeviceIcon}>
-                {getDeviceIcon(device.deviceInfo)}
+                {getDeviceIcon(device.deviceType)}
               </div>
               <div className={styles.DeviceInfo}>
                 <div className={styles.DeviceHeader}>
-                  <h3>{device.deviceInfo}</h3>
+                  <h3>
+                    {device.deviceType} - {device.os}
+                  </h3>
                   {device.isCurrent && (
                     <span className={styles.CurrentBadge}>Hiện tại</span>
                   )}
                 </div>
-                <p className={styles.DeviceLocation}>
-                  <LocationOnIcon fontSize="small" /> {device.location}
-                </p>
+                <p className={styles.DeviceBrowser}>{device.browser}</p>
+                <p className={styles.DeviceLocation}>📍 {device.location}</p>
                 <p className={styles.DeviceIP}>IP: {device.ipAddress}</p>
               </div>
               {!device.isCurrent && (
@@ -163,8 +155,8 @@ export default function DeviceLogin() {
 
       <div className={styles.SecurityNote}>
         <p>
-          <InfoIcon fontSize="small" /> <strong>Lưu ý bảo mật:</strong> Nếu bạn
-          thấy thiết bị lạ, hãy đăng xuất ngay và đổi mật khẩu.
+          ℹ️ <strong>Lưu ý bảo mật:</strong> Nếu bạn thấy thiết bị lạ, hãy đăng
+          xuất ngay và đổi mật khẩu.
         </p>
       </div>
     </div>

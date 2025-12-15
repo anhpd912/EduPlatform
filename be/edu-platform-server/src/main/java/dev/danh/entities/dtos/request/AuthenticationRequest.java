@@ -13,4 +13,6 @@ public class AuthenticationRequest {
     String password;
     Boolean rememberMe;
     String deviceInfo;
+    String ipAddress;
+    String location;
 }

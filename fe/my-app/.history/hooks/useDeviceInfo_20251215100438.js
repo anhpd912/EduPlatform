@@ -70,7 +70,6 @@ export function useDeviceInfo() {
           city = data.city;
           country = data.country;
           location = `${city || "Unknown"}, ${country || "Unknown"}`;
-          console.log("Device Data: ", ipAddress, location);
         }
       } catch (e) {
         console.warn("Cannot fetch IP and location data", e);

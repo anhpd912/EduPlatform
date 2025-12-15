@@ -32,5 +32,8 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+### Docker file ###
+docker-compose.yml
+
 ### VS Code ###
 .vscode/

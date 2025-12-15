@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  # 1. Dịch vụ MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-db
+    restart: always
+    environment:
+      # --- Cấu hình MySQL Root User ---
+      # ROOT PASSWORD được dùng cho cả user 'root'
+      MYSQL_ROOT_PASSWORD: root_db_password
+      MYSQL_DATABASE: cms                   # Database mà ứng dụng sẽ truy cập
+      # KHÔNG cần định nghĩa MYSQL_USER và MYSQL_PASSWORD riêng
+      # vì chúng ta đang dùng ROOT USER
+      # -----------------------------------
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+
+  # 2. Dịch vụ Java SpringBoot Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: edu-platform-server-app
+    restart: always
+    ports:
+      # Cổng 8081 theo file properties của bạn
+      - "8081:8081"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+
+      # --- Cấu hình Database sử dụng Root User ---
+      DB_URL: jdbc:mysql://mysql:3306/cms?allowPublicKeyRetrieval=true&useSSL=false
+      DB_USERNAME: root                # Tên user: root
+      DB_PASSWORD: 1234
+
+    # Đảm bảo MySQL khởi động trước
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+
+# Định nghĩa Volumes
+volumes:
+  mysql-data:
+
+# Định nghĩa mạng nội bộ
+networks:
+  app-network:
+    driver: bridge

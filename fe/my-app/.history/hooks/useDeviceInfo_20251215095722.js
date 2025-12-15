@@ -63,14 +63,13 @@ export function useDeviceInfo() {
 
       // Lấy IP và vị trí từ API công khai
       try {
-        const response = await fetch("https://ipinfo.io/json/");
+        const response = await fetch("https://ipinfo.io/json");
         if (response.ok) {
           const data = await response.json();
           ipAddress = data.ip;
           city = data.city;
-          country = data.country;
+          country = data.country_name;
           location = `${city || "Unknown"}, ${country || "Unknown"}`;
-          console.log("Device Data: ", ipAddress, location);
         }
       } catch (e) {
         console.warn("Cannot fetch IP and location data", e);

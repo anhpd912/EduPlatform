@@ -5,7 +5,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -26,4 +28,7 @@ public class RefreshToken {
     Date expiryDate;
     @Column(name = "device_info")
     String deviceInfo;
+    String ipAddress;
+    String location;
+
 }

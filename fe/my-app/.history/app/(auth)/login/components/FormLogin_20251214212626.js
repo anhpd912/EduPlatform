@@ -100,8 +100,6 @@ export default function FormLogin() {
         password,
         rememberMe,
         deviceInfo: deviceInfo?.friendlyName || "Unknown Device",
-        ipAddress: deviceInfo?.ipAddress || "Unknown IP",
-        location: deviceInfo?.location || "Unknown Location",
       });
       console.log(response);
       if (response.statusCode === 200) {
