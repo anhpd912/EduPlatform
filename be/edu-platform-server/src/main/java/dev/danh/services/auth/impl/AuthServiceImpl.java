@@ -35,10 +35,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.security.MessageDigest;
 import java.text.ParseException;
-import java.util.Base64;
-import java.util.Date;
-import java.util.StringJoiner;
-import java.util.UUID;
+import java.util.*;
 
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
@@ -89,7 +86,7 @@ public class AuthServiceImpl implements AuthService {
                         .accessToken(generateToken(user))
                         .authenticated(true)
                         .userResponse(userMapper.toUserResponse(user))
-                        .refreshToken(generateRefreshToken(request.getRememberMe(), user, request.getDeviceInfo()))
+                        .refreshToken(generateRefreshToken(request.getRememberMe(), user, request.getDeviceInfo(), request.getIpAddress(), request.getLocation()))
                         .refreshTokenDuration(request.getRememberMe() ? REFRESH_EXPIRATION_TIME_REMEMBER_ME : REFRESH_EXPIRATION_TIME)
                         .build();
             } else {
@@ -115,7 +112,7 @@ public class AuthServiceImpl implements AuthService {
                     .accessToken(generateToken(user))
                     .authenticated(true)
                     .userResponse(userMapper.toUserResponse(user))
-                    .refreshToken(generateRefreshToken(false, user, request.getDeviceInfo()))
+                    .refreshToken(generateRefreshToken(false, user, request.getDeviceInfo(), "Unknown", "Unknown"))
                     .build();
         } else {
             throw new AppException(ErrorCode.USER_BANNED);
@@ -171,6 +168,14 @@ public class AuthServiceImpl implements AuthService {
         var refreshToken = refreshTokenRepository.findByToken(request.getDeviceRefreshToken()).orElseThrow(() -> new AppException(ErrorCode.INVALID_TOKEN));
         refreshTokenRepository.deleteByToken(refreshToken.getToken());
         return true;
+    }
+
+    @Override
+    public List<RefreshToken> getUserDevices(String token) throws ParseException {
+        var verifyToken = verifyToken(token);
+        String username = verifyToken.getJWTClaimsSet().getSubject();
+        var user = userRepository.findByUsername(username).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        return refreshTokenRepository.findByUserId((user.getId()));
     }
 
     @Override
@@ -237,6 +242,8 @@ public class AuthServiceImpl implements AuthService {
                 .userId(userId)
                 .expiryDate(new Date(System.currentTimeMillis() + REFRESH_EXPIRATION_TIME_REMEMBER_ME))
                 .deviceInfo(oldRefreshToken.getDeviceInfo())
+                .ipAddress(oldRefreshToken.getIpAddress())
+                .location(oldRefreshToken.getLocation())
                 .build()
         );
         User user = userRepository.findById(oldRefreshToken.getUserId()).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
@@ -312,7 +319,7 @@ public class AuthServiceImpl implements AuthService {
      * @param user       The user for whom to generate the refresh token.
      * @return The generated refresh token string.
      */
-    private String generateRefreshToken(Boolean rememberMe, User user, String deviceInfo) {
+    private String generateRefreshToken(Boolean rememberMe, User user, String deviceInfo, String ipAddress, String location) {
         String refreshToken = UUID.randomUUID().toString();
         Date expiryDate = rememberMe ?
                 new Date(System.currentTimeMillis() + REFRESH_EXPIRATION_TIME_REMEMBER_ME)
@@ -322,6 +329,8 @@ public class AuthServiceImpl implements AuthService {
                 .userId(user.getId())
                 .expiryDate(expiryDate)
                 .deviceInfo(deviceInfo)
+                .ipAddress(ipAddress)
+                .location(location)
                 .build()
         );
         return refreshToken;

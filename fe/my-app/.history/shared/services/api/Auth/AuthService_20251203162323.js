@@ -18,7 +18,4 @@ export const AuthService = {
   changePassword: (data) => {
     return publicApi.post("/auth/reset-password", data);
   },
-  getDeviceLogins: () => {
-    return privateApi.get("/auth/devices");
-  },
 };

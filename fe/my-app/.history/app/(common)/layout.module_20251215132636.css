@@ -1,0 +1,28 @@
+.LayoutContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.ContentWrapper {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+  gap: 24px;
+}
+
+.MainContent {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .ContentWrapper {
+    flex-direction: column;
+    padding: 16px;
+  }
+}

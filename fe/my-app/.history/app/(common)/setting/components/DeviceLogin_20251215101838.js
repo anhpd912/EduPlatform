@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import { useDeviceInfo } from "@/hooks/useDeviceInfo";
 import styles from "./device-login.module.css";
 import { AuthService } from "@/shared/services/api/Auth/AuthService";
-import ComputerIcon from "@mui/icons-material/Computer";
-import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
-import TabletIcon from "@mui/icons-material/Tablet";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import InfoIcon from "@mui/icons-material/Info";
+import ComputerIcon from '@mui/icons-material/Computer';
+import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
+import TabletIcon from '@mui/icons-material/Tablet';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import InfoIcon from '@mui/icons-material/Info';
 
 export default function DeviceLogin() {
   const currentDevice = useDeviceInfo();
@@ -113,8 +113,7 @@ export default function DeviceLogin() {
           )}
           {currentDevice.location && (
             <p className={styles.InfoDetail}>
-              <LocationOnIcon fontSize="small" /> Vị trí:{" "}
-              {currentDevice.location}
+              <LocationOnIcon fontSize="small" /> Vị trí: {currentDevice.location}
             </p>
           )}
         </div>
@@ -163,8 +162,8 @@ export default function DeviceLogin() {
 
       <div className={styles.SecurityNote}>
         <p>
-          <InfoIcon fontSize="small" /> <strong>Lưu ý bảo mật:</strong> Nếu bạn
-          thấy thiết bị lạ, hãy đăng xuất ngay và đổi mật khẩu.
+          <InfoIcon fontSize="small" /> <strong>Lưu ý bảo mật:</strong> Nếu bạn thấy thiết bị lạ, hãy đăng
+          xuất ngay và đổi mật khẩu.
         </p>
       </div>
     </div>

@@ -4,11 +4,6 @@ import { useState, useEffect } from "react";
 import { useDeviceInfo } from "@/hooks/useDeviceInfo";
 import styles from "./device-login.module.css";
 import { AuthService } from "@/shared/services/api/Auth/AuthService";
-import ComputerIcon from "@mui/icons-material/Computer";
-import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
-import TabletIcon from "@mui/icons-material/Tablet";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import InfoIcon from "@mui/icons-material/Info";
 
 export default function DeviceLogin() {
   const currentDevice = useDeviceInfo();
@@ -16,28 +11,32 @@ export default function DeviceLogin() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Simulate fetching device login history from API
+    // In production, replace this with actual API call
     const fetchDevices = async () => {
       try {
+        // Simulated data - replace with actual API call
         const response = await AuthService.getDeviceLogins();
-        const deviceList = response.data.map((device) => ({
-          id: device.token, // Use token as unique id
+        const devices = response.data.map((device) => ({
           token: device.token,
+          deviceType: device.deviceType,
+          os: device.os,
+          browser: device.browser,
           ipAddress: device.ipAddress,
-          location: device.location || "Không xác định",
-          deviceInfo: device.deviceInfo || "Không xác định",
-          isCurrent: device.ipAddress === currentDevice?.ipAddress,
+          location: device.location,
+          lastActive: device.lastActive,
+          friendlyName: device.friendlyName,
+          isCurrent: device.id === currentDevice?.id,
         }));
-        setDevices(deviceList);
       } catch (error) {
         console.error("Error fetching devices:", error);
-        setDevices([]);
       } finally {
         setLoading(false);
       }
     };
 
     fetchDevices();
-  }, [currentDevice?.ipAddress]);
+  }, []);
 
   const handleLogoutDevice = async (deviceId) => {
     if (!confirm("Bạn có chắc muốn đăng xuất khỏi thiết bị này?")) {
@@ -76,20 +75,16 @@ export default function DeviceLogin() {
     });
   };
 
-  const getDeviceIcon = (deviceInfo) => {
-    if (!deviceInfo) return <ComputerIcon />;
-    const infoLower = deviceInfo.toLowerCase();
-    if (
-      infoLower.includes("điện thoại") ||
-      infoLower.includes("mobile") ||
-      infoLower.includes("phone")
-    ) {
-      return <PhoneAndroidIcon />;
+  const getDeviceIcon = (deviceType) => {
+    switch (deviceType) {
+      case "Điện thoại":
+        return "📱";
+      case "Tablet":
+        return "📲";
+      case "Máy tính":
+      default:
+        return "💻";
     }
-    if (infoLower.includes("tablet") || infoLower.includes("ipad")) {
-      return <TabletIcon />;
-    }
-    return <ComputerIcon />;
   };
 
   if (loading) {
@@ -107,14 +102,17 @@ export default function DeviceLogin() {
         <div className={styles.CurrentDeviceInfo}>
           <p className={styles.InfoLabel}>Thiết bị hiện tại của bạn:</p>
           <p className={styles.InfoValue}>{currentDevice.friendlyName}</p>
-
+          {currentDevice.browser && (
+            <p className={styles.InfoDetail}>
+              Trình duyệt: {currentDevice.browser}
+            </p>
+          )}
           {currentDevice.ipAddress && (
             <p className={styles.InfoDetail}>IP: {currentDevice.ipAddress}</p>
           )}
           {currentDevice.location && (
             <p className={styles.InfoDetail}>
-              <LocationOnIcon fontSize="small" /> Vị trí:{" "}
-              {currentDevice.location}
+              📍 Vị trí: {currentDevice.location}
             </p>
           )}
         </div>
@@ -134,19 +132,23 @@ export default function DeviceLogin() {
               }`}
             >
               <div className={styles.DeviceIcon}>
-                {getDeviceIcon(device.deviceInfo)}
+                {getDeviceIcon(device.deviceType)}
               </div>
               <div className={styles.DeviceInfo}>
                 <div className={styles.DeviceHeader}>
-                  <h3>{device.deviceInfo}</h3>
+                  <h3>
+                    {device.deviceType} - {device.os}
+                  </h3>
                   {device.isCurrent && (
                     <span className={styles.CurrentBadge}>Hiện tại</span>
                   )}
                 </div>
-                <p className={styles.DeviceLocation}>
-                  <LocationOnIcon fontSize="small" /> {device.location}
-                </p>
+                <p className={styles.DeviceBrowser}>{device.browser}</p>
+                <p className={styles.DeviceLocation}>📍 {device.location}</p>
                 <p className={styles.DeviceIP}>IP: {device.ipAddress}</p>
+                <p className={styles.DeviceLastActive}>
+                  Hoạt động: {formatLastActive(device.lastActive)}
+                </p>
               </div>
               {!device.isCurrent && (
                 <button
@@ -163,8 +165,8 @@ export default function DeviceLogin() {
 
       <div className={styles.SecurityNote}>
         <p>
-          <InfoIcon fontSize="small" /> <strong>Lưu ý bảo mật:</strong> Nếu bạn
-          thấy thiết bị lạ, hãy đăng xuất ngay và đổi mật khẩu.
+          ℹ️ <strong>Lưu ý bảo mật:</strong> Nếu bạn thấy thiết bị lạ, hãy đăng
+          xuất ngay và đổi mật khẩu.
         </p>
       </div>
     </div>

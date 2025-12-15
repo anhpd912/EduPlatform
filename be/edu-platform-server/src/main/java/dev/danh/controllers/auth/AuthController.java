@@ -178,12 +178,21 @@ public class AuthController {
                 .build());
     }
 
-    @PostMapping("logout-device")
+    @PostMapping("/logout-device")
     public ResponseEntity<APIResponse> logoutDevice(@RequestHeader("Authorization") String authHeader, @RequestBody LogOutDeviceRequest request) {
         Boolean result = authService.logOutDevice(request);
         return ResponseEntity.ok(APIResponse.builder()
                 .message(result ? "Device logout successfully" : "Device logout failed")
                 .statusCode(result ? 200 : 400)
+                .build());
+    }
+    @GetMapping("/devices")
+    public ResponseEntity<APIResponse> getUserDevices(@RequestHeader("Authorization") String authHeader) throws ParseException {
+        var devices = authService.getUserDevices(authHeader.substring(7));
+        return ResponseEntity.ok(APIResponse.builder()
+                .message("User devices retrieved successfully")
+                .data(devices)
+                .statusCode(200)
                 .build());
     }
 
