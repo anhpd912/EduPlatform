@@ -20,13 +20,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -41,11 +42,9 @@ public class UserServiceImpl implements UserService {
     RoleRepository roleRepository;
 
     @Override
-    public List<UserResponse> getAllUsers() {
-        List<User> users = userRepository.findAll();
-        return users.stream()
-                .map(userMapper::toUserResponse)
-                .toList();
+    public Page<UserResponse> getAllUsers(int page) {
+        Page<User> users = userRepository.findAll(PageRequest.of(page - 1, 9));
+        return users.map(userMapper::toUserResponse);
     }
 
     @Override
@@ -163,6 +162,10 @@ public class UserServiceImpl implements UserService {
         // Việc gọi save() ở đây để rõ ràng cũng không sao.
         userRepository.save(user);
         return true;
+    }
+
+    public int numbersOfPage() {
+        return (int) Math.ceil((double) userRepository.count() / 6);
     }
 
 }

@@ -26,11 +26,11 @@ public class UserController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/getAll")
-    public ResponseEntity<APIResponse> getAllUsers() {
+    public ResponseEntity<APIResponse> getAllUsers(@RequestParam int page) {
         return ResponseEntity.ok(
                 APIResponse.builder()
                         .message("Users retrieved successfully")
-                        .data(userService.getAllUsers())
+                        .data(userService.getAllUsers(page))
                         .build()
         );
     }

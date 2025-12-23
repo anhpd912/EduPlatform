@@ -1,0 +1,922 @@
+.PageContainer {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.LoadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: 1rem;
+}
+
+.Spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.Header h1 {
+  font-size: 2rem;
+  color: #333;
+  margin: 0;
+}
+
+.AddButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.AddButton:hover {
+  background: #0056b3;
+}
+
+.FilterBar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.SearchBar {
+  flex: 1;
+  min-width: 250px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.SearchIcon {
+  position: absolute;
+  left: 1rem;
+  color: #666;
+}
+
+.SearchInput {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 3rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.SearchInput:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.FilterSelect {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  background: white;
+  min-width: 150px;
+}
+
+.UserGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.EmptyState {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.PaginationContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eee;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.PaginationInfo {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.Pagination {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.PaginationButton {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+}
+
+.PaginationButton:hover:not(:disabled) {
+  background: #f0f0f0;
+  border-color: #007bff;
+}
+
+.PaginationButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.PaginationButton.ActivePage {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.PaginationDots {
+  padding: 0.5rem;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .PageContainer {
+    padding: 1rem;
+  }
+
+  .Header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .UserGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .PaginationContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.TableWrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.Table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1000px;
+}
+
+.Table thead {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.Table th {
+  padding: 18px 16px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 12px;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  border-bottom: 2px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+.Table tbody tr {
+  transition: all 0.2s ease;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.Table tbody tr:hover {
+  background: linear-gradient(135deg, #f8fafc 0%, #f0f7ff 100%);
+  transform: scale(1.002);
+}
+
+.Table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.Table td {
+  padding: 18px 16px;
+  font-size: 14px;
+  color: #334155;
+}
+
+.Avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.Avatar:hover {
+  transform: scale(1.1);
+  border-color: #4a90e2;
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+}
+
+.Username {
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 15px;
+}
+
+.Email {
+  color: #4a90e2;
+  font-size: 14px;
+}
+
+.Gender {
+  padding: 5px 14px;
+  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #4f46e5;
+}
+
+.Status {
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.Active {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  color: #065f46;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+}
+
+.Inactive {
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  color: #991b1b;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+}
+
+.Provider {
+  padding: 5px 12px;
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  color: #1e40af;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.Actions {
+  display: flex;
+  gap: 8px;
+}
+
+.ActionBtn {
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.ActionBtn::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.ActionBtn:hover::before {
+  width: 100px;
+  height: 100px;
+}
+
+.ViewBtn {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  color: #1e40af;
+}
+
+.ViewBtn:hover {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.EditBtn {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  color: #92400e;
+}
+
+.EditBtn:hover {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+
+.DeleteBtn {
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  color: #991b1b;
+}
+
+.DeleteBtn:hover {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+.Footer {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 2px solid #f1f5f9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ResultCount {
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Empty State */
+.EmptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.EmptyIcon {
+  font-size: 80px;
+  color: #cbd5e1;
+  margin-bottom: 16px;
+}
+
+.EmptyState h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #475569;
+  margin: 0 0 8px 0;
+}
+
+.EmptyState p {
+  font-size: 14px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.NoData {
+  text-align: center;
+  padding: 0;
+}
+
+/* Loading State */
+.LoadingState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.Spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #e2e8f0;
+  border-top-color: #4a90e2;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.LoadingState p {
+  font-size: 16px;
+  font-weight: 600;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Mobile Card List - Hidden on desktop */
+.MobileCardList {
+  display: none;
+}
+
+.MobileCard {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.MobileCardHeader {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-bottom: 1px solid #e2e8f0;
+  gap: 12px;
+}
+
+.MobileAvatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e2e8f0;
+}
+
+.MobileUserInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.MobileUsername {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 4px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.MobileEmail {
+  font-size: 13px;
+  color: #4a90e2;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.MobileStatus {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.MobileCardBody {
+  padding: 16px;
+}
+
+.MobileInfoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.MobileInfoRow:last-child {
+  border-bottom: none;
+}
+
+.MobileLabel {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.MobileValue {
+  font-size: 14px;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.MobileProvider {
+  padding: 4px 10px;
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  color: #1e40af;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.MobileCardActions {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+}
+
+.MobileViewBtn,
+.MobileEditBtn,
+.MobileDeleteBtn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.MobileViewBtn {
+  background: #e6f2ff;
+  color: #4a90e2;
+}
+
+.MobileViewBtn:hover {
+  background: #4a90e2;
+  color: white;
+}
+
+.MobileEditBtn {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.MobileEditBtn:hover {
+  background: #f59e0b;
+  color: white;
+}
+
+.MobileDeleteBtn {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.MobileDeleteBtn:hover {
+  background: #dc2626;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  /* Hide table, show cards on mobile */
+  .TableWrapper {
+    display: none;
+  }
+
+  .MobileCardList {
+    display: block;
+  }
+
+  .Container {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  .Header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .TitleSection {
+    text-align: left;
+  }
+
+  .Title {
+    font-size: 22px;
+  }
+
+  .Subtitle {
+    font-size: 13px;
+  }
+
+  .AddButton {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+    font-size: 14px;
+    border-radius: 10px;
+  }
+
+  .StatsGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .StatCard {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .StatIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+  }
+
+  .StatValue {
+    font-size: 24px;
+  }
+
+  .StatLabel {
+    font-size: 11px;
+  }
+
+  .Controls {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .SearchBox,
+  .FilterBox {
+    min-width: 100%;
+    width: 100%;
+  }
+
+  .SearchInput,
+  .FilterSelect {
+    padding: 12px 12px 12px 44px;
+    font-size: 14px;
+    border-radius: 10px;
+  }
+
+  .TableWrapper {
+    border-radius: 8px;
+    margin: 0 -16px;
+    width: calc(100% + 32px);
+  }
+
+  .Table {
+    font-size: 13px;
+    min-width: 700px;
+  }
+
+  .Table th,
+  .Table td {
+    padding: 12px 10px;
+  }
+
+  .Table th {
+    font-size: 11px;
+  }
+
+  .Avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+  }
+
+  .Username {
+    font-size: 14px;
+  }
+
+  .Email {
+    font-size: 12px;
+  }
+
+  .Gender,
+  .Provider {
+    font-size: 11px;
+    padding: 4px 10px;
+  }
+
+  .Status {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+
+  .Actions {
+    gap: 6px;
+  }
+
+  .ActionBtn {
+    padding: 8px;
+    border-radius: 8px;
+  }
+
+  .Pagination {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .PageInfo {
+    font-size: 13px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .Container {
+    padding: 12px;
+    border-radius: 8px;
+    margin: 0;
+  }
+
+  .Header {
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+  }
+
+  .Title {
+    font-size: 20px;
+  }
+
+  .Subtitle {
+    font-size: 12px;
+  }
+
+  .AddButton {
+    padding: 10px 16px;
+    font-size: 13px;
+    gap: 6px;
+  }
+
+  .StatsGrid {
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .StatCard {
+    padding: 14px;
+  }
+
+  .StatIcon {
+    width: 42px;
+    height: 42px;
+    font-size: 20px;
+  }
+
+  .StatValue {
+    font-size: 22px;
+  }
+
+  .StatLabel {
+    font-size: 10px;
+  }
+
+  .Controls {
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .SearchInput,
+  .FilterSelect {
+    padding: 10px 10px 10px 40px;
+    font-size: 13px;
+  }
+
+  .SearchIcon,
+  .FilterIcon {
+    left: 12px;
+    font-size: 16px;
+  }
+
+  .TableWrapper {
+    margin: 0 -12px;
+    width: calc(100% + 24px);
+  }
+
+  .Table {
+    min-width: 600px;
+    font-size: 12px;
+  }
+
+  .Table th,
+  .Table td {
+    padding: 10px 8px;
+  }
+
+  .Table th {
+    font-size: 10px;
+  }
+
+  .Avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .Username {
+    font-size: 13px;
+  }
+
+  .Email {
+    font-size: 11px;
+  }
+
+  .Gender,
+  .Status,
+  .Provider {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+
+  .ActionBtn {
+    padding: 6px;
+  }
+
+  .Pagination {
+    gap: 10px;
+  }
+
+  .PageInfo {
+    font-size: 12px;
+  }
+
+  .PageBtn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .EmptyState {
+    padding: 30px 15px;
+  }
+
+  .EmptyIcon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .EmptyState h3 {
+    font-size: 16px;
+  }
+
+  .EmptyState p {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .StatsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

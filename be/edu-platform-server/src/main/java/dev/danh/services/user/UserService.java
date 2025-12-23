@@ -5,12 +5,13 @@ import dev.danh.entities.dtos.request.UserCreateRequest;
 import dev.danh.entities.dtos.request.UserUpdateRequest;
 import dev.danh.entities.dtos.response.UserResponse;
 import dev.danh.entities.models.User;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface UserService {
-    List<UserResponse> getAllUsers();
+    Page<UserResponse> getAllUsers(int page);
     UserResponse createUser(UserCreateRequest userCreateRequest);
     UserResponse updateUser(UUID id,UserUpdateRequest userUpdateRequest);
     UserResponse deleteUser(UUID userId);
