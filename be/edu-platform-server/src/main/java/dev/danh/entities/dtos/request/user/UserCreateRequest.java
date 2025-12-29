@@ -1,4 +1,4 @@
-package dev.danh.entities.dtos.request;
+package dev.danh.entities.dtos.request.user;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;

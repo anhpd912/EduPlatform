@@ -1,11 +1,7 @@
 package dev.danh.configs;
 
-import dev.danh.entities.dtos.request.IntrospectRequest;
+import dev.danh.entities.dtos.request.auth.IntrospectRequest;
 import dev.danh.services.auth.AuthService;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;

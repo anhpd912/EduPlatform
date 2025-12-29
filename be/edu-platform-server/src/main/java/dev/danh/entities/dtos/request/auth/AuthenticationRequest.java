@@ -1,4 +1,4 @@
-package dev.danh.entities.dtos.request;
+package dev.danh.entities.dtos.request.auth;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

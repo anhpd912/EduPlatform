@@ -1,14 +1,15 @@
-package dev.danh.entities.dtos.request;
+package dev.danh.entities.dtos.request.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class LogOutDeviceRequest {
-    String deviceRefreshToken;
+public class ResetPasswordRequest {
+    String token;
+    String newPassword;
 }

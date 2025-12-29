@@ -1,8 +1,8 @@
 package dev.danh.services.user.impl;
 
-import dev.danh.entities.dtos.request.CompleteRegisterRequest;
-import dev.danh.entities.dtos.request.UserCreateRequest;
-import dev.danh.entities.dtos.request.UserUpdateRequest;
+import dev.danh.entities.dtos.request.auth.CompleteRegisterRequest;
+import dev.danh.entities.dtos.request.user.UserCreateRequest;
+import dev.danh.entities.dtos.request.user.UserUpdateRequest;
 import dev.danh.entities.dtos.response.UserResponse;
 import dev.danh.entities.models.Role;
 import dev.danh.entities.models.Student;

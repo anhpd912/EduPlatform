@@ -1,4 +1,4 @@
-package dev.danh.entities.dtos.request;
+package dev.danh.entities.dtos.request.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ResetPasswordRequest {
+public class RefreshRequest {
     String token;
-    String newPassword;
 }

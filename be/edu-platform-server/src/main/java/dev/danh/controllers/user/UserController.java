@@ -1,9 +1,9 @@
 package dev.danh.controllers.user;
 
 import dev.danh.controllers.websocket.UpdateController;
-import dev.danh.entities.dtos.request.CompleteRegisterRequest;
-import dev.danh.entities.dtos.request.UserCreateRequest;
-import dev.danh.entities.dtos.request.UserUpdateRequest;
+import dev.danh.entities.dtos.request.auth.CompleteRegisterRequest;
+import dev.danh.entities.dtos.request.user.UserCreateRequest;
+import dev.danh.entities.dtos.request.user.UserUpdateRequest;
 import dev.danh.entities.dtos.response.APIResponse;
 import dev.danh.services.user.UserService;
 import lombok.AccessLevel;

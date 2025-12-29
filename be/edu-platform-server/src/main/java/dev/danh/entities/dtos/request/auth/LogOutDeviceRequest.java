@@ -1,4 +1,4 @@
-package dev.danh.entities.dtos.request;
+package dev.danh.entities.dtos.request.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Builder
-public class IntrospectRequest {
-    String token;
+public class LogOutDeviceRequest {
+    String deviceRefreshToken;
 }
