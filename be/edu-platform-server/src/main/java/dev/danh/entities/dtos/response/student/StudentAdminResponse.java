@@ -25,6 +25,8 @@ public class StudentAdminResponse {
     Boolean gender;
     String phoneNumber;
     String address;
+    String parentPhone;
+    String parentName;
     LocalDate dateOfBirth;
     LocalDate dateOfEnrollment;
     Boolean isActive;

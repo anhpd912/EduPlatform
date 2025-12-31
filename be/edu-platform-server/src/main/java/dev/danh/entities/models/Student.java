@@ -20,6 +20,8 @@ public class Student {
     @MapsId
     @JoinColumn(name = "id")
     private User user;
+    private String parentPhone;
+    private String parentName;
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<StudentProgress> studentProgress;
 

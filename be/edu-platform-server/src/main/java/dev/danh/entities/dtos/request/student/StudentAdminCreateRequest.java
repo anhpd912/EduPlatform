@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class StudentCreateRequest {
+public class StudentAdminCreateRequest {
     @NotBlank(message = "Username is required")
     String username;
     @NotBlank(message = "Password is required")
@@ -21,6 +21,8 @@ public class StudentCreateRequest {
     String email;
     String fullName;
     Boolean gender;
+    String parentPhone;
+    String parentName;
     @Pattern(regexp = "^\\d{10}$", message = "Invalid phone number format")
     String phoneNumber;
     String address;

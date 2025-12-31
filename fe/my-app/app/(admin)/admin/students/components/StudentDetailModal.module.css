@@ -1,0 +1,359 @@
+.ModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.ModalContent {
+  background: white;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.3s ease-out;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.ModalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.ModalHeader h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.CloseButton {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: #64748b;
+  border-radius: 8px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.CloseButton:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+.ModalBody {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Profile Section */
+.ProfileSection {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.AvatarContainer {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #eff6ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3b82f6;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 3px solid #dbeafe;
+}
+
+.Avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.AvatarFallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ProfileInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.FullName {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.Username {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.StatusBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  width: fit-content;
+  margin-top: 4px;
+}
+
+.StatusBadge.Active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.StatusBadge.Inactive {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Details Grid */
+.DetailsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.DetailSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.SectionTitle {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.DetailItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.DetailIcon {
+  color: #94a3b8;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.DetailContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.DetailLabel {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.DetailValue {
+  font-size: 14px;
+  color: #1e293b;
+  word-break: break-word;
+}
+
+/* Roles */
+.RolesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.RolesList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.RoleBadge {
+  padding: 4px 12px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Statistics Section */
+.StatsSection {
+  padding-top: 24px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.StatsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.StatCard {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  border: 1px solid #e2e8f0;
+}
+
+.StatValue {
+  display: block;
+  font-size: 28px;
+  font-weight: 700;
+  color: #4f7cff;
+  margin-bottom: 4px;
+}
+
+.StatLabel {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Modal Footer */
+.ModalFooter {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 24px;
+  border-top: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.SecondaryButton {
+  padding: 10px 20px;
+  background: white;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.SecondaryButton:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.PrimaryButton {
+  padding: 10px 20px;
+  background: #4f7cff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.PrimaryButton:hover {
+  background: #3b63d9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ModalOverlay {
+    padding: 10px;
+    align-items: flex-end;
+  }
+
+  .ModalContent {
+    max-height: 95vh;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .ProfileSection {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .ProfileInfo {
+    align-items: center;
+  }
+
+  .DetailsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .StatsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ModalFooter {
+    flex-direction: column;
+  }
+
+  .SecondaryButton,
+  .PrimaryButton {
+    width: 100%;
+  }
+}

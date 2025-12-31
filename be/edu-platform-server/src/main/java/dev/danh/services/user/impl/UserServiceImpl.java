@@ -15,6 +15,7 @@ import dev.danh.mapper.UserMapper;
 import dev.danh.repositories.auth.RoleRepository;
 import dev.danh.repositories.user.UserRepository;
 import dev.danh.services.user.UserService;
+import dev.danh.utils.CloudinaryUpload;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -26,6 +27,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -40,6 +42,7 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
     PasswordEncoder passwordEncoder;
     RoleRepository roleRepository;
+    CloudinaryUpload cloudinaryUpload;
 
     @Override
     public Page<UserResponse> getAllUsers(int page) {
@@ -48,7 +51,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse createUser(UserCreateRequest userCreateRequest) {
+    public UserResponse createUser(UserCreateRequest userCreateRequest, MultipartFile image) {
         boolean checkExistByEmail = userRepository.existsByEmail(userCreateRequest.getEmail());
         if (checkExistByEmail) {
             throw new AppException(ErrorCode.EMAIL_ALREADY_EXISTS);
@@ -60,13 +63,19 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user = userMapper.toUser(userCreateRequest, user);
         String roleName = userCreateRequest.getRole().toUpperCase();
-        Role role = roleRepository.findById(roleName)
-                .orElseThrow(() -> new AppException(ErrorCode.UNKNOWN_ERROR));
+        Role role = roleRepository.findById(roleName).orElseThrow(() -> new AppException(ErrorCode.UNKNOWN_ERROR));
         user.setRoles(Set.of(role));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        // Xử lý upload avatar lên Cloudinary
+        if (image != null) {
+            String avatarUrl = cloudinaryUpload.uploadAndGetImageUrl(image);
+            user.setAvatarUrl(avatarUrl);
+        }
         // Xử lý tạo Student nếu là STUDENT
         if ("STUDENT".equals(roleName)) {
             Student student = new Student();
+            student.setParentName(userCreateRequest.getStudentInfo().getParentName());
+            student.setParentPhone(userCreateRequest.getStudentInfo().getParentPhone());
             student.setUser(user); // liên kết user
             user.setStudent(student);
         }
@@ -74,6 +83,7 @@ public class UserServiceImpl implements UserService {
         // Hoặc nếu là TEACHER
         if ("TEACHER".equals(roleName)) {
             Teacher teacher = new Teacher();
+            teacher.setExpertise(userCreateRequest.getTeacherInfo().getExpertise());
             teacher.setUser(user);
             user.setTeacher(teacher);
         }
@@ -88,10 +98,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse updateUser(UUID id, UserUpdateRequest userUpdateRequest) {
+    public UserResponse updateUser(UUID id, UserUpdateRequest userUpdateRequest, MultipartFile image) {
+
         User us = userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        String oldAvatarUrl = us.getAvatarUrl();
         us = userMapper.toUser(userUpdateRequest, us);
         us.setPassword(passwordEncoder.encode(us.getPassword()));
+        // Xử lý upload avatar lên Cloudinary
+        if (image != null && !image.isEmpty()) {
+            String avatarUrl = cloudinaryUpload.uploadAndGetImageUrl(image);
+            us.setAvatarUrl(avatarUrl);
+        } else if (userUpdateRequest.getDeleteAvatar()) {
+            cloudinaryUpload.deleteImage(oldAvatarUrl);
+        }
         userRepository.save(us);
         return userMapper.toUserResponse(us);
     }
@@ -140,10 +159,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean completeRegister(CompleteRegisterRequest userUpdateRequest) {
         // 1. Tìm user và role từ database
-        User user = userRepository.findById(userUpdateRequest.getUserId())
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
-        Role roleToAdd = roleRepository.findById(userUpdateRequest.getRoleName())
-                .orElseThrow(() -> new AppException(ErrorCode.ROLE_NOT_FOUND));
+        User user = userRepository.findById(userUpdateRequest.getUserId()).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        Role roleToAdd = roleRepository.findById(userUpdateRequest.getRoleName()).orElseThrow(() -> new AppException(ErrorCode.ROLE_NOT_FOUND));
 
         // 2. Lấy ra danh sách các vai trò hiện tại của user
         Set<Role> currentRoles = user.getRoles();

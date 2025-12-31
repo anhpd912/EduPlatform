@@ -1,0 +1,481 @@
+/* Loading & Error States */
+.LoadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: 16px;
+  color: #64748b;
+}
+
+.Spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #e2e8f0;
+  border-top-color: #4f7cff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ErrorContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  color: #ef4444;
+  font-size: 18px;
+}
+
+/* Profile Container */
+.ProfileContainer {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+/* Profile Header */
+.ProfileHeader {
+  position: relative;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.CoverImage {
+  height: 180px;
+  background: linear-gradient(135deg, #4f7cff 0%, #3b63d9 50%, #2a4db3 100%);
+}
+
+.AvatarWrapper {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.Avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid white;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.StatusIndicator {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 4px solid white;
+}
+
+.Online {
+  background: #22c55e;
+}
+
+.Offline {
+  background: #94a3b8;
+}
+
+.HeaderInfo {
+  padding: 90px 24px 24px;
+  text-align: center;
+}
+
+.Name {
+  margin: 0 0 4px 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.Username {
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  color: #64748b;
+}
+
+.RoleBadges {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.RoleBadge {
+  padding: 6px 16px;
+  background: linear-gradient(135deg, #4f7cff 0%, #3b63d9 100%);
+  color: white;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.EditButton {
+  position: absolute;
+  top: 200px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: white;
+  color: #4f7cff;
+  border: 2px solid #4f7cff;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.EditButton:hover {
+  background: #4f7cff;
+  color: white;
+}
+
+/* Profile Content */
+.ProfileContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Section */
+.Section {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.SectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 24px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.SectionTitle svg {
+  color: #4f7cff;
+}
+
+/* Info Grid */
+.InfoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.InfoCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.InfoCard:hover {
+  background: #f1f5f9;
+  transform: translateY(-2px);
+}
+
+.InfoIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #4f7cff 0%, #3b63d9 100%);
+  border-radius: 12px;
+  color: white;
+  flex-shrink: 0;
+}
+
+.InfoDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.InfoDetails label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.InfoDetails p {
+  margin: 0;
+  font-size: 16px;
+  color: #1e293b;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.Email {
+  color: #4f7cff !important;
+}
+
+/* Account Grid */
+.AccountGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.AccountItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 12px;
+}
+
+.AccountItem label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.AccountItem p {
+  margin: 0;
+  font-size: 15px;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.UserId {
+  font-family: monospace;
+  font-size: 12px !important;
+  color: #94a3b8 !important;
+  word-break: break-all;
+}
+
+.ProviderBadge {
+  display: inline-block;
+  padding: 6px 14px;
+  background: #eff6ff;
+  color: #4f7cff;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.StatusBadge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.Active {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+.Inactive {
+  background: #fed7d7;
+  color: #742a2a;
+}
+
+/* Roles Grid */
+.RolesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.RoleCard {
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border-left: 4px solid #4a90e2;
+}
+
+.RoleCard h3 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  color: #2d3748;
+  font-weight: 700;
+}
+
+.RoleCard p {
+  margin: 0 0 16px 0;
+  font-size: 14px;
+  color: #718096;
+}
+
+.PermissionsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.PermissionBadge {
+  padding: 4px 12px;
+  background: #e2e8f0;
+  color: #4a5568;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .ProfileContainer {
+    padding: 16px;
+  }
+
+  .CoverImage {
+    height: 140px;
+  }
+
+  .AvatarWrapper {
+    top: 70px;
+  }
+
+  .Avatar {
+    width: 120px;
+    height: 120px;
+  }
+
+  .HeaderInfo {
+    padding: 70px 16px 20px;
+  }
+
+  .Name {
+    font-size: 24px;
+  }
+
+  .EditButton {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin: 0 auto 20px;
+  }
+
+  .Section {
+    padding: 20px;
+  }
+
+  .SectionTitle {
+    font-size: 18px;
+  }
+
+  .InfoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .AccountGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .RolesGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .ProfileContainer {
+    padding: 12px;
+  }
+
+  .CoverImage {
+    height: 120px;
+  }
+
+  .AvatarWrapper {
+    top: 50px;
+  }
+
+  .Avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .HeaderInfo {
+    padding: 60px 12px 16px;
+  }
+
+  .Name {
+    font-size: 20px;
+  }
+
+  .Username {
+    font-size: 14px;
+  }
+
+  .RoleBadge {
+    font-size: 10px;
+    padding: 4px 12px;
+  }
+
+  .Section {
+    padding: 16px;
+  }
+
+  .SectionTitle {
+    font-size: 16px;
+    gap: 8px;
+  }
+
+  .InfoCard {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .InfoIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .InfoDetails p {
+    font-size: 14px;
+  }
+
+  .AccountGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .AccountItem {
+    padding: 12px;
+  }
+
+  .RoleCard {
+    padding: 16px;
+  }
+
+  .RoleCard h3 {
+    font-size: 16px;
+  }
+}

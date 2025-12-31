@@ -12,9 +12,11 @@ import java.time.LocalDate;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserUpdateRequest {
     String avatarUrl;
+    String username;
     String fullName;
     Boolean gender;
     String phoneNumber;
     String address;
     LocalDate dateOfBirth;
+    Boolean deleteAvatar;
 }
