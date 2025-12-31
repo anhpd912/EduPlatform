@@ -1,8 +1,8 @@
 package dev.danh.services.user.impl;
 
-import dev.danh.entities.dtos.request.CompleteRegisterRequest;
-import dev.danh.entities.dtos.request.UserCreateRequest;
-import dev.danh.entities.dtos.request.UserUpdateRequest;
+import dev.danh.entities.dtos.request.auth.CompleteRegisterRequest;
+import dev.danh.entities.dtos.request.user.UserCreateRequest;
+import dev.danh.entities.dtos.request.user.UserUpdateRequest;
 import dev.danh.entities.dtos.response.UserResponse;
 import dev.danh.entities.models.Role;
 import dev.danh.entities.models.Student;
@@ -15,18 +15,21 @@ import dev.danh.mapper.UserMapper;
 import dev.danh.repositories.auth.RoleRepository;
 import dev.danh.repositories.user.UserRepository;
 import dev.danh.services.user.UserService;
+import dev.danh.utils.CloudinaryUpload;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -39,17 +42,16 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
     PasswordEncoder passwordEncoder;
     RoleRepository roleRepository;
+    CloudinaryUpload cloudinaryUpload;
 
     @Override
-    public List<UserResponse> getAllUsers() {
-        List<User> users = userRepository.findAll();
-        return users.stream()
-                .map(userMapper::toUserResponse)
-                .toList();
+    public Page<UserResponse> getAllUsers(int page) {
+        Page<User> users = userRepository.findAll(PageRequest.of(page - 1, 9));
+        return users.map(userMapper::toUserResponse);
     }
 
     @Override
-    public UserResponse createUser(UserCreateRequest userCreateRequest) {
+    public UserResponse createUser(UserCreateRequest userCreateRequest, MultipartFile image) {
         boolean checkExistByEmail = userRepository.existsByEmail(userCreateRequest.getEmail());
         if (checkExistByEmail) {
             throw new AppException(ErrorCode.EMAIL_ALREADY_EXISTS);
@@ -61,13 +63,19 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user = userMapper.toUser(userCreateRequest, user);
         String roleName = userCreateRequest.getRole().toUpperCase();
-        Role role = roleRepository.findById(roleName)
-                .orElseThrow(() -> new AppException(ErrorCode.UNKNOWN_ERROR));
+        Role role = roleRepository.findById(roleName).orElseThrow(() -> new AppException(ErrorCode.UNKNOWN_ERROR));
         user.setRoles(Set.of(role));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        // Xử lý upload avatar lên Cloudinary
+        if (image != null) {
+            String avatarUrl = cloudinaryUpload.uploadAndGetImageUrl(image);
+            user.setAvatarUrl(avatarUrl);
+        }
         // Xử lý tạo Student nếu là STUDENT
         if ("STUDENT".equals(roleName)) {
             Student student = new Student();
+            student.setParentName(userCreateRequest.getStudentInfo().getParentName());
+            student.setParentPhone(userCreateRequest.getStudentInfo().getParentPhone());
             student.setUser(user); // liên kết user
             user.setStudent(student);
         }
@@ -75,6 +83,7 @@ public class UserServiceImpl implements UserService {
         // Hoặc nếu là TEACHER
         if ("TEACHER".equals(roleName)) {
             Teacher teacher = new Teacher();
+            teacher.setExpertise(userCreateRequest.getTeacherInfo().getExpertise());
             teacher.setUser(user);
             user.setTeacher(teacher);
         }
@@ -89,10 +98,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse updateUser(UUID id, UserUpdateRequest userUpdateRequest) {
+    public UserResponse updateUser(UUID id, UserUpdateRequest userUpdateRequest, MultipartFile image) {
+
         User us = userRepository.findById(id).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        String oldAvatarUrl = us.getAvatarUrl();
         us = userMapper.toUser(userUpdateRequest, us);
         us.setPassword(passwordEncoder.encode(us.getPassword()));
+        // Xử lý upload avatar lên Cloudinary
+        if (image != null && !image.isEmpty()) {
+            String avatarUrl = cloudinaryUpload.uploadAndGetImageUrl(image);
+            us.setAvatarUrl(avatarUrl);
+        } else if (userUpdateRequest.getDeleteAvatar()) {
+            cloudinaryUpload.deleteImage(oldAvatarUrl);
+        }
         userRepository.save(us);
         return userMapper.toUserResponse(us);
     }
@@ -141,10 +159,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean completeRegister(CompleteRegisterRequest userUpdateRequest) {
         // 1. Tìm user và role từ database
-        User user = userRepository.findById(userUpdateRequest.getUserId())
-                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
-        Role roleToAdd = roleRepository.findById(userUpdateRequest.getRoleName())
-                .orElseThrow(() -> new AppException(ErrorCode.ROLE_NOT_FOUND));
+        User user = userRepository.findById(userUpdateRequest.getUserId()).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+        Role roleToAdd = roleRepository.findById(userUpdateRequest.getRoleName()).orElseThrow(() -> new AppException(ErrorCode.ROLE_NOT_FOUND));
 
         // 2. Lấy ra danh sách các vai trò hiện tại của user
         Set<Role> currentRoles = user.getRoles();
@@ -163,6 +179,10 @@ public class UserServiceImpl implements UserService {
         // Việc gọi save() ở đây để rõ ràng cũng không sao.
         userRepository.save(user);
         return true;
+    }
+
+    public int numbersOfPage() {
+        return (int) Math.ceil((double) userRepository.count() / 6);
     }
 
 }

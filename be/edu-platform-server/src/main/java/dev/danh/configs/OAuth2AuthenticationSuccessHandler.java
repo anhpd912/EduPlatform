@@ -1,7 +1,7 @@
 package dev.danh.configs;
 
 import dev.danh.entities.dtos.apps.CustomOAuth2User;
-import dev.danh.entities.dtos.request.AuthenticationGoogleRequest;
+import dev.danh.entities.dtos.request.auth.AuthenticationGoogleRequest;
 import dev.danh.entities.dtos.response.AuthenticationResponse;
 import dev.danh.entities.dtos.response.UserResponse;
 import dev.danh.entities.models.Role;

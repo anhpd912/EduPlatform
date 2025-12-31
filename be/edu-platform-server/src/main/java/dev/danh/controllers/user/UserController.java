@@ -1,17 +1,23 @@
 package dev.danh.controllers.user;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import dev.danh.controllers.websocket.UpdateController;
-import dev.danh.entities.dtos.request.CompleteRegisterRequest;
-import dev.danh.entities.dtos.request.UserCreateRequest;
-import dev.danh.entities.dtos.request.UserUpdateRequest;
+import dev.danh.entities.dtos.request.auth.CompleteRegisterRequest;
+import dev.danh.entities.dtos.request.user.UserCreateRequest;
+import dev.danh.entities.dtos.request.user.UserUpdateRequest;
 import dev.danh.entities.dtos.response.APIResponse;
 import dev.danh.services.user.UserService;
+import jakarta.servlet.annotation.MultipartConfig;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
 
@@ -19,25 +25,34 @@ import java.util.UUID;
 @RequestMapping("/users")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
-
+@MultipartConfig(maxFileSize = 5 * 1024 * 1024) // 5 MB
 public class UserController {
     UserService userService;
     private final UpdateController updateController;
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/getAll")
-    public ResponseEntity<APIResponse> getAllUsers() {
+    public ResponseEntity<APIResponse> getAllUsers(@RequestParam int page) {
         return ResponseEntity.ok(
                 APIResponse.builder()
                         .message("Users retrieved successfully")
-                        .data(userService.getAllUsers())
+                        .data(userService.getAllUsers(page))
                         .build()
         );
     }
 
     @PostMapping("/create")
-    public ResponseEntity<APIResponse> createUser(@RequestBody UserCreateRequest userCreateRequest) {
-        var user = userService.createUser(userCreateRequest);
+    public ResponseEntity<APIResponse> createUser(@RequestParam("user-data") String userData,
+                                                  @RequestParam("image") MultipartFile image) throws JsonProcessingException {
+        // Convert JSON string to UserCreateRequest
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        // Register JavaTimeModule so java.time.* types (e.g., LocalDate) are handled correctly
+        objectMapper.registerModule(new JavaTimeModule());
+        // Prefer ISO dates (not timestamps)
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        UserCreateRequest userCreateRequest = objectMapper.readValue(userData, UserCreateRequest.class);
+        var user = userService.createUser(userCreateRequest, image);
         // Send the user creation event to the WebSocket topic
         updateController.sendUpdate(user);
         return ResponseEntity.ok(
@@ -50,11 +65,20 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<APIResponse> updateUser(@PathVariable UUID id, @RequestBody UserUpdateRequest userUpdateRequest) {
+    public ResponseEntity<APIResponse> updateUser(@PathVariable UUID id,
+                                                  @RequestParam("user-data") String userData,
+                                                  @RequestParam("image") MultipartFile image) throws JsonProcessingException {
+        // Convert JSON string to UserUpdateRequest
+        ObjectMapper objectMapper = new ObjectMapper();
+        // Register JavaTimeModule so java.time.* types (e.g., LocalDate) are handled correctly
+        objectMapper.registerModule(new JavaTimeModule());
+        // Prefer ISO dates (not timestamps)
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        UserUpdateRequest userUpdateRequest = objectMapper.readValue(userData, UserUpdateRequest.class);
         return ResponseEntity.ok(
                 APIResponse.builder()
                         .message("User updated successfully")
-                        .data(userService.updateUser(id, userUpdateRequest))
+                        .data(userService.updateUser(id, userUpdateRequest, image))
                         .build()
         );
     }
@@ -110,7 +134,7 @@ public class UserController {
 
     @PostMapping("/complete-register")
     public ResponseEntity<APIResponse> completeRegister(@RequestBody CompleteRegisterRequest userUpdateRequest) {
-       boolean result = userService.completeRegister(userUpdateRequest);
+        boolean result = userService.completeRegister(userUpdateRequest);
         return ResponseEntity.ok(
                 APIResponse.builder()
                         .message("User completed register successfully")

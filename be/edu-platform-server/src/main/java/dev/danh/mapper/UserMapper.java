@@ -1,7 +1,7 @@
 package dev.danh.mapper;
 
-import dev.danh.entities.dtos.request.UserCreateRequest;
-import dev.danh.entities.dtos.request.UserUpdateRequest;
+import dev.danh.entities.dtos.request.user.UserCreateRequest;
+import dev.danh.entities.dtos.request.user.UserUpdateRequest;
 import dev.danh.entities.dtos.response.UserResponse;
 import dev.danh.entities.models.User;
 import org.mapstruct.Mapper;

@@ -1,5 +1,6 @@
 package dev.danh.exception;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import dev.danh.entities.dtos.response.APIResponse;
 import dev.danh.enums.ErrorCode;
 import jakarta.mail.MessagingException;
@@ -93,6 +94,15 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ParseException.class)
     public ResponseEntity<APIResponse> handleParseException(ParseException e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(APIResponse.builder()
+                .statusCode(500)
+                .message(e.getMessage())
+                .build()
+        );
+    }
+
+    @ExceptionHandler(JsonProcessingException.class)
+    public ResponseEntity<APIResponse> handleJsonProcessingException(JsonProcessingException e) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(APIResponse.builder()
                 .statusCode(500)
                 .message(e.getMessage())

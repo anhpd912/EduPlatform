@@ -5,7 +5,7 @@ import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
-import dev.danh.entities.dtos.request.*;
+import dev.danh.entities.dtos.request.auth.*;
 import dev.danh.entities.dtos.response.AuthenticationResponse;
 import dev.danh.entities.dtos.response.IntrospectResponse;
 import dev.danh.entities.models.InvalidToken;

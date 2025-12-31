@@ -1,6 +1,6 @@
 package dev.danh.services.auth;
 
-import dev.danh.entities.dtos.request.*;
+import dev.danh.entities.dtos.request.auth.*;
 import dev.danh.entities.dtos.response.AuthenticationResponse;
 import dev.danh.entities.dtos.response.IntrospectResponse;
 import dev.danh.entities.models.RefreshToken;

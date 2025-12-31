@@ -3,6 +3,7 @@ package dev.danh.entities.models;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,7 +19,8 @@ public class Teacher {
     @Id
     UUID id;
     String expertise;
-    @Column(columnDefinition = "default CURRENT_DATE")
+    @Column
+    @CreationTimestamp
     LocalDate dateOfJoining;
     @OneToOne
     @MapsId

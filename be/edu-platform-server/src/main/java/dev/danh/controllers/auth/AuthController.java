@@ -1,6 +1,6 @@
 package dev.danh.controllers.auth;
 
-import dev.danh.entities.dtos.request.*;
+import dev.danh.entities.dtos.request.auth.*;
 import dev.danh.entities.dtos.response.APIResponse;
 import dev.danh.services.auth.AuthService;
 import jakarta.mail.MessagingException;
