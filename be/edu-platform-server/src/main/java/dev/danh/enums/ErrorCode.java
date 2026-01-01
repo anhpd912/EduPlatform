@@ -22,7 +22,16 @@ public enum ErrorCode {
     UNAUTHENTICATED("You do not have access to this api", HttpStatus.FORBIDDEN),
     FORBIDDEN("Forbidden", HttpStatus.FORBIDDEN),
     INVALID_TOKEN("Invalid token", HttpStatus.UNAUTHORIZED),
-    SEND_MAIL_FAILED("Send email failed", HttpStatus.INTERNAL_SERVER_ERROR), ROLE_NOT_FOUND("Role not found in system",HttpStatus.BAD_REQUEST );
+    SEND_MAIL_FAILED("Send email failed", HttpStatus.INTERNAL_SERVER_ERROR),
+    ROLE_NOT_FOUND("Role not found in system", HttpStatus.BAD_REQUEST),
+    SUBJECT_NOT_FOUND("Subject not found", HttpStatus.NOT_FOUND),
+    SUBJECT_CODE_ALREADY_EXISTS("Subject code already exists", HttpStatus.BAD_REQUEST),
+    CLASS_NOT_FOUND("Class not found", HttpStatus.NOT_FOUND),
+    TEACHER_NOT_FOUND("Teacher not found", HttpStatus.NOT_FOUND),
+    CLASS_SUBJECT_NOT_FOUND("Class subject not found", HttpStatus.NOT_FOUND),
+    CLASS_SUBJECT_ALREADY_EXISTS("Class subject already exists", HttpStatus.BAD_REQUEST),
+    CLASS_TEACHER_NOT_FOUND("Class teacher not found", HttpStatus.NOT_FOUND),
+    CLASS_TEACHER_ALREADY_EXISTS("Class teacher already exists", HttpStatus.BAD_REQUEST);
     private String message;
     private HttpStatus httpStatus;
 

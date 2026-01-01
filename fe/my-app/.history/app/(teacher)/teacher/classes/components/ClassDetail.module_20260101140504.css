@@ -1,0 +1,445 @@
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.Modal {
+  background: white;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 1000px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.ModalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 24px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.HeaderInfo h2 {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.HeaderDescription {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.CloseButton {
+  padding: 8px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #64748b;
+  transition: all 0.2s;
+}
+
+.CloseButton:hover {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.TabsContainer {
+  display: flex;
+  gap: 4px;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e2e8f0;
+  overflow-x: auto;
+  background: white;
+}
+
+.Tab {
+  padding: 10px 16px;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.Tab:hover {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.ActiveTab {
+  background: #3b82f6;
+  color: white;
+}
+
+.ActiveTab:hover {
+  background: #2563eb;
+  color: white;
+}
+
+.ModalBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+/* Overview Tab */
+.OverviewContent {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.InfoSection h4,
+.StatsSection h4 {
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.InfoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.InfoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.InfoItem label {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.InfoItem span {
+  font-size: 14px;
+  color: #1e293b;
+}
+
+.StatsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.StatCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.StatCard svg {
+  font-size: 32px;
+  color: #3b82f6;
+}
+
+.StatInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.StatValue {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.StatLabel {
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* Tab Content */
+.TabContent {
+  min-height: 300px;
+}
+
+/* Table Styles */
+.TableContainer {
+  overflow-x: auto;
+}
+
+.DataTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.DataTable th,
+.DataTable td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.DataTable th {
+  background: #f8fafc;
+  font-weight: 600;
+  color: #475569;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.DataTable tbody tr:hover {
+  background: #f8fafc;
+}
+
+/* Status Badges */
+.StatusBadge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.Active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.Inactive {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.Completed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.Ongoing {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.Pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.PresentCount {
+  color: #166534;
+  font-weight: 600;
+}
+
+.AbsentCount {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+/* Subject Grid */
+.SubjectGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.SubjectCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.SubjectCard svg {
+  font-size: 28px;
+  color: #3b82f6;
+}
+
+.SubjectInfo h5 {
+  margin: 0 0 4px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.SubjectInfo p {
+  margin: 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* Timetable Grid */
+.TimetableGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.TimetableCard {
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+}
+
+.TimetableDay {
+  padding: 10px 16px;
+  background: #3b82f6;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.TimetableInfo {
+  padding: 16px;
+}
+
+.TimetableSubject {
+  margin: 0 0 8px 0;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.TimetableTime {
+  margin: 0 0 4px 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.TimetableRoom {
+  margin: 0;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+/* Progress Bar */
+.ProgressBar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.ProgressBar > div:first-child {
+  flex: 1;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.ProgressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.ProgressBar span {
+  font-size: 13px;
+  font-weight: 600;
+  color: #475569;
+  min-width: 40px;
+}
+
+/* Score Badge */
+.ScoreBadge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.HighScore {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.MediumScore {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.LowScore {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* Empty State */
+.EmptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  color: #94a3b8;
+  gap: 16px;
+}
+
+.EmptyState svg {
+  font-size: 48px;
+}
+
+.EmptyState p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .Modal {
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .InfoGrid,
+  .StatsGrid,
+  .SubjectGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .TabsContainer {
+    padding: 12px 16px;
+  }
+
+  .Tab {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .ModalBody {
+    padding: 16px;
+  }
+
+  .DataTable th,
+  .DataTable td {
+    padding: 10px 12px;
+  }
+}

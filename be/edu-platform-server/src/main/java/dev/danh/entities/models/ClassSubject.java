@@ -15,12 +15,10 @@ import lombok.experimental.FieldDefaults;
 public class ClassSubject {
     @EmbeddedId
     ClassSubjectId id;
-
     @ManyToOne
     @MapsId("classId")
     @JoinColumn(name = "class_id")
     Class _class;
-
     @ManyToOne
     @MapsId("subjectId")
     @JoinColumn(name = "subject_id")
@@ -31,5 +29,4 @@ public class ClassSubject {
     Teacher teacher;
     @Enumerated(EnumType.STRING)
     ClassSubjectStatus status;
-
 }

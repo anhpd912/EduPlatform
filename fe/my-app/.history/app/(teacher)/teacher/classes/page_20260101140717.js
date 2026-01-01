@@ -1,0 +1,124 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import styles from "./page.module.css";
+import ClassIcon from "@mui/icons-material/Class";
+import AddIcon from "@mui/icons-material/Add";
+import { useLanguage } from "@/shared/contexts/LanguageContext";
+import { translations } from "@/shared/translations/translations";
+import { ClassService } from "@/shared/services/api/Class/ClassService";
+import ClassList from "./components/ClassList";
+import ClassDetail from "./components/ClassDetail";
+
+export default function TeacherClassesPage() {
+  const { language } = useLanguage();
+  const t = translations[language];
+  const [classes, setClasses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selectedClass, setSelectedClass] = useState(null);
+  const [showDetail, setShowDetail] = useState(false);
+
+  useEffect(() => {
+    fetchClasses();
+  }, []);
+
+  const fetchClasses = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const response = await ClassService.getMyClass();
+      // Extract classes from paginated response: response.data.data.content
+      const classesData = response.data?.data?.content || response.data?.content || [];
+      setClasses(classesData);
+    } catch (err) {
+      console.error("Error fetching classes:", err);
+      setError(t.errorLoadingClasses || "Error loading classes");
+      setClasses([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleViewClass = (classData) => {
+    setSelectedClass(classData);
+    setShowDetail(true);
+  };
+
+  const handleEditClass = (classData) => {
+    // TODO: Implement edit functionality
+    console.log("Edit class:", classData);
+  };
+
+  const handleDeleteClass = async (classData) => {
+    if (
+      window.confirm(
+        t.confirmDeleteClass ||
+          `Are you sure you want to delete "${classData.name}"?`
+      )
+    ) {
+      try {
+        await ClassService.deleteClass(classData.id);
+        setClasses(classes.filter((c) => c.id !== classData.id));
+      } catch (err) {
+        console.error("Error deleting class:", err);
+        alert(t.errorDeletingClass || "Error deleting class");
+      }
+    }
+  };
+
+  const handleCloseDetail = () => {
+    setShowDetail(false);
+    setSelectedClass(null);
+  };
+
+  if (loading) {
+    return (
+      <div className={styles.LoadingContainer}>
+        <div className={styles.Spinner}></div>
+        <p>{t.loading}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className={styles.PageContainer}>
+      <div className={styles.Header}>
+        <div className={styles.HeaderContent}>
+          <div className={styles.HeaderIcon}>
+            <ClassIcon style={{ fontSize: 28 }} />
+          </div>
+          <div>
+            <h1>{t.myClasses || "My Classes"}</h1>
+            <p className={styles.HeaderSubtitle}>
+              {t.manageYourClasses ||
+                "Manage your classes and track student progress"}
+            </p>
+          </div>
+        </div>
+        <button className={styles.AddButton}>
+          <AddIcon fontSize="small" />
+          {t.addClass}
+        </button>
+      </div>
+
+      {error && (
+        <div className={styles.ErrorBanner}>
+          <p>{error}</p>
+          <button onClick={fetchClasses}>{t.retry || "Retry"}</button>
+        </div>
+      )}
+
+      <ClassList
+        classes={classes}
+        onViewClass={handleViewClass}
+        onEditClass={handleEditClass}
+        onDeleteClass={handleDeleteClass}
+      />
+
+      {showDetail && selectedClass && (
+        <ClassDetail classData={selectedClass} onClose={handleCloseDetail} />
+      )}
+    </div>
+  );
+}
