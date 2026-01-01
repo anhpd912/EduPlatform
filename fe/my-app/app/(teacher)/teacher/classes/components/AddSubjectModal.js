@@ -209,7 +209,10 @@ export default function AddSubjectModal({ classData, onClose, onSave }) {
               type="submit"
               className={styles.SaveButton}
               disabled={
-                loading || loadingSubjects || loadingTeachers || classTeachers.length === 0
+                loading ||
+                loadingSubjects ||
+                loadingTeachers ||
+                classTeachers.length === 0
               }
             >
               {loading ? t.saving || "Saving..." : t.save || "Save"}
