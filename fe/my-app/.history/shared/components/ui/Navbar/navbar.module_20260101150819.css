@@ -1,0 +1,400 @@
+.NavBar {
+  display: flex;
+  color: white;
+  padding: 20px 20px;
+  align-items: center;
+  border-bottom: 1px solid #ccc9c9;
+}
+
+.LanguageToggle {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.LanguageToggle:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.UserName {
+  color: black;
+  font-weight: 500;
+  font-size: 16px;
+  margin-right: 10px;
+  font-style: italic;
+}
+
+.ChatIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f0f7ff;
+  color: #1976d2;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.ChatIcon:hover {
+  background: #1976d2;
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Notification Styles */
+.NotificationWrapper {
+  position: relative;
+}
+
+.NotificationIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fff7ed;
+  color: #ea580c;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.NotificationIcon:hover {
+  background: #ea580c;
+  color: white;
+  transform: scale(1.05);
+}
+
+.NotificationBadge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  background: #ef4444;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.NotificationDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 12px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  width: 380px;
+  max-height: 500px;
+  display: flex;
+  flex-direction: column;
+  z-index: 1001;
+  overflow: hidden;
+}
+
+.NotificationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.NotificationHeader h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.MarkAllRead {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.MarkAllRead:hover {
+  background: #eff6ff;
+}
+
+.NotificationList {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 380px;
+}
+
+.NotificationItem {
+  display: flex;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.NotificationItem:hover {
+  background: #f8fafc;
+}
+
+.NotificationItem.Unread {
+  background: #eff6ff;
+}
+
+.NotificationItem.Unread:hover {
+  background: #dbeafe;
+}
+
+.NotificationIconWrapper {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.NotificationTypeIcon {
+  font-size: 20px;
+  color: #64748b;
+}
+
+.NotificationContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.NotificationTitle {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.NotificationMessage {
+  margin: 0 0 6px 0;
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.NotificationTime {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.InvitationActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.AcceptButton,
+.DeclineButton {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.AcceptButton {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.AcceptButton:hover {
+  background: #16a34a;
+  color: white;
+}
+
+.DeclineButton {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.DeclineButton:hover {
+  background: #dc2626;
+  color: white;
+}
+
+.NotificationLoading,
+.NotificationEmpty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  color: #94a3b8;
+  gap: 12px;
+}
+
+.NotificationEmpty svg {
+  font-size: 48px;
+}
+
+.NotificationEmpty p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.ViewAllNotifications {
+  display: block;
+  padding: 14px 20px;
+  text-align: center;
+  color: #3b82f6;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border-top: 1px solid #e2e8f0;
+  transition: background 0.2s;
+}
+
+.ViewAllNotifications:hover {
+  background: #f8fafc;
+}
+
+.UserSection {
+  margin-left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+  cursor: pointer;
+}
+
+.DropdownMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 25px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 250px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.UserSection:hover .DropdownMenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.DropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.DropdownItem:hover {
+  background-color: #f5f5f5;
+}
+
+.DropdownItem:first-child {
+  border-radius: 8px 8px 0 0;
+}
+
+.DropdownItem:last-child {
+  border-radius: 0 0 8px 8px;
+}
+
+.DropdownItem span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.Divider {
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 4px 0;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .NavBar {
+    padding: 15px;
+  }
+  .UserName {
+    font-size: 14px;
+    display: none;
+  }
+  .DropdownMenu {
+    min-width: 200px;
+    right: -10px;
+  }
+  .DropdownItem {
+    padding: 10px 14px;
+  }
+  .DropdownItem span {
+    font-size: 13px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .NavBar {
+    padding: 10px;
+  }
+  .UserSection {
+    gap: 10px;
+  }
+  .DropdownMenu {
+    min-width: 180px;
+  }
+  .NotificationDropdown {
+    width: 300px;
+    right: -60px;
+  }
+  .NotificationItem {
+    padding: 12px 16px;
+  }
+}

@@ -1,0 +1,96 @@
+.ListContainer {
+  width: 100%;
+}
+
+.FilterBar {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.SearchWrapper {
+  position: relative;
+  flex: 1;
+  min-width: 250px;
+}
+
+.SearchIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+}
+
+.SearchInput {
+  width: 100%;
+  padding: 12px 16px 12px 44px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s;
+  background: white;
+}
+
+.SearchInput:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.FilterWrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  color: #64748b;
+}
+
+.FilterSelect {
+  padding: 12px 8px;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  color: #334155;
+  cursor: pointer;
+  outline: none;
+}
+
+.ClassGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.EmptyState {
+  text-align: center;
+  padding: 48px;
+  color: #64748b;
+  background: white;
+  border-radius: 12px;
+  border: 1px dashed #e2e8f0;
+}
+
+@media (max-width: 1200px) {
+  .ClassGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .FilterBar {
+    flex-direction: column;
+  }
+
+  .SearchWrapper {
+    min-width: 100%;
+  }
+
+  .ClassGrid {
+    grid-template-columns: 1fr;
+  }
+}

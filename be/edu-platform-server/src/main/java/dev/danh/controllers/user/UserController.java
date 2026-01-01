@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import dev.danh.controllers.websocket.UpdateController;
 import dev.danh.entities.dtos.request.auth.CompleteRegisterRequest;
 import dev.danh.entities.dtos.request.user.UserCreateRequest;
 import dev.danh.entities.dtos.request.user.UserUpdateRequest;
@@ -28,7 +27,6 @@ import java.util.UUID;
 @MultipartConfig(maxFileSize = 5 * 1024 * 1024) // 5 MB
 public class UserController {
     UserService userService;
-    private final UpdateController updateController;
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/getAll")
@@ -45,7 +43,6 @@ public class UserController {
     public ResponseEntity<APIResponse> createUser(@RequestParam("user-data") String userData,
                                                   @RequestParam("image") MultipartFile image) throws JsonProcessingException {
         // Convert JSON string to UserCreateRequest
-
         ObjectMapper objectMapper = new ObjectMapper();
         // Register JavaTimeModule so java.time.* types (e.g., LocalDate) are handled correctly
         objectMapper.registerModule(new JavaTimeModule());
@@ -53,8 +50,6 @@ public class UserController {
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         UserCreateRequest userCreateRequest = objectMapper.readValue(userData, UserCreateRequest.class);
         var user = userService.createUser(userCreateRequest, image);
-        // Send the user creation event to the WebSocket topic
-        updateController.sendUpdate(user);
         return ResponseEntity.ok(
                 APIResponse.builder()
                         .message("User created successfully")
@@ -98,8 +93,6 @@ public class UserController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<APIResponse> deleteUser(@PathVariable UUID id) {
         var deletedUser = userService.deleteUser(id);
-        // Send the user deletion event to the WebSocket topic
-        updateController.sendUpdate(deletedUser);
         return ResponseEntity.ok(
                 APIResponse.builder()
                         .message("User deleted successfully")
@@ -112,7 +105,6 @@ public class UserController {
     @PutMapping("/activate/{id}")
     public ResponseEntity<APIResponse> activateUser(@PathVariable UUID id) {
         var activatedUser = userService.activateUser(id);
-        updateController.sendUpdate(activatedUser);
         return ResponseEntity.ok(
                 APIResponse.builder()
                         .message("User activated successfully")

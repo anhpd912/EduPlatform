@@ -1,0 +1,154 @@
+.NavBar {
+  display: flex;
+  color: white;
+  padding: 20px 20px;
+  align-items: center;
+  border-bottom: 1px solid #ccc9c9;
+}
+
+.LanguageToggle {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.LanguageToggle:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.UserName {
+  color: black;
+  font-weight: 500;
+  font-size: 16px;
+  margin-right: 10px;
+  font-style: italic;
+}
+
+.ChatIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f0f7ff;
+  color: #1976d2;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.ChatIcon:hover {
+  background: #1976d2;
+  color: white;
+  transform: scale(1.05);
+}
+
+.UserSection {
+  margin-left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+  cursor: pointer;
+}
+
+.DropdownMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 25px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 250px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.UserSection:hover .DropdownMenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.DropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.DropdownItem:hover {
+  background-color: #f5f5f5;
+}
+
+.DropdownItem:first-child {
+  border-radius: 8px 8px 0 0;
+}
+
+.DropdownItem:last-child {
+  border-radius: 0 0 8px 8px;
+}
+
+.DropdownItem span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.Divider {
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 4px 0;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .NavBar {
+    padding: 15px;
+  }
+  .UserName {
+    font-size: 14px;
+    display: none;
+  }
+  .DropdownMenu {
+    min-width: 200px;
+    right: -10px;
+  }
+  .DropdownItem {
+    padding: 10px 14px;
+  }
+  .DropdownItem span {
+    font-size: 13px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .NavBar {
+    padding: 10px;
+  }
+  .UserSection {
+    gap: 10px;
+  }
+  .DropdownMenu {
+    min-width: 180px;
+  }
+}

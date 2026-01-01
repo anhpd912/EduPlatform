@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
         user.setRoles(Set.of(role));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         // Xử lý upload avatar lên Cloudinary
-        if (image != null) {
+        if (image != null && !image.isEmpty()) {
             String avatarUrl = cloudinaryUpload.uploadAndGetImageUrl(image);
             user.setAvatarUrl(avatarUrl);
         }

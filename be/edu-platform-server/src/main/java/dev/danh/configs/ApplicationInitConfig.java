@@ -1,9 +1,13 @@
 package dev.danh.configs;
 
 import dev.danh.entities.models.Role;
+import dev.danh.entities.models.Student;
+import dev.danh.entities.models.Teacher;
 import dev.danh.entities.models.User;
 import dev.danh.repositories.auth.PermissionRepository;
 import dev.danh.repositories.auth.RoleRepository;
+import dev.danh.repositories.student.StudentRepository;
+import dev.danh.repositories.teacher.TeacherRepository;
 import dev.danh.repositories.user.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +28,13 @@ import java.util.Set;
 public class ApplicationInitConfig {
     PasswordEncoder passwordEncoder;
 
+
     @Bean
-    ApplicationRunner applicationRunner(UserRepository userRepository, RoleRepository roleRepository, PermissionRepository permissionRepository) {
+    ApplicationRunner applicationRunner(UserRepository userRepository,
+                                        RoleRepository roleRepository,
+                                        PermissionRepository permissionRepository,
+                                        TeacherRepository teacherRepository,
+                                        StudentRepository studentRepository) {
         return args -> {
 
             //check role admin existed in db
@@ -40,6 +49,7 @@ public class ApplicationInitConfig {
             if (userRepository.findByUsername("admin").isEmpty()) {
                 User user = new User();
                 user.setUsername("admin");
+                user.setFullName("Administrator");
                 user.setPassword(passwordEncoder.encode("admin"));
                 Set<Role> roles = new HashSet<>();
                 roles.add(role);
@@ -59,11 +69,18 @@ public class ApplicationInitConfig {
             if (userRepository.findByUsername("teacher").isEmpty()) {
                 User user = new User();
                 user.setUsername("teacher");
+                user.setFullName("Teacher Manager");
                 user.setPassword(passwordEncoder.encode("teacher"));
                 Set<Role> roles = new HashSet<>();
                 roles.add(role2);
                 user.setIsActive(true);
                 user.setRoles(roles);
+                Teacher teacher = Teacher.builder()
+                        .id(user.getId())
+                        .user(user)
+                        .expertise("Math, Literature")
+                        .build();
+                user.setTeacher(teacher);
                 userRepository.save(user);
                 log.warn("Teacher test user has been created with default password: teacher, please change password!");
             }
@@ -83,6 +100,13 @@ public class ApplicationInitConfig {
                 roles.add(role3);
                 user.setIsActive(true);
                 user.setRoles(roles);
+                Student student = Student.builder()
+                        .id(user.getId())
+                        .user(user)
+                        .parentName("Parent")
+                        .parentPhone("0123456789")
+                        .build();
+                user.setStudent(student);
                 userRepository.save(user);
                 log.warn("Student test user has been created with default password: student, please change password!");
             }

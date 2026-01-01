@@ -44,6 +44,7 @@ public class Teacher {
     private List<Exam> exams;
     @OneToMany(mappedBy = "teacher")
     private List<Timetable> timetables;
-
+    @OneToMany(mappedBy = "teacher")
+    private List<ClassTeacher> classTeachers;
 
 }
