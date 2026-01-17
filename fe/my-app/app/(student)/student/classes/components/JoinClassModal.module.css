@@ -1,0 +1,171 @@
+.ModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.Modal {
+  background: white;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.ModalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ModalHeader h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.CloseButton {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: #64748b;
+  border-radius: 8px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.CloseButton:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.ModalBody {
+  padding: 24px;
+}
+
+.ModalDescription {
+  margin: 0 0 20px 0;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.FormGroup {
+  margin-bottom: 20px;
+}
+
+.FormGroup label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.FormGroup input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: monospace;
+  letter-spacing: 2px;
+  text-align: center;
+  transition: all 0.2s;
+  box-sizing: border-box;
+}
+
+.FormGroup input:focus {
+  outline: none;
+  border-color: #4f7cff;
+  box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.1);
+}
+
+.FormGroup input.InputError {
+  border-color: #ef4444;
+}
+
+.ErrorText {
+  display: block;
+  margin-top: 8px;
+  font-size: 13px;
+  color: #ef4444;
+}
+
+.ModalActions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.CancelButton {
+  flex: 1;
+  padding: 12px 16px;
+  background: #f1f5f9;
+  color: #64748b;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.CancelButton:hover {
+  background: #e2e8f0;
+}
+
+.SubmitButton {
+  flex: 1;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #4f7cff 0%, #3b63d9 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.SubmitButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(79, 124, 255, 0.3);
+}
+
+.SubmitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.SpinnerSmall {
+  animation: spin 1s linear infinite;
+  font-size: 18px !important;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

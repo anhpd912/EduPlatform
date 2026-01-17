@@ -1,0 +1,443 @@
+.PageContainer {
+  padding: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.Header {
+  margin-bottom: 24px;
+}
+
+.BackLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.BackLink:hover {
+  background: #f8fafc;
+  color: #1e293b;
+  border-color: #cbd5e1;
+}
+
+/* Class Info Card */
+.ClassInfoCard {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.ClassAvatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #4f7cff 0%, #3b63d9 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 32px;
+  flex-shrink: 0;
+}
+
+.ClassMainInfo {
+  flex: 1;
+}
+
+.ClassMainInfo h1 {
+  margin: 0 0 8px 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.ClassCode {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: #64748b;
+  font-family: monospace;
+  background: #f1f5f9;
+  padding: 4px 12px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.ClassMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.ClassMeta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.ClassMeta svg {
+  color: #94a3b8;
+}
+
+.ScheduleLink {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.ScheduleLink:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+/* Tabs */
+.TabsContainer {
+  display: flex;
+  gap: 8px;
+  background: white;
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 24px;
+}
+
+.Tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 20px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.Tab:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.Tab.ActiveTab {
+  background: #4f7cff;
+  color: white;
+}
+
+/* Tab Content */
+.TabContent {
+  background: white;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  padding: 24px;
+}
+
+/* Info Tab */
+.InfoTab {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.InfoSection h3 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.InfoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.InfoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 10px;
+}
+
+.InfoLabel {
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.InfoValue {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.Description {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #475569;
+}
+
+/* Students Tab */
+.StudentGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.StudentCard {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+
+.StudentCard:hover {
+  background: #f1f5f9;
+}
+
+.StudentAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.StudentInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.StudentInfo h4 {
+  margin: 0 0 4px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.StudentMeta {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #64748b;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.StudentMeta svg {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+/* Subjects Tab */
+.SubjectGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.SubjectCard {
+  display: flex;
+  gap: 16px;
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+
+.SubjectCard:hover {
+  background: #f1f5f9;
+}
+
+.SubjectIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.SubjectInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.SubjectInfo h4 {
+  margin: 0 0 6px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.TeacherInfo {
+  margin: 0 0 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.TeacherInfo svg {
+  color: #4f7cff;
+}
+
+.SubjectDesc {
+  margin: 0;
+  font-size: 13px;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+/* Empty State */
+.EmptyState {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.EmptyState h3 {
+  margin: 16px 0 8px 0;
+  font-size: 18px;
+  color: #1e293b;
+}
+
+.EmptyState p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Loading & Error */
+.LoadingContainer,
+.ErrorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 20px;
+  gap: 16px;
+  color: #64748b;
+}
+
+.ErrorContainer h3 {
+  margin: 0;
+  color: #1e293b;
+}
+
+.Spinner {
+  animation: spin 1s linear infinite;
+  font-size: 48px !important;
+  color: #4f7cff;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.BackButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: #4f7cff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.BackButton:hover {
+  background: #3b63d9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .PageContainer {
+    padding: 16px;
+  }
+
+  .ClassInfoCard {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .ClassMeta {
+    justify-content: center;
+  }
+
+  .ScheduleLink {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .TabsContainer {
+    flex-direction: column;
+  }
+
+  .StudentGrid,
+  .SubjectGrid {
+    grid-template-columns: 1fr;
+  }
+}

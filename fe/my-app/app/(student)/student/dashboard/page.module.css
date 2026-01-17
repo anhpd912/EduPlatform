@@ -1,0 +1,563 @@
+.PageContainer {
+  padding: 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.Header {
+  margin-bottom: 32px;
+}
+
+.Header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 8px 0;
+}
+
+.Header p {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Stats Cards */
+.StatsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.StatCard {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: all 0.2s;
+}
+
+.StatCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.StatIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.StatIcon svg {
+  font-size: 28px;
+  color: white;
+}
+
+.StatIcon.blue {
+  background: linear-gradient(135deg, #4f7cff 0%, #3b63d9 100%);
+}
+
+.StatIcon.green {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.StatIcon.purple {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+}
+
+.StatIcon.orange {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.StatIcon.pink {
+  background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+}
+
+.StatIcon.cyan {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+}
+
+.StatInfo {
+  flex: 1;
+}
+
+.StatInfo h3 {
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+  margin: 0 0 8px 0;
+}
+
+.StatValue {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 4px 0;
+}
+
+.StatChange {
+  font-size: 12px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.StatChange.positive {
+  color: #10b981;
+}
+
+.StatChange.negative {
+  color: #ef4444;
+}
+
+/* Content Grid */
+.ContentGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+/* Cards */
+.Card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  margin-bottom: 24px;
+}
+
+.CardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.CardHeader h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.ViewAllLink {
+  font-size: 14px;
+  color: #4f7cff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.ViewAllLink:hover {
+  color: #3b63d9;
+}
+
+/* Today's Schedule */
+.ScheduleList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ScheduleItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 12px;
+  background: #f8fafc;
+  transition: all 0.2s;
+}
+
+.ScheduleItem:hover {
+  background: #f1f5f9;
+}
+
+.ScheduleTime {
+  min-width: 100px;
+  text-align: center;
+}
+
+.ScheduleTime .Time {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.ScheduleTime .Duration {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.ScheduleDivider {
+  width: 4px;
+  height: 50px;
+  border-radius: 2px;
+  background: linear-gradient(135deg, #4f7cff 0%, #3b63d9 100%);
+}
+
+.ScheduleDivider.green {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.ScheduleDivider.purple {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+}
+
+.ScheduleDivider.orange {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.ScheduleInfo {
+  flex: 1;
+}
+
+.ScheduleInfo h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 4px 0;
+}
+
+.ScheduleInfo p {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0;
+}
+
+.ScheduleRoom {
+  padding: 6px 12px;
+  background: #e0f2fe;
+  color: #0284c7;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Class Info Card */
+.ClassInfoCard {
+  background: linear-gradient(135deg, #4f7cff 0%, #3b63d9 100%);
+  border-radius: 16px;
+  padding: 24px;
+  color: white;
+  margin-bottom: 24px;
+}
+
+.ClassInfoCard h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.ClassInfoCard p {
+  font-size: 14px;
+  opacity: 0.9;
+  margin: 0 0 16px 0;
+}
+
+.ClassInfoDetails {
+  display: flex;
+  gap: 24px;
+}
+
+.ClassInfoItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ClassInfoItem svg {
+  font-size: 20px;
+  opacity: 0.9;
+}
+
+.ClassInfoItem span {
+  font-size: 14px;
+}
+
+/* Quick Actions */
+.QuickActions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ActionButton {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.ActionButton:hover {
+  background: #f8fafc;
+  border-color: #4f7cff;
+}
+
+.ActionButton svg {
+  font-size: 24px;
+  color: #4f7cff;
+}
+
+.ActionButton span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #334155;
+}
+
+/* Subjects Grid */
+.SubjectsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.SubjectCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  background: #f8fafc;
+  transition: all 0.2s;
+}
+
+.SubjectCard:hover {
+  background: #f1f5f9;
+}
+
+.SubjectIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #4f7cff 0%, #3b63d9 100%);
+  color: white;
+}
+
+.SubjectInfo {
+  flex: 1;
+}
+
+.SubjectInfo h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 4px 0;
+}
+
+.SubjectInfo p {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0;
+}
+
+/* Upcoming Assignments */
+.AssignmentList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.AssignmentItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.AssignmentIcon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #fef3c7;
+  color: #d97706;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.AssignmentInfo {
+  flex: 1;
+}
+
+.AssignmentInfo h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 4px 0;
+}
+
+.AssignmentInfo p {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0;
+}
+
+.AssignmentMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.AssignmentDue {
+  font-size: 12px;
+  padding: 4px 8px;
+  background: #fee2e2;
+  color: #dc2626;
+  border-radius: 4px;
+}
+
+.AssignmentDue.soon {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.AssignmentSubject {
+  font-size: 12px;
+  padding: 4px 8px;
+  background: #e0f2fe;
+  color: #0284c7;
+  border-radius: 4px;
+}
+
+/* Progress Section */
+.ProgressSection {
+  margin-top: 16px;
+}
+
+.ProgressBar {
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.ProgressFill {
+  height: 100%;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.ProgressText {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* Loading State */
+.Loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  gap: 16px;
+}
+
+.Loading svg {
+  animation: spin 1s linear infinite;
+  font-size: 40px;
+  color: #4f7cff;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Empty State */
+.EmptyState {
+  text-align: center;
+  padding: 40px 20px;
+  color: #64748b;
+}
+
+.EmptyState svg {
+  font-size: 48px;
+  color: #cbd5e1;
+  margin-bottom: 16px;
+}
+
+.EmptyState p {
+  font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .StatsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ContentGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .SubjectsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .PageContainer {
+    padding: 16px;
+  }
+
+  .StatsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .StatCard {
+    padding: 20px;
+  }
+
+  .Header h1 {
+    font-size: 24px;
+  }
+
+  .ScheduleItem {
+    flex-wrap: wrap;
+  }
+
+  .ScheduleTime {
+    min-width: auto;
+  }
+
+  .SubjectsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .ClassInfoDetails {
+    flex-direction: column;
+    gap: 12px;
+  }
+}

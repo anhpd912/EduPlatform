@@ -1,0 +1,429 @@
+.PageContainer {
+  padding: 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: #f8fafc;
+}
+
+.Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.HeaderContent {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.HeaderIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.Header h1 {
+  font-size: 28px;
+  margin: 0;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.HeaderSubtitle {
+  margin: 4px 0 0 0;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.JoinButton {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #4f7cff 0%, #3b63d9 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.JoinButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 124, 255, 0.3);
+}
+
+.ClassGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+.ClassCard {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ClassCard:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.ClassHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ClassAvatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #4f7cff 0%, #3b63d9 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.ClassHeaderInfo h3 {
+  margin: 0 0 4px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.ClassCode {
+  margin: 0;
+  font-size: 13px;
+  color: #64748b;
+  font-family: monospace;
+  background: #f1f5f9;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.ClassInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 0;
+  border-top: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.InfoRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.InfoRow svg {
+  color: #94a3b8;
+  font-size: 18px;
+}
+
+.ClassActions {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.ViewButton {
+  flex: 1;
+  padding: 12px 16px;
+  background: #4f7cff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.ViewButton:hover {
+  background: #3b63d9;
+}
+
+.ScheduleButton {
+  flex: 1;
+  padding: 12px 16px;
+  background: white;
+  color: #4f7cff;
+  border: 1px solid #4f7cff;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.ScheduleButton:hover {
+  background: #f0f4ff;
+}
+
+/* Empty State */
+.EmptyState {
+  text-align: center;
+  padding: 80px 20px;
+  background: white;
+  border-radius: 16px;
+  border: 2px dashed #e2e8f0;
+}
+
+.EmptyState h3 {
+  margin: 16px 0 8px 0;
+  font-size: 20px;
+  color: #1e293b;
+}
+
+.EmptyState p {
+  margin: 0 0 24px 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Modal */
+.ModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.Modal {
+  background: white;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.ModalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ModalHeader h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.CloseButton {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: #64748b;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.CloseButton:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.ModalBody {
+  padding: 24px;
+}
+
+.ModalDescription {
+  margin: 0 0 20px 0;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.FormGroup {
+  margin-bottom: 20px;
+}
+
+.FormGroup label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.FormGroup input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: monospace;
+  letter-spacing: 2px;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.FormGroup input:focus {
+  outline: none;
+  border-color: #4f7cff;
+  box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.1);
+}
+
+.FormGroup input.InputError {
+  border-color: #ef4444;
+}
+
+.ErrorText {
+  display: block;
+  margin-top: 8px;
+  font-size: 13px;
+  color: #ef4444;
+}
+
+.ModalActions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.CancelButton {
+  flex: 1;
+  padding: 12px 16px;
+  background: #f1f5f9;
+  color: #64748b;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.CancelButton:hover {
+  background: #e2e8f0;
+}
+
+.SubmitButton {
+  flex: 1;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #4f7cff 0%, #3b63d9 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.SubmitButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(79, 124, 255, 0.3);
+}
+
+.SubmitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Loading */
+.LoadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px;
+  gap: 16px;
+  color: #64748b;
+}
+
+.Spinner {
+  animation: spin 1s linear infinite;
+  font-size: 40px !important;
+  color: #4f7cff;
+}
+
+.SpinnerSmall {
+  animation: spin 1s linear infinite;
+  font-size: 18px !important;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .PageContainer {
+    padding: 16px;
+  }
+
+  .Header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .JoinButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .ClassGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .ClassActions {
+    flex-direction: column;
+  }
+}

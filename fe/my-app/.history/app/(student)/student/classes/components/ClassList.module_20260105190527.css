@@ -1,0 +1,51 @@
+.ClassGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+.EmptyState {
+  text-align: center;
+  padding: 80px 20px;
+  background: white;
+  border-radius: 16px;
+  border: 2px dashed #e2e8f0;
+}
+
+.EmptyState h3 {
+  margin: 16px 0 8px 0;
+  font-size: 20px;
+  color: #1e293b;
+}
+
+.EmptyState p {
+  margin: 0 0 24px 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.JoinButton {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #4f7cff 0%, #3b63d9 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.JoinButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 124, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+  .ClassGrid {
+    grid-template-columns: 1fr;
+  }
+}

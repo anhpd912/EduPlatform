@@ -1,0 +1,131 @@
+.ClassCard {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ClassCard:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.ClassHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ClassAvatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #4f7cff 0%, #3b63d9 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.ClassHeaderInfo h3 {
+  margin: 0 0 4px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.ClassCode {
+  margin: 0;
+  font-size: 13px;
+  color: #64748b;
+  font-family: monospace;
+  background: #f1f5f9;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.ClassInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 0;
+  border-top: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.InfoRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.InfoRow svg {
+  color: #94a3b8;
+  font-size: 18px;
+}
+
+.ClassActions {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.ViewButton {
+  flex: 1;
+  padding: 12px 16px;
+  background: #4f7cff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.ViewButton:hover {
+  background: #3b63d9;
+}
+
+.ScheduleButton {
+  flex: 1;
+  padding: 12px 16px;
+  background: white;
+  color: #4f7cff;
+  border: 1px solid #4f7cff;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.ScheduleButton:hover {
+  background: #f0f4ff;
+}
+
+@media (max-width: 768px) {
+  .ClassActions {
+    flex-direction: column;
+  }
+}
